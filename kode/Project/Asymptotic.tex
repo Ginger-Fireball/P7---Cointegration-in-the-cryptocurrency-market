@@ -1,0 +1,29 @@
+\chapter{Asymptotic Properties}
+This chapter is based on \cite{Statistica_analysis_of_cointegrating_vectors} and \cite{Modelling_of_cointegration_in_the_vector_autoregressive_model}. The chapter will describe the asymptotic theory of test statistics and estimators which were introduced in Johansen's test.
+
+\section{Test for cointegrating rank}
+
+\begin{thm}\phantom\\
+    Under the model with $\Phi=0$ and $r$ cointegrating relations the likelihood ratio statistic \eqref{eq:lrmax_coint_r} satisfies
+    \begin{equation*}
+        -2 \text{ln}Q \left(H_r|H_n \right) \rightarrow \left\{ \int_0^1 (dB)B^{\top} \left[\int_0^1 BB^\top du \right]^{-1} \int_0^1 B(dB)^\top \right\},
+    \end{equation*}
+    where the process $B$ is an $(n-r)$ dimensional Brownian motion with covariance matrix equal to $I$
+\end{thm}
+
+
+\section{Test for restriction on $\beta$}
+\begin{thm}\phantom\\
+The asymptotic distribution of $\hat{B}_c$ is given by 
+\begin{equation*}
+    T(\hat{B}_c-B_c) \rightarrow (1-B_c c^\top) \beta_\perp \left[ \int_0^1 B_1 B_1^\top du \right]^{-1} \int_0^1 B_1(dB_2)^\top,
+\end{equation*}
+    where $B_1$ and $B_2$ are independent Brownian motions of dimension $n-r$ and $r$, respectively. The asymptotic conditional variance matrix is 
+    \begin{equation*}
+        (1-\beta_c c^\top) \beta_\perp \left[\int_0^1 B_1B_1^\top du \right]^{-1} \beta_\perp^\top (I-c\beta_c^\top ) \otimes (\alpha_c^\top \Omega^{-1}\alpha_c)^{-1},
+    \end{equation*}
+    which is consistently estimated by
+    \begin{equation*}
+        T(I-\hat{\beta}_c c^\top)S_{11}^{-1}(1-c\hat{\beta}_c^\top) \otimes (\hat{\alpha}_c^\top \hat{\Omega}^{-1}\hat{\alpha}_c^\top)^{-1}
+    \end{equation*}
+\end{thm}
