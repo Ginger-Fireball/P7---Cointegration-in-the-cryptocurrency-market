@@ -1,0 +1,118 @@
+#load()
+
+dplyr
+library(ggplot2)
+library(survival)
+library(KMsurv)
+library(survminer)
+
+#install.packages("survminer")
+
+df_melanoma30 <- melanoma30
+
+# View the first few rows and structure
+head(df_melanoma30)
+str(df_melanoma30)
+summary(df_melanoma30)
+
+#check for corelation between clark level and death
+df_melanoma30<-df_melanoma30 %>%
+  mutate(invas2=ifelse(invas2=="Clark I-III",1,
+                       ifelse(invas2=="Clark IV-V",2,invas2)))
+
+View(df_melanoma30)
+a=0
+b=0
+c=0
+d=0
+for(i in 1:length(df_melanoma30[,1])){
+  if (df_melanoma30[i,12]==1) {
+   if (df_melanoma30[i,4]=="alive") {
+     a=a+1}
+    else{b=b+1}
+  }
+  else{
+    if (df_melanoma30[i,4]=="alive") {c=c+1
+    
+    }
+    else{d=d+1}
+  }
+}
+aa<-a/(a+b)
+cc<-c/(c+d)
+
+cat("For clark level |-||| there was",a,"survivors",b,"dead giving an avereage
+    survival rate of",aa,"which the total amount of patients",(a+b),"\n")
+cat("For clark level |V-V there was",c,"survivors",d,"dead giving an avereage
+    survival rate of",cc,"which the total amount of patients",(c+d),"\n")
+# Boxplots for continuous variables
+continuous_vars <- c("time", "thickness", "age", "logthick")
+for (var in continuous_vars) {
+  ggplot(df_melanoma30, aes_string(x = var)) +
+    geom_boxplot() +
+    ggtitle(paste("Boxplot of", var)) +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    xlab(var) +
+    ylab("Values") -> plot
+  print(plot)
+}
+
+# Histogram and density plot for continuous variables
+for (var in continuous_vars) {
+  ggplot(df_melanoma30, aes_string(x = var)) +
+    geom_histogram(bins = 30, fill = "lightblue", color = "black", alpha = 0.7) +
+    geom_density(aes(y = ..density.. * max(..count..)), color = "red") +
+    ggtitle(paste("Histogram and Density of", var)) +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    xlab(var) -> plot
+  print(plot)
+}
+
+
+# Calculate skewness for continuous variables
+sapply(df_melanoma30[continuous_vars], skewness, na.rm = TRUE)
+
+
+# Table of frequencies for categorical variables
+categorical_vars <- c("status", "dead", "ici", "epicell", "ulceration", "sex", "invas2")
+
+# Frequency tables
+lapply(df_melanoma30[categorical_vars], table)
+
+# Bar plots for categorical variables
+for (var in categorical_vars) {
+  ggplot(df_melanoma30, aes_string(x = var)) +
+    geom_bar(fill = "lightblue", color = "black") +
+    ggtitle(paste("Bar plot of", var)) +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    xlab(var) -> plot
+  print(plot)
+}
+
+#opgave 3
+
+df_melanoma30$thickness_cat <- cut(df_melanoma30$thickness,
+                                    breaks = quantile(df_melanoma30$thickness, probs = c(0, 1/5, 2/5, 3/5, 4/5, 1), na.rm = TRUE),
+                                    labels = c("Cat 1", "Cat 2", "Cat 3", "Cat 4", "Cat 5"))
+
+plot(df_melanoma30$thickness_cat)
+
+survival_object <- Surv(df_melanoma30$time, df_melanoma30$dead)
+
+plot(survival_object)
+
+# Fit Kaplan-Meier survival curves for thickness categories
+fit <- survfit(survival_object ~ thickness_cat, data = df_melanoma30)
+length(survival_object)
+# Plot the survival curves
+ggsurvplot(fit, data = df_melanoma30, 
+           pval = TRUE, # Adds p-value from log-rank test
+           conf.int = TRUE, # Adds confidence intervals
+           risk.table = TRUE, # Shows risk table
+           ggtheme = theme_minimal(), 
+           palette = "Dark2",
+           title = "Kaplan-Meier Survival Curves by Tumor Thickness Categories")
+
