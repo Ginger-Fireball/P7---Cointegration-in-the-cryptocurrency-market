@@ -2,14 +2,16 @@
 This chapter is based on \cite{Statistica_analysis_of_cointegrating_vectors} and \cite{Modelling_of_cointegration_in_the_vector_autoregressive_model}. The chapter will describe the asymptotic theory of test statistics and estimators which were introduced in Johansen's test.
 
 \section{Test for cointegrating rank}
+Neither the estimator nor the test statistics are standard, meaning the estimators are not asymptotically Gaussian and the test statistics are generally not asymptotic chi-square. In the theorem below the asymptotically distribution of the likelihood ratio test statistic is given.
 
 \begin{thm}\phantom\\
     Under the model with $\Phi=0$ and $r$ cointegrating relations the likelihood ratio statistic \eqref{eq:lrmax_coint_r} satisfies
     \begin{equation*}
-        -2 \text{ln}Q \left(H_r|H_n \right) \rightarrow \left\{ \int_0^1 (dB)B^{\top} \left[\int_0^1 BB^\top du \right]^{-1} \int_0^1 B(dB)^\top \right\},
+        -2 \text{ln}\mathcal{Q} \big( H(r)|H(k) \big) \rightarrow \left\{ \int_0^1 (dB)B^{\top} \left[\int_0^1 BB^\top du \right]^{-1} \int_0^1 B(dB)^\top \right\},
     \end{equation*}
-    where the process $B$ is an $(n-r)$ dimensional Brownian motion with covariance matrix equal to $I$
+    where the process $B$ is an $(k-r)$ dimensional Brownian motion with covariance matrix equal to $I$
 \end{thm}
+
 
 
 \section{Test for restriction on $\beta$}
