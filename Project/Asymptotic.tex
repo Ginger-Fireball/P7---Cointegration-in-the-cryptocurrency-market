@@ -7,7 +7,7 @@ Neither the estimator nor the test statistics are standard, meaning the estimato
 \begin{thm}\phantom\\
     Under the model with $\Phi=0$ and $r$ cointegrating relations the likelihood ratio statistic \eqref{eq:lrmax_coint_r} satisfies
     \begin{equation*}
-        -2 \text{ln}\mathcal{Q} \big( H(r)|H(k) \big) \rightarrow \left\{ \int_0^1 (dB)B^{\top} \left[\int_0^1 BB^\top du \right]^{-1} \int_0^1 B(dB)^\top \right\},
+        -2 \text{ln}\mathcal{Q} \big( H(r)|H(k) \big) \overset{d}{\rightarrow} \left\{ \int_0^1 (dB)B^{\top} \left[\int_0^1 BB^\top du \right]^{-1} \int_0^1 B(dB)^\top \right\},
     \end{equation*}
     where the process $B$ is an $(k-r)$ dimensional Brownian motion with covariance matrix equal to $I$
 \end{thm}
@@ -18,7 +18,7 @@ Neither the estimator nor the test statistics are standard, meaning the estimato
 \begin{thm}\phantom\\
 The asymptotic distribution of $\hat{B}_c$ is given by 
 \begin{equation*}
-    T(\hat{B}_c-B_c) \rightarrow (1-B_c c^\top) \beta_\perp \left[ \int_0^1 B_1 B_1^\top du \right]^{-1} \int_0^1 B_1(dB_2)^\top,
+    T(\hat{B}_c-B_c) \overset{d}{\rightarrow} (1-B_c c^\top) \beta_\perp \left[ \int_0^1 B_1 B_1^\top du \right]^{-1} \int_0^1 B_1(dB_2)^\top,
 \end{equation*}
     where $B_1$ and $B_2$ are independent Brownian motions of dimension $n-r$ and $r$, respectively. The asymptotic conditional variance matrix is 
     \begin{equation*}
