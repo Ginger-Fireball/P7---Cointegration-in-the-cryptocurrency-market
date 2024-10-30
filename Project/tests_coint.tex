@@ -1,33 +1,40 @@
 \chapter{Co-integration tests}
 This section is based on \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} and \cite{Engle_grang_test}.\\\\
-\noindent As explained in Chapter \ref{chap:Coint} when two non-stationary variables shares a stationary linear combination in the long run there exists a co-integration vector $\b{\alpha}$. We have considered these movements earlier where we used an error correction model to ensure that even though there might be short run deviations from this equilibrium then they are still co-integrated. There are multiple ways of estimating the co-integrating vector $\b{\alpha}$ and one of them was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
+\noindent As explained in Chapter \ref{chap:Coint} when two non-stationary variables shares a stationary linear combination in the long run there exists a cointegration vector $\b{\beta}$. There are multiple ways to estimate the cointegration vector $\b{\beta}$ and one of them was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
 \section{Engle and Granger test}
 Engle and Granger formulated a two-step estimation technique and in this project the variables of interest are $I(1)$ and therefore this is only considered, even though sufficient theory of the general issue of $I(d)$ does exist. \\
 \indent\indent \textbf{1.}\\ 
-Firstly each time series is examined to ensure they are $I(1)$. Next we use the $I(1)$ variables e.g. $x_{1,t},x_{2,t},\ldots,x_{N,t}$. The vector $\b{x}_t$ with $N$ entries is then used in a co-integration regression where each entry is regressed by a linear combination of the other entries:
-\begin{align}\label{eq:regression}
-    x_{t,1}=\alpha_1+u_t+\sum^N_{j=2}\alpha_j x_{t,j}
-\end{align}
-where a vector with the coefficients is given as $\b{\hat{\alpha}}=[1, -\hat{\alpha}_1,\ldots-\hat{\alpha}_N]^T$ and we know from \ref{Def:Co-integrated of order d,b} that $z_t=\b{\alpha}^T\b{x}_t$ and therefore $\b{\hat{\alpha}}$ is then obtained by using OLS. This leaves us with
+Firstly each time series is examined to ensure they are $I(1)$. Next we use the $I(1)$ variables e.g. $x_{1,t},x_{2,t},\ldots,x_{k,t}$ which construct the vector $\b{x}_t$ with $k$ entries. Now each time series is estimated in a regression where the other time series are regressors here shown for $x_{1,t}$:
+\begin{align*}
+    x_{1,t}=\mu+z_{1,t}+\sum^k_{j=2}\beta_j x_{j,t}
+\end{align*}
+Here $z_{1,t}$ is the error term and the vector with the coefficients is given as $\b{\hat{\beta}}=[-\hat{\beta}_1,\ldots-\hat{\beta}_k]^\top$ and we know from Definition \ref{Def:Co-integrated of order d,b} that $z_t=\b{\beta}^\top \b{x}_t$ and therefore $\b{\hat{\beta}}$ is then obtained by using OLS. This leaves us with
 \begin{align}\label{eq:z hat_t}
-    \hat{z}_t[1, \b{x}_t]^T\hat{\b{\alpha}}_t^T=x_{1,t}-\hat{\alpha}_{1}-\hat{\alpha}_{2}x_{t,2}-\cdots-\hat{\alpha}_{N}x_{t,N}.
+\hat{z}_t=\hat{\b{\beta}}^\top \b{x}_t=-\hat{\beta}_{1}x_{1,t}-\hat{\beta}_{2}x_{2,t}-\cdots-\hat{\beta}_{k}x_{k,t}.
 \end{align}
-When having obtained $\hat{z}_t$ in \eqref{eq:z hat_t} then one may check whether if $\hat{z}_t$ is $I(1)$. This can be done using the DF (or ADF) but since $\hat{z}_t$ is an estimate other critical values are needed which are found in Engle and Yoo [1987]. A hypothesistest is then constructed with
+When having obtained $\hat{z}_t$ in \eqref{eq:z hat_t} then one must check whether $\hat{z}_t$ is $I(1)$. This can be done using the Dickey Fuller or Augmented Dickey Fuller test, but since $\hat{z}_t$ is an estimate, other critical values are needed which are found in \cite{ENGLE1987143}. A hypothesis test is then constructed:
 \begin{itemize}
 \centering
-    \item[$\b{H_0}$] : No co-integration. Hence $\hat{z}_t$ is non-stationary and is therefore $I(1)$
-    \item [$\b{H_1}$] : If the null-hypothesis is rejected then $x_1,x_2,\ldots x_n$  is co-integrated.
+    \item[$\b{H_0}$] : No cointegration. Hence $\hat{z}_t$ is non-stationary and is therefore $I(1)$.
+    \item [$\b{H_1}$] : If the null-hypothesis is rejected then $x_1,x_2,\ldots x_k$  is cointegrated.
 \end{itemize}
-When the null hypothesis has been rejected the it is possible to proceed to the next step.
+When the null hypothesis has been rejected then it is possible to proceed to the next step.
 \newline\phantomsection
 \newline
 \indent\indent \textbf{2.}\\
 In the second step we restrict the problem to a bivariate case. Considering the two $I(1)$ variables $x_{1,t}$ and $x_{2,t}$ we construct an error correction model for each as follows:
-\begin{align}\label{eq:ECM_eng_gra}
-    \Delta x_{1,t}=\psi_0+\gamma_1\hat{u}_{t-1}+\sum^K_{i=1}\psi_{1,i}\Delta x_{1,t-i}+\sum^L_{i=1}\psi_{2,i}\Delta x_{2,t-i}+\b{\varepsilon}_{1,t}\\
-    \Delta x_{2,t}=\xi_0+\gamma_2\hat{u}_{t-1}+\sum^K_{i=1}\xi_{1,i}\Delta x_{2,t-i}+\sum^L_{i=1}\xi_{2,i}\Delta x_{1,t-i}+\b{\varepsilon}_{2,t}.
+% \begin{align}
+%     \Delta x_{1,t}=&\psi_0+\gamma_1\hat{z}_{t-1}+\sum^K_{i=1}\psi_{1,i}\Delta x_{1,t-i}+\sum^L_{i=1}\psi_{2,i}\Delta x_{2,t-i}+\b{\varepsilon}_{1,t} \label{eq:3.2a}\\
+%     \Delta x_{2,t}=&\xi_0+\gamma_2\hat{z}_{t-1}+\sum^K_{i=1}\xi_{1,i}\Delta x_{2,t-i}+\sum^L_{i=1}\xi_{2,i}\Delta x_{1,t-i}+\b{\varepsilon}_{2,t} \label{eq:3.2b}.
+% \end{align}
+
+\begin{subequations}\label{eq:ECM_eng_gra}
+\begin{align}
+    \Delta x_{1,t} &= \psi_0 + \gamma_1 \hat{z}_{t-1} + \sum^K_{i=1} \psi_{1,i} \Delta x_{1,t-i} + \sum^L_{i=1} \psi_{2,i} \Delta x_{2,t-i} + \boldsymbol{\varepsilon}_{1,t} \label{eq:ECM_eng_gra.a} \\
+    \Delta x_{2,t} &= \xi_0 + \gamma_2 \hat{z}_{t-1} + \sum^K_{i=1} \xi_{1,i} \Delta x_{2,t-i} + \sum^L_{i=1} \xi_{2,i} \Delta x_{1,t-i} + \boldsymbol{\varepsilon}_{2,t}. \label{eq:ECM_eng_gra.b}
 \end{align}
-In the above $\hat{u}$ is the error obtained from the regression in \eqref{eq:regression} and $\b{\varepsilon}$ is the white noise process. In equation \eqref{eq:ECM_eng_gra} it is seen how changes in $x_{1,t}$ is explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long run equilibrium $\hat{u}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and it should always be negative or else there would be no long run equilibrium but instead the system would diverge.\\\\
+\end{subequations}
+In the above $\hat{z}$ is the error obtained from the regression in \eqref{eq:z hat_t} and $\b{\varepsilon}$ is the white noise process. In \eqref{eq:ECM_eng_gra.a} it is seen how changes in $x_{1,t}$ is explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long run equilibrium $\hat{z}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and it should always be negative or else there would be no long run equilibrium but instead the system would diverge.\\\\
 Looking at the equations in \eqref{eq:ECM_eng_gra} then there must be at least one direction which is Granger causal which in short means that at least one of the variables is able to be used when forecasting the other.
 
 \begin{comment}
@@ -39,7 +46,7 @@ As in the section above, where we introduced the procedure of the Engle-Granger 
 \end{align}
 Johansen has then shown that the likelihood-ratio test statistic of the null hypothesis \ref{tab:Various_Hypotheses}
 \end{comment}
-\subsection{Johansen test ny}
+\subsection{Johansen test}
 As in the section above, where we introduced the procedure of the Engle-Granger test and how to use it for co-integration testing, this section is also regards a co-integration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise co-integration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_K(\b{0},\Sigma)$. The VAR($p$) is thereby given as
 \begin{align}\label{eq:var_p_johansen}
 \b{x}_t=\Pi_1\b{x}_{t-1}+\cdots+\Pi_k\b{x}_{t-p}+\b{\varepsilon}_t
