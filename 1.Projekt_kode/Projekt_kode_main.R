@@ -7,6 +7,7 @@ day_one<-"2022-10-10" #skal være tidligst 2020-04-10
 #Bruges til at trække Crypto priser 
 
 
+
 #code
 source("Projekt_kode_Pull_Crypto.R")
 

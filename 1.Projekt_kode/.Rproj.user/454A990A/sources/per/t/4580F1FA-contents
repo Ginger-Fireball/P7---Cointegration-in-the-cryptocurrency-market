@@ -1,12 +1,11 @@
-#load()
+load("C:/Users/jensp/Downloads/melanoma30.RData")
 
-dplyr
+library(dplyr)
 library(ggplot2)
 library(survival)
 library(KMsurv)
 library(survminer)
 
-#install.packages("survminer")
 
 df_melanoma30 <- melanoma30
 
@@ -40,7 +39,7 @@ for(i in 1:length(df_melanoma30[,1])){
 }
 aa<-a/(a+b)
 cc<-c/(c+d)
-
+rm(a,b,c,d,aa,cc)
 cat("For clark level |-||| there was",a,"survivors",b,"dead giving an avereage
     survival rate of",aa,"which the total amount of patients",(a+b),"\n")
 cat("For clark level |V-V there was",c,"survivors",d,"dead giving an avereage
@@ -72,7 +71,7 @@ for (var in continuous_vars) {
 
 
 # Calculate skewness for continuous variables
-sapply(df_melanoma30[continuous_vars], skewness, na.rm = TRUE)
+sapply(df_melanoma30[continuous_vars],skewness, na.rm = TRUE)
 
 
 # Table of frequencies for categorical variables
@@ -115,4 +114,25 @@ ggsurvplot(fit, data = df_melanoma30,
            ggtheme = theme_minimal(), 
            palette = "Dark2",
            title = "Kaplan-Meier Survival Curves by Tumor Thickness Categories")
+
+View(df_melanoma30)
+spec<-df_melanoma30[,11]
+
+plot(spec)
+
+
+#The marginal fits are the fitted values for the overall population. 
+#Use the marginal fits to predict response values for any future batch.
+#The marginal residual for an observation equals the observed value of the 
+#response minus the marginal fitted value of the response.
+#
+
+print(df_melanoma30[,6])
+sum(is.na(df_melanoma30))
+
+
+
+
+
+
 
