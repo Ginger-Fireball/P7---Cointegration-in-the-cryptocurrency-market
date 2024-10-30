@@ -40,16 +40,16 @@ Looking at the equations in \eqref{eq:ECM_eng_gra} then there must be at least o
 \begin{comment}
     
 \section{Johansen test}
-As in the section above, where we introduced the procedure of the Engle-Granger test and how to use it for co-integration testing, this section is also regards a co-integration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise co-integration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), with $K$ time series where the error terms $\b{\b{\varepsilon}_t}$ are i.i.d normally distributed hence $\b{\b{\varepsilon}}\sim N_K(\b{0},\Sigma$. In general this approach desires to reduce information content from $T$ observations down to a lower dimension of $r$ which means there is $r$ co-integrating vectors. We construct $2K$ auxiliary regressions using OLS. The first $K$ regressions regresses $\Delta \b{x}_t$ with the lagged differences of $\b{y}_t$ as regressors. The residuals obtained from this regression is gathered in the matrix $R_{0,t}$. The other set of auxillery regressions regresses $\b{x}_{t-p}$ using the same regressors as before (lagged differences of $\b{x}_t$) and the residuals are collected in $R_{1,t}$. Next we construct a product moment matrix $\hat{S}_{i,j}$:
+As in the section  above, where we introduced the procedure of the Engle-Granger test and how to use it for co-integration testing, this section is also regards a co-integration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise co-integration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), with $K$ time series where the error terms $\b{\b{\varepsilon}_t}$ are i.i.d normally distributed hence $\b{\b{\varepsilon}}\sim N_K(\b{0},\Sigma$. In general this approach desires to reduce information content from $T$ observations down to a lower dimension of $r$ which means there is $r$ co-integrating vectors. We construct $2K$ auxiliary regressions using OLS. The first $K$ regressions regresses $\Delta \b{x}_t$ with the lagged differences of $\b{y}_t$ as regressors. The residuals obtained from this regression is gathered in the matrix $R_{0,t}$. The other set of auxillery regressions regresses $\b{x}_{t-p}$ using the same regressors as before (lagged differences of $\b{x}_t$) and the residuals are collected in $R_{1,t}$. Next we construct a product moment matrix $\hat{S}_{i,j}$:
 \begin{align}\label{eq:prod_moment_mat}
    \hat{S}_{i,j}=\frac{1}{T}\sum_{t=1}^T R_{0,t}R_{1,t}^T\;\;\;\; i,j=0,1.
 \end{align}
 Johansen has then shown that the likelihood-ratio test statistic of the null hypothesis \ref{tab:Various_Hypotheses}
 \end{comment}
-\subsection{Johansen test}
-As in the section above, where we introduced the procedure of the Engle-Granger test and how to use it for co-integration testing, this section is also regards a co-integration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise co-integration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_K(\b{0},\Sigma)$. The VAR($p$) is thereby given as
+\section{Johansen test}
+As in the section above, where we introduced the procedure of the Engle-Granger test and how to use it for cointegration testing, this section also regards a cointegration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise cointegration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
 \begin{align}\label{eq:var_p_johansen}
-\b{x}_t=\Pi_1\b{x}_{t-1}+\cdots+\Pi_k\b{x}_{t-p}+\b{\varepsilon}_t
+\b{x}_t=\Pi_1\b{x}_{t-1}+\cdots+\Pi_p\b{x}_{t-p}+\b{\varepsilon}_t
 \end{align}
 and we define the matrix polynomial as
 \begin{align*}
@@ -57,11 +57,11 @@ and we define the matrix polynomial as
 \end{align*}
 We are interested in the events where: 
 \begin{itemize}
-    \item The roots lie at $z=1$ since this will lead to nonstationarity
-    \item the variables we consider are $I(1)$ such that $\Delta \b{x}_t$ is stationary
-    \item The impact matrix $\Pi$ expressed in \eqref{eq:VECM_1} ($\Pi=I-\Pi_1-\cdots-\Pi_p$) has rank $r<p$
+    \item The roots lie at $z=1$ since this will lead to nonstationarity.
+    \item The variables we consider are $I(1)$ such that $\Delta \b{x}_t$ is stationary.
+    \item The impact matrix $\Pi$ expressed in \eqref{eq:VECM_1} ($\Pi=I-\Pi_1-\cdots-\Pi_k$) has rank $r<k$.
 \end{itemize}  
-We know from earlier that for suitable $p\times r$ matrices then $\beta^T \b{x}_t$ is stationary.\\\\
+We know from earlier that if the variables are cointegrated there exists a suitable $k\times r$ matrix, $\beta$, where $\beta^\top \b{x}_t$ is stationary.\\\\
 
 
 
@@ -70,7 +70,7 @@ We know from earlier that for suitable $p\times r$ matrices then $\beta^T \b{x}_
 
 \noindent It is possible to reparameterise the equation \eqref{eq:var_p_johansen} such that $\Delta \b{x}_t$ can be expressed by coefficients with no constraints:
 \begin{align}\label{eq:Pi_enters_explicit}
-    \Delta \b{x}_t=\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p-1}+\Gamma_{p}\b{x}_{t-p}+\boldsymbol{\varepsilon}_t
+    \Delta \b{x}_t=\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\Gamma_{p}\b{x}_{t-p}+\boldsymbol{\varepsilon}_t
 \end{align}
 where 
 \begin{align*}

@@ -67,7 +67,7 @@ The error correction model is a tool used when
 \section{System of Cointegrated Variables}
 During this section, the topic of multivariate cointegrations is considered. The p-dimensional vector autoregressive model VAR$(p)$ $\b{x}_t$ is given as
 \begin{equation}
-    \boldsymbol{x}_t=\Pi_1 \b{x}_{t-1} + \dots + \Pi_k \b{x}_{t-p} + \b{\mu} + \Phi \boldsymbol{d}_t +\boldsymbol{\varepsilon}_t \phantomsection \:\:\: \text{ for } \:\:\: t=1,\dots,T.
+    \boldsymbol{x}_t=\Pi_1 \b{x}_{t-1} + \dots + \Pi_p \b{x}_{t-p} + \b{\mu} + \Phi \boldsymbol{d}_t +\boldsymbol{\varepsilon}_t \phantomsection \:\:\: \text{ for } \:\:\: t=1,\dots,T.
     \label{eq:p-dimensional_Var_model}
 \end{equation}
 where $\boldsymbol{x}_t \in \R^{k\times 1}$ is a vector of the time series at time $t$. The matrices $\Pi_i\in \R^{k\times k}$ are the coefficients of the lagged endogenous variables, $\boldsymbol{\mu} \in \R^{k\times 1}$ is a vector of constants and $\boldsymbol{d}_t \in \R^{k\times 1}$ are the deterministic terms, with $\Phi \in \R^{k\times k}$ being the corresponding coefficient matrix, the error term is assumed i.i.d $\b{\varepsilon}_t \sim N(\b{0},\Sigma)$. The vector error correction model (VECM) for $\b{x}_t$ can be derived from \eqref{eq:p-dimensional_Var_model} and is given below
