@@ -29,9 +29,9 @@ This leads to another approach when dealing with trending variables, namely coin
     The components of the vector $\b{x}_t$ is said to be co-integrated of order $d$, $b$ if:
     \begin{itemize}
         \item All components of $\b{x}_t$ are $I(d)$.
-        \item There exists a non-zero vector $\b{\beta}$ such that $\b{z}_t=\b{\beta}^\top \b{x}_t\sim I(d-b)$ where $b>0$.
+        \item There exists a non-zero vector $\b{\beta}$ such that $z_t=\b{\beta}^\top \b{x}_t\sim I(d-b)$ where $b>0$.
     \end{itemize}
-    When the above is fulfilled we denote it as $x_t\sim CI(d,b)$ and $\b{\beta}$ is called the co-integrating vector.
+    When the above is fulfilled we denote it as $\b{x}_t\sim CI(d,b)$ and $\b{\beta}$ is called the co-integrating vector.
     \label{Def:Co-integrated of order d,b}
 \end{defi}
  
@@ -67,7 +67,7 @@ The error correction model is a tool used when
 \section{System of Cointegrated Variables}
 During this section, the topic of multivariate cointegrations is considered. The p-dimensional vector autoregressive model VAR$(p)$ $\b{x}_t$ is given as
 \begin{equation}
-    \boldsymbol{x}_t=\Pi_1 \b{x}_{t-1} + \dots + \Pi_k \b{x}_{t-p} + \b{\mu} + \Phi \boldsymbol{d}_t +\boldsymbol{\varepsilon}_t \phantomsection \:\:\: \text{ for } \:\:\: t=1,\dots,T.
+    \boldsymbol{x}_t=\Pi_1 \b{x}_{t-1} + \dots + \Pi_p \b{x}_{t-p} + \b{\mu} + \Phi \boldsymbol{d}_t +\boldsymbol{\varepsilon}_t \phantomsection \:\:\: \text{ for } \:\:\: t=1,\dots,T.
     \label{eq:p-dimensional_Var_model}
 \end{equation}
 where $\boldsymbol{x}_t \in \R^{k\times 1}$ is a vector of the time series at time $t$. The matrices $\Pi_i\in \R^{k\times k}$ are the coefficients of the lagged endogenous variables, $\boldsymbol{\mu} \in \R^{k\times 1}$ is a vector of constants and $\boldsymbol{d}_t \in \R^{k\times 1}$ are the deterministic terms, with $\Phi \in \R^{k\times k}$ being the corresponding coefficient matrix, the error term is assumed i.i.d $\b{\varepsilon}_t \sim N(\b{0},\Sigma)$. The vector error correction model (VECM) for $\b{x}_t$ can be derived from \eqref{eq:p-dimensional_Var_model} and is given below
@@ -100,7 +100,7 @@ In the first two cases there are no cointegration and therefore no use for the V
 %
 \noindent The properties of $\b{x}_t$ is investigated though the characteristic matrix polynomial $\Pi(z)$ which is given as 
 \begin{equation*}
-    \Pi(z)=(1-z)I_{k\times k}-\Pi(z)(1-z)\sum_{i=1}^{p-1}\Gamma_i z^i
+    \Pi(z)=(1-z)I_{k\times k}-\Pi z-(1-z)\sum_{i=1}^{p-1}\Gamma_i z^i
 \end{equation*}
 \noindent with determinant $\text{det}(\Pi(z)) $ of maximum degree $kp$. Let $\rho^{-1}_i$ be the roots of $\text{det}(\Pi(z)) = 0$. Then $\text{det}(\Pi(z)) = \Pi^{kp}_{i=1}(1-z \rho_i)$ and the inverse matrix is given by 
 \begin{equation*}
@@ -108,7 +108,7 @@ In the first two cases there are no cointegration and therefore no use for the V
 \end{equation*}
 
 \begin{thm}{\hfill}
-    \noindent If $\rho_i<1$, the coefficients of $\Pi^{-1}(z)=C(z)=\sum_{i=0}^\infty C_i\b{z}^i$, are exponentially decreasing. Let $\boldsymbol{z}_t=\sum_{i=0}^\infty C_i\b{\varepsilon}_{t-i}$ and $\boldsymbol{\mu}_t=\sum_{i=0}^\infty C_i\Phi \boldsymbol{d}_{t-i}$. Then the initial values of $\boldsymbol{x}_t$ can be given a distribution such that $\boldsymbol{x}_t - \mathbb{E}[\b{x}_t]$ is stationary. The moving average representation of $\b{x}_t$ is 
+    \noindent If $\rho_i<1$, the coefficients of $\Pi^{-1}(z)=C(z)=\sum_{i=0}^\infty C_i\b{z}^i$, will be exponentially decreasing. Let $\boldsymbol{z}_t=\sum_{i=0}^\infty C_i\b{\varepsilon}_{t-i}$ and $\boldsymbol{\mu}_t=\sum_{i=0}^\infty C_i\Phi \boldsymbol{d}_{t-i}$, then the initial values of $\boldsymbol{x}_t$ can be given a distribution such that $\boldsymbol{x}_t - \mathbb{E}[\b{x}_t]$ is stationary. The moving average representation of $\b{x}_t$ is 
     \begin{equation}
         \boldsymbol{x}_t=\sum_{i=0}^\infty C_i(\b{\varepsilon}_{t-i}+\Phi \boldsymbol{d}_{t-i})=\b{z}_t + \b{\mu}_t.
         \label{eq:moving_average_representation}
@@ -119,9 +119,9 @@ In the first two cases there are no cointegration and therefore no use for the V
 \begin{defi}{\hfill}
     We say that the process $\b{x}_t$ is integrated of order $1$, $I(1)$, if $\Delta \boldsymbol{x}_t$ is a linear process, with 
     \begin{equation*}
-        C(1) = \sum^\infty_{i=0} C_i \neq 0,
+        C(1) = \sum^\infty_{i=0} C_i \neq 0.
     \end{equation*}
-    if there is a vector $\b{\beta}_i \neq \b{0}$ so that $\b{\beta}_i^\top\boldsymbol{x}_t$ is stationary, then $\boldsymbol{x}_t$ is cointegrated with cointegrating vector $\b{\beta}_i$. The number of linearly independent cointegrating vectors is the cointegrating rank.
+    If there is a vector $\b{\beta}_i \neq \b{0}$ so that $\b{\beta}_i^\top \b{x}_t$ is stationary, then $\boldsymbol{x}_t$ is cointegrated with cointegrating vector $\b{\beta}_i$. The number of linearly independent cointegrating vectors is the cointegrating rank.
 \end{defi}
 
 \noindent If the characteristic polynomial $\Pi(z)$ has a unit root, then $\Pi(1)=-\Pi$ is singular and have rank r, this gives us a non stationary process. 
@@ -142,36 +142,28 @@ We define $\Gamma=I-\sum_{i=1}^{k-1}\Gamma_i$, which is used to construct the fo
 % \begin{enumerate} \label{condition_granger}
 %     \item condition says we assume that $det(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and assmue also that $det(\b{\alpha}'_{\perp}\Gamma\b{\beta}_{\perp})\neq0$ this is the same as saying $det(\Pi(z))=0$ have rank $p-r$
 % \end{enumerate}
-\noindent This insures that we do not have solutions with seasonal roots or explosive roots, and that the solutions which are of order 2 or higher is avoided. Before the The Granger Representation Theorem can be formulated a definition will be given 
-\begin{defi}{\phantom{}}
-if condition \ref{condition_granger} is satisfied then
-    \begin{equation}
-        (1-z)\Pi^{-1}(z)=C(z)=\sum^{\infty}_{i=0}C_iz^i=C(1)+(1-z)C^\ast(z).
-    \end{equation}
-    \begin{align*}
-        \text{Where }C^{\ast}(z)=\frac{C(z)-C(1)}{1-z}\text{ for }z\neq 1.
-    \end{align*} 
-\end{defi}
- The Granger Representation Theorem can now be formulated as such
-\begin{thm}{Granger Representation Theorem}
+\noindent This insures that we do not have solutions with seasonal- or explosive-roots, and that the solutions of order two or higher are avoided. The Granger Representation Theorem can now be formulated.
+\begin{thm}{The Granger Representation Theorem}
     If $\Pi(z)$ has a unit root and Condition \ref{condition_granger} is satisfied then
     \begin{equation}\label{Granger_representation_eq_1}
         (1-z)\Pi^{-1}(z)=C(z)=\sum^{\infty}_{i=0}C_iz^i=C(1)+(1-z)C^\ast(z)
     \end{equation}
     is convergent for $|z|\leq1+\delta
-    $ for some $\delta>0$ and 
-    \begin{equation}
-C=C(1)=\beta_\perp((\alpha'_{\perp}\Gamma\beta_{\perp})^{-1}\alpha'_{\perp}
-    \end{equation}
+    $ for some $\delta>0$,
+    \begin{equation*}
+C^{\ast}(z)=\frac{C(z)-C(1)}{1-z}\text{ for }z\neq 1\;\;\;\;\;\;\;\text{and}\;\;\;\;\;\;\;C=C(1)=\beta_\perp(\alpha'_{\perp}\Gamma\beta_{\perp})^{-1}\alpha'_{\perp}.
+    \end{equation*}
 The process $\b{x}_t$ has the moving average representation
 \begin{equation}\label{granger_representation_eq_3}
     \b{x}_t=C\sum_{i=1}^{t}(\b{\varepsilon}_{i}+\Phi d_i)+\sum_{i=0}^{\infty}C_{i}^\ast(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}
 \end{equation}
-where $\b{a}$ depends on the initial values, so that $\b{\beta'}\b{a}=0$. It follows that $\b{x}_t$ is a cointegrated $I(1)$ process with r cointegrating vectors $\beta$ and $p-r$ common stochastic trends $\b{\alpha'}_{\perp}\sum_{i=1}^{t}\b{\varepsilon}_i$.
+where $\b{a}$ depends on the initial values, such that $\b{\beta}^\top\b{a}=0$. It follows that $\b{x}_t$ is a cointegrated $I(1)$ process with r cointegrating vectors $\b{\beta}$ and $p-r$ shared stochastic trends $\b{\alpha}^\top_{\perp}\sum_{i=1}^{t}\b{\varepsilon}_i$.
 \newline
-The result \ref{Granger_representation_eq_1} rests on the observation that the singularity of $\Pi(z)$ for $z=1$ implies that $(\Pi)^{-1}$ has a pole at $z=1$. condition \ref{condition_granger} insures that the pole is of order one.
 \end{thm}
-\noindent The entire prove can be found in \cite{co-Integration_and_error_correction}. We will instead focus on proving the MA representation \eqref{granger_representation_eq_3}.
+\begin{bema}
+    The result from\eqref{Granger_representation_eq_1} rests on the observation that the singularity of $\Pi(z)$ for $z=1$ implies that $\Pi(z)^{-1}$ has a pole at $z=1$. Condition \ref{condition_granger} ensures that the pole is of order one.
+\end{bema}
+\noindent The entire proof can be found in \cite{co-Integration_and_error_correction}. We will instead focus on proving the MA representation \eqref{granger_representation_eq_3}.
 \begin{bevis}
     To prove \eqref{granger_representation_eq_3} we multiply 
     \begin{align*}
@@ -187,11 +179,11 @@ The result \ref{Granger_representation_eq_1} rests on the observation that the s
     \end{align*}
     % We define the stationary process $z_t=C^\ast (L)\varepsilon_t = \sum_{i=0}^\infty C_i^\ast \b{\varepsilon}_{t-i}$ and the deterministic function $\b{\mu}_t=C^\ast(L)\Phi d_t= \sum_{i=0}^\infty C_i^\ast \Phi d_{t-i} $. Then
 
-\noindent We define the stationary process $z_t=C^\ast (L)\b{\varepsilon}_t$ and the deterministic function $\b{\mu}_t=C^\ast(L)\b{\Phi} \b{d}_t$. Then
+\noindent We define the stationary process $\b{z}_t=C^\ast (L)\b{\varepsilon}_t$ and the deterministic function $\b{\mu}_t=C^\ast(L)\b{\Phi} \b{d}_t$ then we are able to rewrite $\Delta \b{x}_t$ as
     \begin{align*}
-        \Delta \b{x}_t&=C(\b{\varepsilon}_t+\b{\Phi} \b{d}_t)+(1-L)(\b{z}_t+\b{\mu}_t)=C(\b{\varepsilon}_t+\b{\Phi} \b{d}_t)+(1-L)(\b{z}_t+\b{\mu}_t)
+        \Delta \b{x}_t&=C(\b{\varepsilon}_t+\b{\Phi} \b{d}_t)+(1-L)(\b{z}_t+\b{\mu}_t)=C(\b{\varepsilon}_t+\b{\Phi} \b{d}_t)+(\b{z}_t-\b{z}_{t-1}+\b{\mu}_t-\b{\mu}_{t-1}).
         \end{align*}
-        Next $\b{x}_t$ will be derived iterative
+        Next $\b{x}_t$ will be derived iteratively computing $\b{x}_t$ and its lags:
         \begin{align*}
     \b{x}_t&=\Delta \b{x}_t+\b{x}_{t-1}=C(1)(\b{\varepsilon}_t+\b{\Phi} \b{d}_t)+(\b{z}_t-\b{z}_{t-1}+\b{\mu}_t-\b{\mu}_{t-1})+\b{x}_{t-1} \\
      \b{x}_{t-1}&=\Delta \b{x}_{t-1}+\b{x}_{t-2}=C(1)(\b{\varepsilon}_{t-1}+\b{\Phi} \b{d}_{t-1})+(\b{z}_{t-1}-\b{z}_{t-2}+\b{\mu}_{t-1}-\b{\mu}_{t-2})+\b{x}_{t-2}\\
@@ -199,16 +191,16 @@ The result \ref{Granger_representation_eq_1} rests on the observation that the s
      \b{x}_2&=\Delta \b{x}_2+\b{x}_{1}=C(1)(\b{\varepsilon}_2+\b{\Phi} \b{d}_2)+(\b{z}_2-\b{z}_{1}+\b{\mu}_2-\b{\mu}_{1})+\b{x}_{1} \\
      \b{x}_1&=\Delta \b{x}_1+\b{x}_{0}=C(1)(\b{\varepsilon}_1+\b{\Phi} \b{d}_1)+(\b{z}_1-\b{z}_{0}+\b{\mu}_1-\b{\mu}_{0})+\b{x}_{0}
     \end{align*}
-    The equations above cumulates, where we get the sum over $C(1)(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)$ and $\b{z}_i-\b{z}_{i-1}+\b{\mu}_i-\b{\mu}_{i-1}$ which is a telescoping sum. Furthermore we define $\b{a}=\b{x}_0-\b{z}_0-\b{\mu}_0$, then $\b{x}_t$ can be written as
+    Combining the equations above a sum over $C(1)(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)$ and the telescoping sum $\b{z}_i-\b{z}_{i-1}+\b{\mu}_i-\b{\mu}_{i-1}$ is achieved. Furthermore we define $\b{a}=\b{x}_0-\b{z}_0-\b{\mu}_0$, then $\b{x}_t$ can be written as
 \begin{align}
-    \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\b{z}_t+\b{\mu}_t+\b{a}
+    \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\b{z}_t+\b{\mu}_t+\b{a}.
 \end{align}
-Here \eqref{eq:moving_average_representation} can be used to write the infinite MA representation of $\b{z}_t+\b{\mu}_t$ this gives us
+Here \eqref{eq:moving_average_representation} can be used to write the infinite MA representation of $\b{z}_t+\b{\mu}_t$:
 %Using the definition for $\b{z}_t$ and $\b{\mu}_t$ the infinite MA representation can be inserted
 \begin{align}
-    \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\sum_{i=0}^{\infty}C_i(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}
+    \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\sum_{i=0}^{\infty}C_i(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}.
 \end{align} 
-We choose the distribution of $\b{x}_0$ so that $\beta'\b{x}_0=\beta(\b{z}_0+\b{\mu}_0)$, and here $\beta'\b{a}=0$. It is seen that $\b{x}_t$ is $I(1)$, that $\beta'\b{x}_t=\beta'\b{z}_t+\beta'\b{\mu}_t$, so that $\beta'\b{x}_t$ is stationary around its mean $E(\beta'\b{x}_t)=\beta'\b{\mu}_t$ and that $\Delta \b{x}_t$ is stationary around its mean $E(\Delta \b{x}_t) =C\b{\Phi} \b{d}_t +\Delta\b{\mu}_t$. This concludes the proof
+We choose the distribution of $\b{x}_0$ such that $\b{\beta}^{\top}\b{x}_0=\b{\beta}^\top(\b{z}_0+\b{\mu}_0)$, and here $\b{\beta}^\top \b{a}=0$. It is seen that $\b{x}_t$ is $I(1)$, $\b{\beta}^\top \b{x}_t=\b{\beta}^{\top}\b{z}_t+\b{\beta}^\top \b{\mu}_t$, such that $\b{\beta}^\top \b{x}_t$ is stationary around its mean $\mathbb{E}[\b{\beta}^{\top} \b{x}_t]=\b{\beta}^{\top} \b{\mu}_t$, and that $\Delta \b{x}_t$ is stationary around its mean $\mathbb{E}(\Delta \b{x}_t) =C\b{\Phi} \b{d}_t +\Delta\b{\mu}_t$. This concludes the proof.
 
 \end{bevis}
 
@@ -217,6 +209,7 @@ We choose the distribution of $\b{x}_0$ so that $\beta'\b{x}_0=\beta(\b{z}_0+\b{
 
 
 \section{Classification of the Various Hypotheses}\label{subsec:classification_of_various_hypot}
+In this section \cite{MAXIMUM_LIKELIHOOD_ESTIMATION_AND_INFERENCE_ON_COINTEGRATION_—_WITH_APPLICATIONS_TO_THE_DEMAND_FOR_MONEY} has been used.\\
 %Kilde:  https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1468-0084.1990.mp52002003.x
 Consider the unrestricted hypothesis $H_1$ which is the model  \eqref{eq:p-dimensional_Var_model}. The various hypotheses that are given in Table \ref{tab:Various_Hypotheses} are related to the existence of cointegrating relations combined with linear restrictions.
 \begin{table}[H]
@@ -230,9 +223,11 @@ Consider the unrestricted hypothesis $H_1$ which is the model  \eqref{eq:p-dimen
     \caption{Hypotheses}
     \label{tab:Various_Hypotheses}
 \end{table}
-\noindent The case where the non-stationary process is experiencing an absence of a linear trend. The augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=0$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.\\
+\noindent The case where the non-stationary process is experiencing an absence of a linear trend. The augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.\\
 
-\noindent The main hypothesis of interest is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ of $r$ or fewer cointegrating relations. The analysis makes it possible to conduct inferences about the number of cointegrating relationships $(r)$ through hypothesis testing. It can be tested that $H_2(r)$ in $H_1$ or by testing if an increase of one in the number of cointegrating vectors improves the model, $H_2(r)$ in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
+ \noindent The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there is $r$ or fewer cointegrating relations. 
+ \newline
+ The process makes it possible to conduct inferences about the number of cointegrating relations $(r)$ through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one, in the number of cointegrating vectors, improves the model, hence testing if $H_2(r)$ is in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
 %The models $H(r)$ form nested sequence
 \begin{equation*}
     H(0) \subset \dots \subset H(r) \subset \dots \subset H(k),
