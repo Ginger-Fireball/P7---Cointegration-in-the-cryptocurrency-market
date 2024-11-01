@@ -44,7 +44,12 @@ for (i in 1:4) {
 Crypto.all.adj.pro<-as.data.frame(Crypto.all.adj.pro)
 colnames(Crypto.all.adj.pro)<-NameCryptos
 
+#Removes all extra global variables so it doesn't get to crowded
 rm(df)
 rm(i)
+for (i in NameCryptos.adj) {
+  rm(list = i, envir = .GlobalEnv)
+}
 
+rm(NameCryptos.adj)
 #Now they are ready to mbe imported to the main document
