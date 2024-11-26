@@ -1,31 +1,86 @@
 \chapter{Asymptotic Properties}
-This chapter is based on \cite{Statistica_analysis_of_cointegrating_vectors} and \cite{Modelling_of_cointegration_in_the_vector_autoregressive_model}. The chapter will describe the asymptotic theory of test statistics and estimators which were introduced in Johansen's test.
+This chapter is based on \cite{Statistica_analysis_of_cointegrating_vectors} and \cite{Modelling_of_cointegration_in_the_vector_autoregressive_model}. The chapter will describe the asymptotic theory of test statistics and estimators which were introduced in Johansen's test.\\
+
+\noindent We briefly describe the following two tests and their connection. The first test, which tests for cointegrating rank determines the number of cointegrating relations, while the test for restriction on $\beta$ focuses on the specific structure of these relations. Together, they form a comprehensive framework for cointegration analysis. Before investigating the two tests the Brownian motion is defined which is used in both tests.\\
+
+\noindent 
+The following is based on \cite{Measure_theory_integration_theory_and_stochastic_processes}. In what follows, the Gaussian measure $v_t, t>0$, and $v_0$ are defined in Example 7.10 \cite{Measure_theory_integration_theory_and_stochastic_processes}. That is,
+\begin{equation*}
+    v_t=g_t \odot \beta^d, \quad g_t(x)=\frac{1}{(2\pi t)^{d/2}}e^{\frac{-||x||^2}{2t}}, \quad x\in \R^d,
+\end{equation*}
+for all $t>0$, while $v_0$ is the restriction to $\mathscr{B}(\R^d)$ of the Dirac measure on $\R^d$ concentrated in 0, i.e:
+\begin{equation*}
+    \forall A \in \mathscr{B}(\R^d): \quad v_0(A)=\begin{cases} 
+1,& 0 \in \Omega, \\
+0,& 0 \notin \Omega
+\end{cases}
+\end{equation*}
+
+\begin{defi}\phantom{}\\
+    Let $(\Omega, \mathscr{F}, \mathbb{P})$ be probability space and $d\in \N$. Then a stochastic process $B=(B_t)_{t\geq0}$ on $(\Omega, \mathscr{F}, \mathbb{P})$ with target space $(\R^d,\mathscr{B}(\R^d)$ and parameter set $[0,\infty)$ is called a d-dimensional standard Brownian motion if and only if it has the following four properties:
+    
+\renewcommand{\labelenumi}{\roman{enumi}.}
+\begin{enumerate}
+     \item All its paths $B_\bullet(\omega)$, $\omega\in\Omega$ are continuous.
+     \item $\mathbb{P}(\{B_0=0\})=1$ or equivalently $\mathbb{P}\circ B_0^{-1}=v_0$.
+     \item $B$ has independent and stationary increments.        
+     \item  For all, $t > s \geq 0 $, the distribution of $B_t-B_s$ is a d-dimensional centered Gaussian distribution with covariance matrix $(t-s) \mathbbm{1}_d$ or, in symbols 
+     \begin{equation*}
+         \mathbb{P}\circ (B_t-B_s)^{-1}=v_{t-s}.
+     \end{equation*}
+\end{enumerate}
+\end{defi}
+
 
 \section{Test for cointegrating rank}
-Neither the estimator nor the test statistics are standard, meaning the estimators are not asymptotically Gaussian and the test statistics are generally not asymptotic chi-square. In the theorem below the asymptotically distribution of the likelihood ratio test statistic is given.
+When testing for cointegrating rank neither the estimator nor the test statistics are standard, meaning the estimators are not asymptotically Gaussian and the test statistics are generally not asymptotic chi-square. In the theorem below the asymptotic distribution of the likelihood ratio test statistic is given.
 
 \begin{thm}\phantom\\
     Under the model with $\Phi=0$ and $r$ cointegrating relations the likelihood ratio statistic \eqref{eq:lrmax_coint_r} satisfies
     \begin{equation*}
         -2 \text{ln}\mathcal{Q} \big( H(r)|H(k) \big) \overset{d}{\rightarrow} \left\{ \int_0^1 (dB)B^{\top} \left[\int_0^1 BB^\top du \right]^{-1} \int_0^1 B(dB)^\top \right\},
     \end{equation*}
-    where the process $B$ is an $(k-r)$ dimensional Brownian motion with covariance matrix equal to $I$
+    where the process $B$ is an $(k-r)$ dimensional Brownian motion with covariance matrix equal to $I.$
+    \label{thm:asymptotic_distribution}
 \end{thm}
+\noindent The limit distribution does not depend on the parameters $(\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma)$, but purely on the number of common trends.
 
-
-
-\section{Test for restriction on $\beta$}
-\begin{thm}\phantom\\
-The asymptotic distribution of $\hat{B}_c$ is given by 
+\noindent When $B$ is given as in Theorem \ref{thm:asymptotic_distribution}, then the stochastic integral $\int_0^t BdB^\top$ is a matrix-valued martingale, with quadratic variation process
 \begin{equation*}
-    T(\hat{B}_c-B_c) \overset{d}{\rightarrow} (1-B_c c^\top) \beta_\perp \left[ \int_0^1 B_1 B_1^\top du \right]^{-1} \int_0^1 B_1(dB_2)^\top,
+    \int_0^t \text{Var}(BdB^\top) =\int_0^t BB^\top du \otimes I,
 \end{equation*}
+\noindent where the integral $\int_0^t BB^\top du$ is an ordinary integral of the continuous matrix-valued process $BB^\top$. Thus the limit distribution can be considered a multivariate version of the square of a martingale $\int_0^t BdB^\top$ divided by its variance process $\int_0^t BB^\top du$.\\
+When testing for ie. $r=k-1$ cointegration relations, the limit distribution with a one-dimensional Brownian motion is achieved as:
+\begin{equation*}
+   \frac{\left(\int_0^1 BdB^\top \right)^2}{\int_0^1 B^2du}=\frac{\left(\frac{B(1)^2-1}{2} \right)^2}{\int_0^1 B^2du}
+\end{equation*}
+which is the square of the usual unit root distribution.
+\section{Test for restriction on $\beta$}
+Unlike the test for cointegrating rank then, when testing for restriction on $\beta$ it is standard since it has an asymptotic distribution consisting of a mixed Gaussian distribution. The result for $\beta_c$ where $\beta$ is normalized such that $c^\top \beta=I$ is given in the theorem below.
+\begin{thm}\phantom\\
+The asymptotic distribution of $\hat{\beta}_c$ is given as 
+\begin{equation}
+    T(\hat{\beta}
+_c-\beta_c) \overset{d}{\rightarrow} (1-\beta_c c^\top) \beta_\perp \left[ \int_0^1 B_1 B_1^\top du \right]^{-1} \int_0^1 B_1(dB_2)^\top,
+    \label{eq:asymptotic_Beta_1}
+\end{equation}
     where $B_1$ and $B_2$ are independent Brownian motions of dimension $n-r$ and $r$, respectively. The asymptotic conditional variance matrix is 
-    \begin{equation*}
+    \begin{equation}
         (1-\beta_c c^\top) \beta_\perp \left[\int_0^1 B_1B_1^\top du \right]^{-1} \beta_\perp^\top (I-c\beta_c^\top ) \otimes (\alpha_c^\top \Omega^{-1}\alpha_c)^{-1},
-    \end{equation*}
+        \label{eq:asymptotic_Beta_2}
+    \end{equation}
     which is consistently estimated by
-    \begin{equation*}
-        T(I-\hat{\beta}_c c^\top)S_{11}^{-1}(1-c\hat{\beta}_c^\top) \otimes (\hat{\alpha}_c^\top \hat{\Omega}^{-1}\hat{\alpha}_c^\top)^{-1}
-    \end{equation*}
+    \begin{equation}
+        T(I-\hat{\beta}_c c^\top)S_{11}^{-1}(1-c\hat{\beta}_c^\top) \otimes (\hat{\alpha}_c^\top \hat{\Omega}^{-1}\hat{\alpha}_c^\top)^{-1}.
+        \label{eq:asymptotic_Beta_3}
+    \end{equation}
 \end{thm}
+
+\noindent The theorem states that for a given value of $B_1$ the limit distribution of $\hat{\beta}$ is simply a Gaussian with mean zero and variance given by \eqref{eq:asymptotic_Beta_2}. It follows from this result, that a simple conditioning argument will ensure that the likelihood ratio statistics for hypotheses regarding restrictions on $\beta$ are asymptotically distributed as $\chi^2$ variables.\\ 
+
+\noindent Furthermore the theorem states that if $\beta$ is estimated as identified parameters then the asymptotic variance of $\hat{\beta}$ is given as the inverse information matrix. This matrix corresponds to the Hessian of the log-likelihood function, which is utilized in its numerical maximization.\\
+
+\noindent The interpretation of the variance is different for the $I(0)$ and $I(1)$ processes. In the stationary process \eqref{eq:asymptotic_Beta_3} it is interpreted as an estimate of the asymptotic variance, whereas for the non-stationary process, it is interpreted as a consistent estimator of the asymptotic conditional variance. Despite the differences in interpretation, the basic property is the same, specifically, it is the approximate scale parameter used for normalizing the deviation $\hat{\beta} - \beta$.\\
+
+
+
