@@ -1,3 +1,4 @@
+
 # Plotting prices in percentage all in one graf (changes from the day before to today)
 ggplot(Crypto.all.adj.pro, aes(1:length(Bitcoin))) +
   geom_line(aes(y = Bitcoin, colour = "Bitcoin")) +
@@ -13,8 +14,10 @@ ggplot(Crypto.all.adj.pro, aes(1:length(Bitcoin))) +
 
 # Plotting prices in levels, with each crypto having it's own plot
 for (i in 1:4) {
-  pdf(paste0("Billeder/Crypto_in_levels_",as.character(NameCryptos[i]),".pdf"))
-  ggplot(Crypto.all.adj, aes(x = 1:nrow(Crypto.all.adj), y = Crypto.all.adj[, i])) +
+  # Open pdf device
+  pdf(paste0("Billeder/Crypto_in_levels_", as.character(NameCryptos[i]), ".pdf"))
+  # Create the plot
+  p <- ggplot(Crypto.all.adj, aes(x = 1:nrow(Crypto.all.adj), y = Crypto.all.adj[, i])) +
     geom_line(aes(colour = as.character(NameCryptos[i]))) +
     labs(x = "Days", y = "Price in Levels") +
     scale_color_manual(
@@ -23,6 +26,11 @@ for (i in 1:4) {
       name = NULL
     ) +
     theme(legend.position = "bottom")
-  
+  # Print to pdf device
+  print(p)
+  # Close pdf device
   dev.off()
 }
+
+
+
