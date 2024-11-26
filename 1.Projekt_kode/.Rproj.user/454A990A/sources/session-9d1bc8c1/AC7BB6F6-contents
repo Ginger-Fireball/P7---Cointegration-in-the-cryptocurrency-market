@@ -35,6 +35,7 @@ for (i in NameCryptos.adj ){
     df<-get(i)
     Crypto.all.adj<-cbind(Crypto.all.adj,df)
 }
+colnames(Crypto.all.adj) <- NameCryptos
 Crypto.all.adj<-as.data.frame(Crypto.all.adj)
 
 #this looks at makes it so we can see it in procentege 
