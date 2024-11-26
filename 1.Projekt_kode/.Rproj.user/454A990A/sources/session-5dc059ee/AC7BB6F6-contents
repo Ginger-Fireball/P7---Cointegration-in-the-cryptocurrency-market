@@ -21,6 +21,7 @@ for (i in NameCryptos) {
 ")
   }
 }
+
 NameCryptos.adj<-list()
 #we will now pull out only the adjusted prices for use in Cointegation
 for (i in NameCryptos) {
