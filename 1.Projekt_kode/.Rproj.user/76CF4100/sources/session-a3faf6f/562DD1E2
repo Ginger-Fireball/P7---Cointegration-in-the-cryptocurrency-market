@@ -1,10 +1,6 @@
 {
-<<<<<<< HEAD:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-a3faf6f/77980EA9
-    "id": "77980EA9",
-=======
 <<<<<<<< Updated upstream:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
     "id": "BAD2A430",
->>>>>>> JP:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
     "path": "~/Documents/GitHub/P7---Cointegration-in-the-cryptocurrency-market/1.Projekt_kode/Plots2.R",
 ========
     "id": "562DD1E2",
@@ -16,16 +12,12 @@
     "contents": "",
 <<<<<<<< Updated upstream:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
     "dirty": false,
-    "created": 1732706226125.0,
+    "created": 1732698436461.0,
     "source_on_save": false,
-    "relative_order": 2,
+    "relative_order": 5,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-<<<<<<< HEAD:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-a3faf6f/77980EA9
-        "cursorPosition": "0,0",
-        "scrollLine": "0"
-=======
         "cursorPosition": "5,30",
         "scrollLine": "1"
 ========
@@ -39,22 +31,17 @@
         "cursorPosition": "22,0",
         "scrollLine": "10"
 >>>>>>>> Stashed changes:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/562DD1E2
->>>>>>> JP:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
     },
     "folds": "",
-    "lastKnownWriteTime": 1732708646,
+    "lastKnownWriteTime": 1732699937,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-<<<<<<< HEAD:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-a3faf6f/77980EA9
-    "last_content_update": 1732708646,
-=======
 <<<<<<<< Updated upstream:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
     "last_content_update": 1732699937,
 ========
     "last_content_update": 1732707950781,
 >>>>>>>> Stashed changes:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/562DD1E2
->>>>>>> JP:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
     "read_only": false,
     "read_only_alternatives": []
 }
