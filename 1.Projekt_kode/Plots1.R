@@ -33,12 +33,29 @@ for (i in 1:4) {
 }
 
 
+# Plotting the residuals in two ways and the acf plot
+for (i in 1:4){
+  ts_Training_all <- ts(Training_all[,i])
+  ts_residuals <- diff(ts_Training_all)
+  
+  p1 <- plot(ts_residuals) 
+  p2 <- acf(ts_residuals)
+  p3 <- ggplot(as.data.frame(ts_residuals), aes(x = ts_residuals)) +
+    geom_histogram(aes(y = ..density..), binwidth = max(ts_residuals)/50, fill = "lightblue", color = "black") +
+    stat_function(
+      fun = dnorm, 
+      args = list(mean = mean(ts_residuals), sd = sd(ts_residuals)), 
+      color = "red", 
+      size = 0.5
+    ) +
+    labs(x = "Residuals", y = "Density") +
+    theme_minimal()
+  
+  print(p1)
+  print(p2)
+  print(p3)
+}
 
-
-var_Training_all <- VAR(Training_all)
-
-var_Training_all
-VARselect(y = ts(Training_all), lag.max = 10,)
 
 
 
