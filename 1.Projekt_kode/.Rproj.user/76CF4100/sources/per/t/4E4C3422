@@ -1,6 +1,6 @@
 {
     "id": "4E4C3422",
-    "path": "~/GitHub/P7---Cointegration-in-the-cryptocurrency-market/1.Projekt_kode/Projekt_kode_Pull_Crypto.R",
+    "path": "~/Documents/GitHub/P7---Cointegration-in-the-cryptocurrency-market/1.Projekt_kode/Projekt_kode_Pull_Crypto.R",
     "project_path": "Projekt_kode_Pull_Crypto.R",
     "type": "r_source",
     "hash": "894017948",
@@ -14,7 +14,7 @@
         "Source": "Source"
     },
     "folds": "",
-    "lastKnownWriteTime": 1732703257,
+    "lastKnownWriteTime": 1732713508,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
