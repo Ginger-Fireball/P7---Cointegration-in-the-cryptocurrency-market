@@ -1,26 +1,26 @@
 {
-    "id": "21A5A4C1",
+    "id": "7B840CB4",
     "path": "~/Documents/GitHub/P7---Cointegration-in-the-cryptocurrency-market/1.Projekt_kode/Plots1.R",
     "project_path": "Plots1.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
-    "dirty": false,
-    "created": 1732703178020.0,
+    "dirty": true,
+    "created": 1732706227682.0,
     "source_on_save": false,
-    "relative_order": 1,
+    "relative_order": 3,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "53,0",
-        "scrollLine": "34"
+        "cursorPosition": "37,39",
+        "scrollLine": "30"
     },
     "folds": "",
-    "lastKnownWriteTime": 1732703273,
+    "lastKnownWriteTime": 1732703341,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1732703273150,
+    "last_content_update": 1732708621410,
     "read_only": false,
     "read_only_alternatives": []
 }

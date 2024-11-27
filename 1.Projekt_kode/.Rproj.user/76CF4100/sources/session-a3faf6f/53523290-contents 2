@@ -8,6 +8,8 @@ library(quantmod)
 library(ggplot2)
 library(dplyr)
 library(urca)
+library(vars)     
+library(tseries)
 set.seed(420)#Blaze It
 #start dag
 day_one <- "2022-10-10" #skal være tidligst 2020-04-10

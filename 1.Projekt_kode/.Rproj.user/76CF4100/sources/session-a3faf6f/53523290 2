@@ -1,26 +1,26 @@
 {
-    "id": "E3137F37",
+    "id": "53523290",
     "path": "~/Documents/GitHub/P7---Cointegration-in-the-cryptocurrency-market/1.Projekt_kode/Projekt_kode_main.R",
     "project_path": "Projekt_kode_main.R",
     "type": "r_source",
-    "hash": "3355394870",
+    "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1732703182392.0,
+    "created": 1732702399110.0,
     "source_on_save": false,
     "relative_order": 3,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "12,0",
-        "scrollLine": "0"
+        "cursorPosition": "23,0",
+        "scrollLine": "3"
     },
     "folds": "",
-    "lastKnownWriteTime": 1732703275,
+    "lastKnownWriteTime": 1732703341,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1732703275584,
+    "last_content_update": 1732703341,
     "read_only": false,
     "read_only_alternatives": []
 }
