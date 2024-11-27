@@ -38,20 +38,20 @@ for (i in NameCryptos_adj ){
 colnames(Crypto_all_adj) <- NameCryptos
 Crypto_all_adj <- as.data.frame(Crypto_all_adj)
 
-#this looks at makes it so we can see it in procentege 
-Crypto_all_adj_pro<-NULL
-for (i in 1:4) {
-  Crypto_all_adj_pro<-cbind(Crypto_all_adj_pro, (Crypto_all_adj[,i]/Crypto_all_adj[1,i]))
-}
-Crypto_all_adj_pro<-as.data.frame(Crypto_all_adj_pro)
-colnames(Crypto_all_adj_pro)<-NameCryptos
-
 # Making Training and validation data set
 Training_size <- round(0.9*nrow(Crypto_all_adj))
 validation_size <- nrow(Crypto_all_adj) - Training_size
 # Splitting the data
 Training_all <- tail(Crypto_all_adj, n = Training_size)
 Validation_all <- head(Crypto_all_adj, n = validation_size)
+
+#this looks at makes it so we can see it in procentege 
+Training_all_pro <- NULL
+for (i in 1:4) {
+  Training_all_pro<-cbind(Training_all_pro, (Training_all[,i]/Training_all[1,i]))
+}
+Training_all_pro<-as.data.frame(Training_all_pro)
+colnames(Training_all_pro)<-NameCryptos
 
 #Removes all extra global variables so it doesn't get to crowded
 rm(df)
