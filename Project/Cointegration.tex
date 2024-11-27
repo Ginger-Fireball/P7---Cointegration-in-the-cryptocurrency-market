@@ -1,6 +1,8 @@
 \chapter{Cointegration}\label{chap:Coint}
-In this chapter \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R}, \cite{Cointegration_intro} and \cite{co-Integration_and_error_correction} has been used. \\\\
-\noindent In short co-integration is a concept which describes the correlation of two or more time series when dealing with a long term time schedule. Cointegration tests are used to identify if two or more non-stationary time series have a long-term equilibrium relationship, meaning there exists a linear combination which is stationary.\\
+In this chapter \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R}, \cite{Cointegration_intro} and \cite{co-Integration_and_error_correction} has been used. 
+\pause
+In short co-integration is a concept which describes the correlation of two or more time series when dealing with a long term time schedule. Cointegration tests are used to identify if two or more non-stationary time series have a long-term equilibrium relationship, meaning there exists a linear combination which is stationary.
+\newline
 \noindent In order to introduce cointegration we first consider the concept of spurious regression.
 
 
@@ -17,7 +19,7 @@ where $\Bar{y}$ is the sample mean of the observations up until $y_t$ and $T$ is
 \begin{equation*}
     R^2=1-\frac{\sum_{t=1}^T\hat{\varepsilon}^2_t}{\sum_{t=1}^T(y_t-\Bar{y_t})^2},
 \end{equation*}
-where $\hat{\varepsilon_t}$ denotes the residual at time $t$, tends to 1 as the denominator grows, which is caused by the impact of extreme observations on either side of the sample mean $\Bar{y}$ and therefore spurious regressions occurs. \\\\
+where $\hat{\varepsilon_t}$ denotes the residual at time $t$, tends to 1 as the denominator grows, which is caused by the impact of extreme observations on either side of the sample mean $\Bar{y}$ and therefore spurious regressions occurs. \bigskip \\
 \noindent Granger and Newbold suggested as a rule of thumb \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} eller \cite{Spurious_Regressions_in_Econonmetrics_1974}: Caution should be taken if the goodness of fit measure is larger than the Durbin-Watson statistic, which is given as
 \begin{equation*}
     DW=\frac{\sum_{t=2}^T(\hat{\varepsilon}_t-\hat{\varepsilon}_{t-1})^2}{\sum_{t=1}^T\hat{\varepsilon}_t}.
@@ -35,8 +37,8 @@ This leads to another approach when dealing with trending variables, namely coin
     \label{Def:Co-integrated of order d,b}
 \end{defi}
  
-\noindent With this definition, it is possible to detect stable long-run relationships between non-stationary time series. When two time series are cointegrated then it is possible to find a linear combination of all entries in $\b{x}_t$ such that $\b{z}_t$ is a stationary series. Therefore the combination of two individually non-stationary $(\b{z}_t)$ time series is stationary.
-
+\noindent With this definition, it is possible to detect stable long-run relationships between the non-stationary time series. When two time series are cointegrated then it is possible to find a linear combination of all entries in $\b{x}_t$ such that $\b{z}_t$ is a stationary series. Therefore the combination of two individually non-stationary $(\b{z}_t)$ time series is stationary.
+ 
 
 %Definition from \cite{co-Integration_and_error_correction}
 
@@ -158,7 +160,6 @@ The process $\b{x}_t$ has the moving average representation
     \b{x}_t=C\sum_{i=1}^{t}(\b{\varepsilon}_{i}+\Phi d_i)+\sum_{i=0}^{\infty}C_{i}^\ast(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}
 \end{equation}
 where $\b{a}$ depends on the initial values, such that $\b{\beta}^\top\b{a}=0$. It follows that $\b{x}_t$ is a cointegrated $I(1)$ process with r cointegrating vectors $\b{\beta}$ and $p-r$ shared stochastic trends $\b{\alpha}^\top_{\perp}\sum_{i=1}^{t}\b{\varepsilon}_i$.
-\newline
 \end{thm}
 \begin{bema}
     The result from\eqref{Granger_representation_eq_1} rests on the observation that the singularity of $\Pi(z)$ for $z=1$ implies that $\Pi(z)^{-1}$ has a pole at $z=1$. Condition \ref{condition_granger} ensures that the pole is of order one.
@@ -223,9 +224,10 @@ Consider the unrestricted hypothesis $H_1$ which is the model  \eqref{eq:p-dimen
     \caption{Hypotheses}
     \label{tab:Various_Hypotheses}
 \end{table}
-\noindent The case where the non-stationary process is experiencing an absence of a linear trend. The augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.\\
+\noindent The case where the non-stationary process is experiencing an absence of a linear trend. The augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
+\pause
 
- \noindent The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there is $r$ or fewer cointegrating relations. 
+The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there is $r$ or fewer cointegrating relations. 
  \newline
  The process makes it possible to conduct inferences about the number of cointegrating relations $(r)$ through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one, in the number of cointegrating vectors, improves the model, hence testing if $H_2(r)$ is in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
 %The models $H(r)$ form nested sequence

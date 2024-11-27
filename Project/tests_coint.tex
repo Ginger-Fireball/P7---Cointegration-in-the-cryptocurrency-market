@@ -42,11 +42,12 @@ Looking at the equations in \eqref{eq:ECM_eng_gra} then there must be at least o
 \section{Johansen test}
 As in the section  above, where we introduced the procedure of the Engle-Granger test and how to use it for co-integration testing, this section is also regards a co-integration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise co-integration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), with $K$ time series where the error terms $\b{\b{\varepsilon}_t}$ are i.i.d normally distributed hence $\b{\b{\varepsilon}}\sim N_K(\b{0},\Sigma$. In general this approach desires to reduce information content from $T$ observations down to a lower dimension of $r$ which means there is $r$ co-integrating vectors. We construct $2K$ auxiliary regressions using OLS. The first $K$ regressions regresses $\Delta \b{x}_t$ with the lagged differences of $\b{y}_t$ as regressors. The residuals obtained from this regression is gathered in the matrix $R_{0,t}$. The other set of auxillery regressions regresses $\b{x}_{t-p}$ using the same regressors as before (lagged differences of $\b{x}_t$) and the residuals are collected in $R_{1,t}$. Next we construct a product moment matrix $\hat{S}_{i,j}$:
 \begin{align}\label{eq:prod_moment_mat}
-   \hat{S}_{i,j}=\frac{1}{T}\sum_{t=1}^T R_{0,t}R_{1,t}^T\;\;\;\; i,j=0,1.
+   \hat{S}_{i,j}=\frac{1}{T}\sum_{t=1}^\top R_{0,t}R_{1,t}^\top\;\;\;\; i,j=0,1.
 \end{align}
 Johansen has then shown that the likelihood-ratio test statistic of the null hypothesis \ref{tab:Various_Hypotheses}
 \end{comment}
 \section{Johansen test}
+This section is based on \cite{Johansen_test}.\\
 As in the section above, where we introduced the procedure of the Engle-Granger test and how to use it for cointegration testing, this section also regards a cointegration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise cointegration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
 \begin{align}\label{eq:var_p_johansen}
 \b{x}_t=\Pi_1\b{x}_{t-1}+\cdots+\Pi_p\b{x}_{t-p}+\b{\varepsilon}_t
@@ -59,7 +60,7 @@ We are interested in the events where:
 \begin{itemize}
     \item The roots lie at $z=1$ since this will lead to nonstationarity.
     \item The variables we consider are $I(1)$ such that $\Delta \b{x}_t$ is stationary.
-    \item The impact matrix $\Pi$ expressed in \eqref{eq:VECM_1} ($\Pi=I-\Pi_1-\cdots-\Pi_k$) has rank $r<k$.
+    \item The impact matrix $\Pi$ expressed in \eqref{eq:VECM_1} ($\Pi=I-\Pi_1-\cdots-\Pi_p$) has rank $r<k$.
 \end{itemize}  
 We know from earlier that if the variables are cointegrated there exists a suitable $k\times r$ matrix, $\beta$, where $\beta^\top \b{x}_t$ is stationary.\\\\
 
@@ -74,26 +75,26 @@ We know from earlier that if the variables are cointegrated there exists a suita
 \end{align}
 where 
 \begin{align*}
-    \Gamma_i=-I+\Pi_1+\cdots+\Pi_i,\;\;\;\; i=1,\ldots,k
+    \Gamma_i=-I+\Pi_1+\cdots+\Pi_i,\;\;\;\; i=1,\ldots,p
 \end{align*}
-where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_k$ and $(\Gamma_1,\ldots,\Gamma_{k-1},\alpha,\beta,\Sigma)$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^T$ is not considered anymore. By doing so the impact matrix is the coefficient of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
-\noindent The maximisation of the first $p-1$ $\Gamma$ parameters is made with OLS regression of $\Delta \b{x}_t+\alpha\beta^T \b{x}_{t-p}$ which is done by isolating in \eqref{eq:Pi_enters_explicit}:
+where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and $(\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma)$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^\top$ is not considered anymore. By doing so the impact matrix is the coefficients of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
+\noindent The maximisation of the first $p-1$ $\Gamma$ parameters is made with OLS regression of $\Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}$ which is done by isolating in \eqref{eq:Pi_enters_explicit}:
 \begin{align}
     \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p}\b{x}_{t-p}+\b{\varepsilon}_t\\
     \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+(-\Pi \b{x}_{t-p})+\b{\varepsilon}_t\\
-    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+(-\alpha\beta^T \b{x}_{t-p})+\b{\varepsilon}_t\\
-    \Delta \b{x}_t+\alpha\beta^T \b{x}_{t-p}=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\b{\varepsilon}_t
+    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+(-\alpha\beta^\top \b{x}_{t-p})+\b{\varepsilon}_t\\
+    \Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\b{\varepsilon}_t
 \end{align}
-where $\Pi=-\Gamma_p$ has been used.\\
-Two matrices are afterwards constructed with residuals where $R_{0,t}$ contains the residuals from regressing $\Delta \b{x}_t$ with the lagged differences and next $R_{1,t}$ is a matrix containing the residuals obtained from regressing $\b{x}_{t-p}$ on the lagged differences.\\
+Two matrices are afterwards constructed with residuals where $R_{0,t}$ contains the residuals from regressing $\Delta \b{x}_t$ with the lagged differences and next $R_{1,t}$ contains the residuals obtained from regressing $\b{x}_{t-p}$ on the lagged differences.\\
 The next step is to construct the product moment matrices using $R_{0,t}$ and $R_{1,t}$ and letting $T$ being the number of observation then
 \begin{align}\label{eq:prod_mom_mat}
-\hat{S}_{i,j}=T^{-1}\sum_{t=1}^T R_{i,t}R_{j,t}\;\;\;\; i,j=0,1,
+\hat{S}_{i,j}=T^{-1}\sum_{t=1}^
+T R_{i,t}R_{j,t}\;\;\;\; i,j=0,1,
 \end{align}
 this will help us in proving the next theorem.
 \begin{thm}{\phantom}\\
     The $r$ eigenvectors which corresponds to the $r$ greatest eigenvalues of $\hat{S}_{i,j}$ (obtained in \eqref{eq:prod_mom_mat}) is the same as the maximum likelihood estimator spanned by the matrix $\beta$.\\
-    Furthermore the likelihood ratio test statistic for hypothesis two ($H_2:\Pi=\alpha\beta^T$) is given as 
+    Furthermore the likelihood ratio test statistic for hypothesis two ($H_2:\Pi=\alpha\beta^{\top}$) is given as 
     \begin{align}\label{eq:lrmax_coint_r}
         -2ln(H(r)|H(k))=-T\sum_{i=r+1}^k ln(1-\hat{\lambda}_i)
     \end{align}
@@ -101,17 +102,17 @@ this will help us in proving the next theorem.
     The maximum likelihood estimates are given as
     \begin{align*}
         \hat{\alpha}=\hat{S}_{0,1}\hat{\beta},\\
-        \hat{\Pi}=-\hat{S}_{0,1}\hat{\beta}\hat{\beta}^T,\\
-        \hat{\Sigma}=\hat{S}_{0,0}-\hat{\alpha}\hat{\alpha}^T.
+        \hat{\Pi}=-\hat{S}_{0,1}\hat{\beta}\hat{\beta}^\top,\\
+        \hat{\Sigma}=\hat{S}_{0,0}-\hat{\alpha}\hat{\alpha}^\top.
     \end{align*}
 \end{thm}
-\begin{proof}
+\begin{bevis}
     Using $R_{0,t}$ and $R_{1,t}$ then a concentrated likelihood function can be written:
     \begin{align}\label{eq:concentrated_likelihood}
-        L(\alpha,\beta,\Sigma)=|\Sigma|^{T/2}\cdot exp\left(-1/2\sum_{t=1}^T\left(R_{0,t}+\alpha\beta^T R_{1,t}\right)\Sigma^{-1}\left(R_{0,t}+\alpha\beta^T R_{1,t}\right)\right)
+        L(\alpha,\beta,\Sigma)=|\Sigma|^{T/2}\cdot exp\left(-1/2\sum_{t=1}^T\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\Sigma^{-1}\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\right)
     \end{align}
-    The reasoning behind \eqref{eq:concentrated_likelihood}, being constructed as it is, is a result of the residuals in a OLS are normally distributed.\\\\
- Fixing $\beta$ allows for a maximisation of $\alpha$ and $\Sigma$ by a regular regression of $R_{0,t}$ on $-\beta^TR_{1,t}$ (this is obtained by isolating $R_{0,t}$ in the parenthesis' in \eqref{eq:concentrated_likelihood}. Maximising these two parameters with respect to $\beta$ gives the following results
+    The reasoning behind \eqref{eq:concentrated_likelihood}, being constructed as above, is a result of the residuals in an OLS being normally distributed.\\\\
+ Fixing $\beta$ allows for a maximisation of $\alpha$ and $\Sigma$ by a regular regression of $R_{0,t}$ on $-\beta^\top R_{1,t}$ (this is obtained by isolating $R_{0,t}$ in the parenthesis' in \eqref{eq:concentrated_likelihood}). Maximising these two parameters with respect to $\beta$ gives the following results
  \begin{align}\label{eq:max_alphaandsigma}
      \hat{\alpha}(\beta)=-\hat{S}_{0,1}\beta(\beta^\top \hat{S}_{1,1}\beta)^{-1}\\
      \hat{\Sigma}(\beta)=\hat{S}_{0,0}-\hat{S}_{0,1}\beta\left(\beta^\top \hat{S}_{1,1}\beta\right)^{-1}\beta^\top \hat{S}_{1,0}
@@ -128,37 +129,37 @@ this will help us in proving the next theorem.
  \begin{align*}
      \hat{S}_{0,0}-\hat{S}_{0,1}\beta\left(\beta^\top \hat{S}_{1,1}\beta\right)^{-1}\beta^\top \hat{S}_{1,0}=\begin{vmatrix}
          \hat{S}_{0,0}&\hat{S}_{0,1}\beta\\
-         \beta^T\hat{S}_{1,0}&\beta^T \hat{S}_{1,1}\beta\end{vmatrix}\\
-         =|\beta^T \hat{S}_{1,1}\beta||\hat{S}_{0,0}-\hat{S}_{0,1}\beta(\beta^T \hat{S}_{1,1}\beta)^{-1}\beta^T\hat{S}_{1,0}|
+         \beta^{\top}\hat{S}_{1,0}&\beta^{\top} \hat{S}_{1,1}\beta\end{vmatrix}\\
+         =|\beta^{\top} \hat{S}_{1,1}\beta||\hat{S}_{0,0}-\hat{S}_{0,1}\beta(\beta^{\top} \hat{S}_{1,1}\beta)^{-1}\beta^{\top}\hat{S}_{1,0}|
  \end{align*}
- This leaves gives the expression:
+ This leaves the expression:
  \begin{align}\label{eq:minimize_prob}
-     \frac{|\hat{S}_{0,0}||\beta^T\hat{S}_{1,1}\beta-\beta^T\underline{\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}}\beta|}
-     {|\beta^T \hat{S}_{1,1}\beta|}
+     \frac{|\hat{S}_{0,0}||\beta^{\top}\hat{S}_{1,1}\beta-\beta^{\top}\underline{\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}}\beta|}
+     {|\beta^{\top} \hat{S}_{1,1}\beta|}
  \end{align}
- Looking at the underlined part of \eqref{eq:minimize_prob} then we find the $p$ eigenvectors to this matrix labelled $\hat{\lambda}_1,\ldots\hat{\lambda}_p$ by constructing $p$ equations of the form
+ Looking at the underlined part of \eqref{eq:minimize_prob} then we find the $p$ eigenvalues to this matrix labelled $\hat{\lambda}_1,\ldots\hat{\lambda}_p$ by constructing $p$ equations of the form
  \begin{align}\label{eq:eigenvector constr}
      |\lambda \hat{S}_{1,1}-\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}|=0
  \end{align}
-and let $D$ be the diagonal matrix of these eigenvalues along with the matrix $E$ which contains the corresponding eigenvectors. Using $D$ and $E$ then it is possible to rewrite \eqref{eq:eigenvector constr} as
+and let $D$ be the diagonal matrix containing these eigenvalues along with the matrix $E$ which contains the corresponding eigenvectors. Using $D$ and $E$ then it is possible to rewrite \eqref{eq:eigenvector constr} as
 \begin{align*}
     \hat{S}_{1,1}ED=\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}E
 \end{align*}
-where $E$ is normalised in such a way that $E^T\hat{S}_{1,1}E=I$.\\
+where $E$ is normalised in such a way that $E^\top\hat{S}_{1,1}E=I$.\\
 We choose $\beta$ such that $\beta=E\Psi$ where $\Psi$ is an $p\times r$ matrix and this results in \eqref{eq:minimize_prob} being written as
 \begin{align*}
-    |\Psi^T\Psi-\Psi^T D\Psi/|\Psi^T\Psi|
+    |\Psi^\top\Psi-\Psi^\top D\Psi|/|\Psi^\top\Psi|
 \end{align*}
 and this minimization can be done by letting $\beta$ being the first $r$ columns of $E$. Furthermore then the optimal choices for $\beta$ can be found by solving $\beta=\hat{\beta}\rho$ where $\rho$ is an $r\times r$ matrix with full rank.
-Going back to \eqref{eq:max_alphaandsigma} then, since the eigenvectors are normalised in the way that $\hat{\beta}^T \hat{S}_{1,1}\hat{\beta}=I$ then the estimates are given as:
+Going back to \eqref{eq:max_alphaandsigma} then, since the eigenvectors are normalised in the way that $\hat{\beta}^\top \hat{S}_{1,1}\hat{\beta}=I$ then the estimates are given as:
 
 \begin{align*}
-    \hat{\alpha}=&\hat{S}_{0,1}\hat{\beta}(\hat{\beta}^T \hat{S}_{1,1}\hat{\beta})^{-1}=-\hat{S}_{0,1}\hat{\beta}\\
-    \hat{\Pi}=&-\hat{S}_{0,1}\hat{\hat{\beta}}(\hat{\beta}^T \hat{S}_{1,1}\hat{\beta})^{-1}\hat{\hat{\beta}}=-\hat{S}_{0,1}\hat{\beta}\hat{\beta}^T\\
-    \hat{\Sigma}=&\hat{S}_{0,0}-\hat{S}_{0,1}\hat{\beta}\hat{\beta}^T\hat{S}_{1,0}=\hat{S}_{0,0}-\hat{\alpha}\hat{\alpha}^T\\
+    \hat{\alpha}=&-\hat{S}_{0,1}\hat{\beta}(\hat{\beta}^\top \hat{S}_{1,1}\hat{\beta})^{-1}=-\hat{S}_{0,1}\hat{\beta}\\
+    \hat{\Pi}=&-\hat{S}_{0,1}\hat{\beta}(\hat{\beta}^\top \hat{S}_{1,1}\hat{\beta})^{-1}\hat{\beta}=-\hat{S}_{0,1}\hat{\beta}\hat{\beta}^\top\\
+    \hat{\Sigma}=&\hat{S}_{0,0}-\hat{S}_{0,1}\hat{\beta}\hat{\beta}^\top\hat{S}_{1,0}=\hat{S}_{0,0}-\hat{\alpha}\hat{\alpha}^\top\\
     L_{max}^{-2/T}=&|\hat{S}_{0,0}|\prod_{i=1}^r(1-\hat{\lambda_i})
 \end{align*}
-In the estimates above, only $\hat{\alpha}$ depends on the choice of optimizing $\hat{\beta}$. These estimates can now be used to construct the maximum likelihood without the constraint $\Pi=\alpha\beta^T$:
+In the estimates above, only $\hat{\alpha}$ depends on the choice of optimizing $\hat{\beta}$. These estimates can now be used to construct the maximum likelihood without the constraint $\Pi=\alpha\beta^{\top}$:
 \begin{align*}
     L_{max}^{-2/T}=&|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})
 \end{align*}
@@ -173,13 +174,13 @@ and therefore, when checking if there is at max $r$ cointegrating relations the 
 where $\hat{\lambda}_{r+1},\ldots\hat{\lambda}_k$ are the $k-r$ smallest eigenvalues.\\
 Now it is possible to rewrite \eqref{eq:lr_test_stat} to obtain \eqref{eq:lrmax_coint_r}:
 \begin{align*}
-    ln(H(r)|H(k))=ln\left(\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}\right)\\
-    ln(H(r)|H(k))=ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\\
-    -2ln(H(r)|H(k))=-2\left( ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\right)\\
-    -2ln(H(r)|H(k))=-2\sum_{i=r+1}^k(1-\hat{\lambda}_i)
+ln(H(r)|H(k))&=ln\left(\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}\right)\\
+    ln(H(r)|H(k))&=ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\\
+    -2ln(H(r)|H(k))&=-2\left( ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\right)\\
+    -2ln(H(r)|H(k))&=-2\sum_{i=r+1}^k(1-\hat{\lambda}_i)
 \end{align*}
 
-\end{proof} 
+\end{bevis} 
 
 
 

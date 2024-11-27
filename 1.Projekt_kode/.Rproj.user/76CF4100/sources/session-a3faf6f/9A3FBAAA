@@ -1,0 +1,28 @@
+{
+    "id": "9A3FBAAA",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1732707898066.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "id": "cd109d79fd4243de84b9149954deda5b",
+        "name": "lag_selection",
+        "title": "lag_selection",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 59488355066314756,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1732707898066,
+    "read_only": false,
+    "read_only_alternatives": []
+}
