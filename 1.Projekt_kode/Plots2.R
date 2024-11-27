@@ -1,6 +1,7 @@
 library(vars)     
 library(tseries)
 
+
 #Number of lags in our model
 lag_selection <- VARselect(ts_Training_all, lag.max = 100, type = "const")
 print(lag_selection$selection)
