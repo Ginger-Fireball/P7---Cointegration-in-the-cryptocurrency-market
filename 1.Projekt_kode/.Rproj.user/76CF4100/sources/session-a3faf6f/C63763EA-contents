@@ -35,11 +35,22 @@ for (i in 1:4) {
 
 # Plotting the residuals in two ways and the acf plot
 for (i in 1:4){
+  # Making the residuals
   ts_Training_all <- ts(Training_all[,i])
   ts_residuals <- diff(ts_Training_all)
-  
+  # plotting and saving them as pdf's:
+  ## Plotting the residual
+  pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"))
   p1 <- plot(ts_residuals) 
+  print(p1)
+  dev.off()
+  ## Plotting the acf
+  pdf(paste0("Billeder/acf_", as.character(NameCryptos[i]), ".pdf"))
   p2 <- acf(ts_residuals)
+  print(p2)
+  dev.off()
+  ## Plotting the residuals as histrogram
+  pdf(paste0("Billeder/Residuals_histrogram_", as.character(NameCryptos[i]), ".pdf"))
   p3 <- ggplot(as.data.frame(ts_residuals), aes(x = ts_residuals)) +
     geom_histogram(aes(y = ..density..), binwidth = max(ts_residuals)/50, fill = "lightblue", color = "black") +
     stat_function(
@@ -50,10 +61,8 @@ for (i in 1:4){
     ) +
     labs(x = "Residuals", y = "Density") +
     theme_minimal()
-  
-  print(p1)
-  print(p2)
   print(p3)
+  dev.off()
 }
 
 
