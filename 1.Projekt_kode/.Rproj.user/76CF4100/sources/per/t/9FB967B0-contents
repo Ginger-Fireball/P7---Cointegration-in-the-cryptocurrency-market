@@ -38,7 +38,7 @@ for (i in 1:4) {
 var_Training_all <- VAR(Training_all)
 
 var_Training_all
-VARselect(y = ts(Training_all), lag.max = 10,)
+VARselect(y = var_Training_all, lag.max = 10,)
 
 
 

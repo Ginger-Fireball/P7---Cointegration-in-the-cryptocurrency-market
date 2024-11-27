@@ -1,0 +1,43 @@
+{
+    "id": "B844EFDE",
+    "path": "~/Documents/GitHub/P7---Cointegration-in-the-cryptocurrency-market/1.Projekt_kode/Plots2.R",
+    "project_path": "Plots2.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1732702120531.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+<<<<<<< HEAD:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
+<<<<<<< Updated upstream:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/BAD2A430
+        "cursorPosition": "5,30",
+        "scrollLine": "1"
+=======
+        "cursorPosition": "15,0",
+        "scrollLine": "0"
+>>>>>>> Stashed changes:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-e7d304f7/8E437E39
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1732699937,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1732699937,
+=======
+        "cursorPosition": "21,26",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1732701676,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1732701676,
+>>>>>>> Basse:1.Projekt_kode/.Rproj.user/76CF4100/sources/session-7c52b111/B844EFDE
+    "read_only": false,
+    "read_only_alternatives": []
+}
