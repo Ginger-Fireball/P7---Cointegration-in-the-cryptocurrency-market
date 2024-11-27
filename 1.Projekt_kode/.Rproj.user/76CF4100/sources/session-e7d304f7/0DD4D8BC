@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/P7---Cointegration-in-the-cryptocurrency-market/1.Projekt_kode/Projekt_kode_Pull_Crypto.R",
     "project_path": "Projekt_kode_Pull_Crypto.R",
     "type": "r_source",
-    "hash": "894017948",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1732694203205.0,
@@ -16,11 +16,11 @@
         "scrollLine": "35"
     },
     "folds": "",
-    "lastKnownWriteTime": 1732699584,
+    "lastKnownWriteTime": 1732699991,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1732699584212,
+    "last_content_update": 1732699991,
     "read_only": false,
     "read_only_alternatives": []
 }
