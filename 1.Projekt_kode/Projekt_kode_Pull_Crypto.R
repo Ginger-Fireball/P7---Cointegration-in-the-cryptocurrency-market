@@ -64,4 +64,4 @@ for (i in NameCryptos) {
   rm(list = i, envir = .GlobalEnv)
 }
 rm(NameCryptos_adj)
-#Now they are ready to mbe imported to the main document
+#Now they are ready to be imported to the main document

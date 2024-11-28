@@ -19,10 +19,10 @@ length(lag_selection)
 View(lag_selection)
 
 ts_Training_all<-ts(Training_all)
-adf.test(ts_Training_all[, "BTC.USD.Adjusted"])
-adf.test(ts_Training_all[, "ETH.USD.Adjusted"])
-adf.test(ts_Training_all[, "SOL.USD.Adjusted"])
-adf.test(ts_Training_all[, "XRP.USD.Adjusted"])
+adf.test(ts_Training_all[, "Bitcoin"])
+adf.test(ts_Training_all[, "Ethereum"])
+adf.test(ts_Training_all[, "Solana"])
+adf.test(ts_Training_all[, "Ripple"])
 
 NameCryptos[2]
 as.character(2983)
