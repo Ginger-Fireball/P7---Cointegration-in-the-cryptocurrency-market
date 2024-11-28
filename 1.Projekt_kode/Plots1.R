@@ -66,6 +66,9 @@ for (i in 1:4){
 }
 
 
+# QQ-plot
+
+
 
 
 for (i in 1:4) {
