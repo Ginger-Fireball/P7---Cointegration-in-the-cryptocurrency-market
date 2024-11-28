@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1.Projekt_kode/.Rproj.user/
 .Rhistory
 .RData
@@ -5,3 +6,9 @@
 1.Projekt_kode/.Rhistory
 1.Projekt_kode/.RData
 .Rproj.user
+=======
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+>>>>>>> Basse

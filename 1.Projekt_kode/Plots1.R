@@ -66,6 +66,53 @@ for (i in 1:4){
 }
 
 
+# QQ-plot
+for (i in 1:4){
+  # Making time series
+  ts_Training_all <- ts(Training_all[,i])
+  ts_residuals <- diff(ts_Training_all)
+
+  # Standardize the residuals
+  std_residuals <- (ts_residuals - mean(ts_residuals)) / sd(ts_residuals)
+
+  # QQ-plot
+  qqnorm(std_residuals, main = "QQ Plot of Standardized Residuals")
+  qqline(std_residuals, col = "black", lwd = 2)  
+}
+
+i <- 1
+ts_Training_all <- ts(Training_all[,i])
+ts_residuals <- diff(ts_Training_all)
+  
+# Standardize residuals
+  std_Residuals <- (ts_residuals - mean(ts_residuals)) / sd(ts_residuals)
+  View(as.data.frame(std_Residuals))
+  
+  # Create the QQ plot using ggplot2
+  ggplot(as.data.frame(std_Residuals), aes(std_Residuals)) +
+    stat_qq(color = "black", size = 1.5) +
+    stat_qq_line(color = "black", linetype = "dashed", size = 1) +
+    labs(title = title, x = "Theoretical Quantiles", y = "Sample Quantiles") +
+    theme_minimal()
+  
+ggplot(as.data.frame(std_Residuals), aes(std_Residuals)) +
+  qqnorm(std_residuals, main = "QQ Plot of Standardized Residuals") +
+  qqline(std_residuals, col = "black", lwd = 2) +
+  theme_minimal()
+
+
+qqplot(x, y, plot.it = TRUE,
+       xlab = deparse1(substitute(x)),
+       ylab = deparse1(substitute(y)), ...)
+  
+  ggplot(as.data.frame(ts_residuals), aes(x = ts_residuals)) +
+    geom_histogram(aes(y = ..density..), binwidth = max(ts_residuals)/50, fill = "lightblue", color = "black") +
+    stat_function(
+      fun = dnorm, 
+      args = list(mean = mean(ts_residuals), sd = sd(ts_residuals)), 
+      color = "red", 
+      size = 0.5
+
 
 
 for (i in 1:4) {
