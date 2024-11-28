@@ -13,16 +13,3 @@ for (i in NameCryptos) {
   
   
 }
-
-# Generate all permutations of two elements
-crypto_pairs <- expand.grid(First = NameCryptos, Second = NameCryptos)
-
-# Ensure columns are treated as characters
-crypto_pairs$First <- as.character(crypto_pairs$First)
-crypto_pairs$Second <- as.character(crypto_pairs$Second)
-
-# Remove cases where both elements are the same
-crypto_pairs <- crypto_pairs[crypto_pairs$First != crypto_pairs$Second, ]
-
-# Print the resulting data frame
-crypto_pairs

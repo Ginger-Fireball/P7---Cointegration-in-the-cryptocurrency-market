@@ -20,7 +20,20 @@ adf.test(residuals)
 }
 
 
-pair <- c(x=1, y=2)
+
+# Generate all permutations of two elements
+crypto_pairs <- expand.grid(First = NameCryptos, Second = NameCryptos)
+
+# Ensure columns are treated as characters
+crypto_pairs$First <- as.character(crypto_pairs$First)
+crypto_pairs$Second <- as.character(crypto_pairs$Second)
+
+# Remove cases where both elements are the same
+crypto_pairs <- crypto_pairs[crypto_pairs$First != crypto_pairs$Second, ]
+
+# Print the resulting data frame
+crypto_pairs
+
 
 Engel_granger <- function(x,y){
   # Run the cointegration regression 
@@ -31,19 +44,19 @@ Engel_granger <- function(x,y){
   
   # Perform ADF test on residuals
   adf_result <- adf.test(residuals)
-  print(adf_result$p.value)
-  if (adf_result$p.value < 0.05){
-    
-  }
+  return(adf_result$p.value)
 }
-EGM_ NameCryptos[] NameCryptos[] 
-EGM_Bitcoin_Ethereum
-
-paste0("EGM_", as.character(NameCryptos[1]), "_" as.character(NameCryptos[2])) <- cointegration_model
 
 
 
+# Add a new column with the p-value using mutate()
+crypto_pairs <- crypto_pairs %>%
+  mutate(P_Value = mapply(Engel_granger, First, Second))
 
+crypto_pairs <- crypto_pairs %>%
+  mutate(P_Value_G = mapply(Engel_granger, First, Second))
+# Print the updated data frame
+print(crypto_pairs)
 
 
 
