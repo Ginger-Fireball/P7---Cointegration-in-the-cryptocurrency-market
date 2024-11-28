@@ -1,17 +1,4 @@
-
-# Plotting prices in percentage all in one graf (changes from the day before to today)
-ggplot(Training_all_pro, aes(x = 1:nrow(Training_all_pro), y = Training_all_pro)) +
-  geom_line(aes(y = Bitcoin, colour = "Bitcoin")) +
-  geom_line(aes(y = Ethereum, colour = "Ethereum")) +
-  geom_line(aes(y = Solana, colour = "Solana")) +
-  geom_line(aes(y = Ripple, colour = "Ripple")) +
-  labs(x = "Days", y = "Procent") +
-  scale_color_manual(values = c("Bitcoin" = "red", "Ethereum" = "darkgoldenrod1","Solana"= "blue","Ripple"="green"),
-                     labels = NameCryptos,
-                     name = NULL) +
-  theme(legend.position = "bottom")
-
-
+#levels---------------
 # Plotting prices in levels, with each Crypto having it's own plot
 for (i in 1:4) {
   # Open pdf device
@@ -31,6 +18,47 @@ for (i in 1:4) {
   # Close pdf device
   dev.off()
 }
+
+
+# Plotting prices in percentage all in one graf (changes from the day before to today)
+ggplot(Training_all_pro, aes(x = 1:nrow(Training_all_pro), y = Training_all_pro)) +
+  geom_line(aes(y = Bitcoin, colour = "Bitcoin")) +
+  geom_line(aes(y = Ethereum, colour = "Ethereum")) +
+  geom_line(aes(y = Solana, colour = "Solana")) +
+  geom_line(aes(y = Ripple, colour = "Ripple")) +
+  labs(x = "Days", y = "Procent") +
+  scale_color_manual(values = c("Bitcoin" = "red", "Ethereum" = "darkgoldenrod1","Solana"= "blue","Ripple"="green"),
+                     labels = NameCryptos,
+                     name = NULL) +
+  theme(legend.position = "bottom")
+
+
+#lags----------------------
+
+#Number of lags in our model
+lag_selection <- VARselect(Training_all, lag.max = 10, type = "const")
+print(lag_selection$selection)
+plot_Aic_lag<-as.data.frame(t(lag_selection$criteria))
+
+
+ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
+       y = plot_Aic_lag[,1] ) +
+  geom_point(aes(y = plot_Aic_lag[,1], colour = "darkred"),size = 2) +
+  labs(x = "Lags", y = "AIC score") + 
+  theme_minimal()+ 
+  theme(legend.position = "none") 
+#we use AIC and it says 3 
+
+
+#I(1) and stationary----------------- 
+
+
+#to check if they are stationary  with Argmented dickifuller test
+ts_Training_all<-ts(Training_all)
+adf.test(ts_Training_all[, "Bitcoin"])
+adf.test(ts_Training_all[, "Ethereum"])
+adf.test(ts_Training_all[, "Solana"])
+adf.test(ts_Training_all[, "Ripple"])
 
 
 # Plotting the residuals in two ways and the acf plot
@@ -66,7 +94,10 @@ for (i in 1:4){
 }
 
 
-# QQ-plot
+# QQ-plot---------------------
+
+
+
 for (i in 1:4){
   pdf(paste0("Billeder/qqplot_", as.character(NameCryptos[i]), ".pdf"))
   # Making time series
@@ -82,7 +113,12 @@ for (i in 1:4){
   dev.off()
 }
 
-
+#deleting nonessential global Variables------------
+rm(std_residuals)
+rm(ts_residuals)
+rm(ts_Training_all)
+rm(lag_selection)
+rm(plot_Aic_lag)
 
 
 

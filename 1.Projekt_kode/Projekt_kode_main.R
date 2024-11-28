@@ -20,6 +20,8 @@ day_one <- "2022-10-10" #skal være tidligst 2020-04-10
 #code to bring in the data and refine it into one data frame + check for NA values
 source("Projekt_kode_Pull_Crypto.R")
 
+
+source("Plots1.R")
 #source("Tests_in_Code.R")
 
 

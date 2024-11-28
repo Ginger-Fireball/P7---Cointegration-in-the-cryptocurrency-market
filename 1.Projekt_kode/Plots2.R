@@ -3,32 +3,25 @@ library(tseries)
 
 
 #Number of lags in our model
-lag_selection <- VARselect(ts_Training_all, lag.max = 100, type = "const")
+lag_selection <- VARselect(Training_all, lag.max = 10, type = "const")
 print(lag_selection$selection)
-ggplot(lag_selection$criteria, aes(x = 1:length(lag_selection$criteria[1,])),
-       y = lag_selection$criteria[1,] ) +
-  geom_line(y = lag_selection$criteria[1,], colour = "Bitcoin" ) +
-scale_color_manual(values = c("Bitcoin" = "red", "Ethereum" = "darkgoldenrod1","Solana"= "blue","Ripple"="green"),
-labels = NameCryptos, name = NULL) +
-theme(legend.position = "bottom")
+plot_Aic_lag<-as.data.frame(t(lag_selection$criteria))
 
 
-lag_selection$criteria
+ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
+       y = plot_Aic_lag[,1] ) +
+  geom_point(aes(y = plot_Aic_lag[,1], colour = "darkred"),size = 2) +
+  labs(x = "Lags", y = "AIC score") + 
+  theme_minimal()+ 
+  theme(legend.position = "none") 
 #we use AIC and it says 3 
-length(lag_selection)
-View(lag_selection)
 
+
+#to check if they are stationary  
 ts_Training_all<-ts(Training_all)
 adf.test(ts_Training_all[, "Bitcoin"])
 adf.test(ts_Training_all[, "Ethereum"])
 adf.test(ts_Training_all[, "Solana"])
 adf.test(ts_Training_all[, "Ripple"])
-
-NameCryptos[2]
-as.character(2983)
-str(23)
-1:4
-lag_selection$criteria[1,]
-View(lag_selection$criteria)
 
 
