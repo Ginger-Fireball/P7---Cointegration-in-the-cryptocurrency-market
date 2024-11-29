@@ -6,20 +6,7 @@ library(lmtest)
 library(forecast)
 
 
-ts_Training_all <- ts(Training_all)
-
-for (i in 1:4){
-# Run the cointegration regression 
-cointegration_model <- lm(ts_Training_all[,1] ~ ts_Training_all[,2])
-
-# Extract residuals from the regression
-residuals <- resid(cointegration_model)
-
-# Perform ADF test on residuals
-adf.test(residuals)
-}
-
-
+#### Engel Granger test, testing pairwise cointegration ------------------------
 
 # Generate all permutations of two elements
 crypto_pairs <- expand.grid(First = NameCryptos, Second = NameCryptos)
@@ -46,8 +33,6 @@ Engel_granger <- function(x,y){
   adf_result <- adf.test(residuals)
   return(adf_result$p.value)
 }
-
-
 
 # Add a new column with the p-value using mutate()
 crypto_pairs <- crypto_pairs %>%
