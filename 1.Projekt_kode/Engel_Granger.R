@@ -6,7 +6,14 @@ library(lmtest)
 library(forecast)
 
 
+<<<<<<< HEAD
 #### Engel Granger test, testing pairwise cointegration ------------------------
+=======
+ts_Training_all <- ts(Training_all)
+
+
+
+>>>>>>> JP
 
 # Generate all permutations of two elements
 crypto_pairs <- expand.grid(First = NameCryptos, Second = NameCryptos)
@@ -43,7 +50,7 @@ crypto_pairs <- crypto_pairs %>%
 # Print the updated data frame
 print(crypto_pairs)
 
-
+rm(crypto_pairs)
 
 
 

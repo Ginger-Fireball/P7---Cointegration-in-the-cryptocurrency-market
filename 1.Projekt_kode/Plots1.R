@@ -119,7 +119,9 @@ rm(ts_residuals)
 rm(ts_Training_all)
 rm(lag_selection)
 rm(plot_Aic_lag)
-
+rm(p)
+rm(p2)
+rm(p3)
 
 
 
