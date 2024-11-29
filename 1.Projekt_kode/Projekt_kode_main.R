@@ -22,10 +22,13 @@ source("Projekt_kode_Pull_Crypto.R")
 
 
 source("Plots1.R")
-#source("Tests_in_Code.R")
+
+
+source("Engel_Granger.R")
 
 
 
+source("Tests_in_Code.R")
   
 
 

@@ -8,16 +8,6 @@ library(forecast)
 
 ts_Training_all <- ts(Training_all)
 
-for (i in 1:4){
-# Run the cointegration regression 
-cointegration_model <- lm(ts_Training_all[,1] ~ ts_Training_all[,2])
-
-# Extract residuals from the regression
-residuals <- resid(cointegration_model)
-
-# Perform ADF test on residuals
-adf.test(residuals)
-}
 
 
 
@@ -58,7 +48,7 @@ crypto_pairs <- crypto_pairs %>%
 # Print the updated data frame
 print(crypto_pairs)
 
-
+rm(crypto_pairs)
 
 
 
