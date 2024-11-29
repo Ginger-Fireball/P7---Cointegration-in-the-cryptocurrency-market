@@ -54,7 +54,7 @@ crypto_pairs <- crypto_pairs %>%
   mutate(P_Value = mapply(Engel_granger, First, Second))
 
 crypto_pairs <- crypto_pairs %>%
-  mutate(P_Value_G = mapply(Engel_granger, First, Second))
+  mutate(P_Value_Good = (P_Value<0.05) )
 # Print the updated data frame
 print(crypto_pairs)
 
