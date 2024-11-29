@@ -27,11 +27,8 @@ source("Plots1.R")
 source("Engel_Granger.R")
 
 
-<<<<<<< HEAD
-=======
 
 source("Tests_in_Code.R")
   
 
 
->>>>>>> JP
