@@ -24,9 +24,7 @@ Johansen_model_Var <- vec2var(Johansen_trace, r=2)
 serial.test(Johansen_model_Var, lags.pt = 7, type = "PT.asymptotic")
 
 # ARCH Effects
-
 arch.test(Johansen_model_Var, lags.multi = 15, multivariate.only = TRUE)
-
 
 # Normality of Residuals
 normality.test(Johansen_model_Var, multivariate.only = TRUE)
@@ -46,24 +44,52 @@ fanchart(forecast, names = "Solana", xlab = "time", ylab = "Solana")
 fanchart(forecast, names = "Ripple", xlab = "time", ylab = "Ripple")
 
 
-
+i <- 4
 # Combine forecast data
-forecast_df <- data.frame(
-  Time = 1:20,
-  Bitcoin = forecast$fcst$Bitcoin[, 1],    
-  Bitcoin_Lower = forecast$fcst$Bitcoin[, 2],
-  Bitcoin_Upper = forecast$fcst$Bitcoin[, 3],
-  Actual_prices = Validation_all$Bitcoin[1:20]
-  )
+for (i in 1:4){
+  # Producing data frame for plots
+  forecast_df <- data.frame(
+    Time = 1:20,
+    Price = forecast$fcst[[i]][, 1],    
+    Pricein_Lower = forecast$fcst[[i]][, 2],
+    Pricein_Upper = forecast$fcst[[i]][, 3],
+    Actual_prices = Validation_all[[i]][1:20]
+   )
+  # Plot Price Predictions
+  p <- (ggplot(forecast_df, aes(x = Time)) +
+    geom_line(aes(y = Price), color = "blue") +
+    geom_line(aes(y=Actual_prices), color = "red") +
+    geom_ribbon(aes(ymin = Pricein_Lower, ymax = Pricein_Upper), fill = "blue", alpha = 0.2) +
+    labs(title = paste("20-Day", as.character(NameCryptos[i]), "Forecast"), x = "Days Ahead", y = "Value") +
+    theme_minimal())
+  plot(p)
+  rm(p)
+}
 
 
-# Plot Bitcoin Forecast
-ggplot(forecast_df, aes(x = Time)) +
-  geom_line(aes(y = Bitcoin), color = "blue") +
-  geom_line(aes(y=Actual_prices), color = "red") +
-  geom_ribbon(aes(ymin = Bitcoin_Lower, ymax = Bitcoin_Upper), fill = "blue", alpha = 0.2) +
-  labs(title = "20-Day Bitcoin Forecast", x = "Days Ahead", y = "Value") +
-  theme_minimal()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
