@@ -2,16 +2,7 @@
 
 
 
-
-
-
 #### Engel Granger test, testing pairwise cointegration ------------------------
-
-ts_Training_all <- ts(Training_all)
-
-
-
-
 # Generate all permutations of two elements
 crypto_pairs <- expand.grid(First = NameCryptos, Second = NameCryptos)
 
