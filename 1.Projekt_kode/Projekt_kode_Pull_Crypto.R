@@ -5,10 +5,10 @@ Crypto<-function(stock,period1,period2){
 }
 #after the function will the date for the first data be written
 #how far you can go back in time from yahoo
-Bitcoin <- Crypto("BTC-USD",day_one,"2024-10-10")#2014-09-17
-Ethereum <- Crypto("ETH-USD",day_one,"2024-10-10")#2017-11-09
-Solana <- Crypto("SOL-USD",day_one,"2024-10-10")# 2020-04-10
-Ripple <- Crypto("XRP-USD",day_one,"2024-10-10")#2017-11-09
+Bitcoin <- Crypto("BTC-USD",first_one, last_day)#2014-09-17
+Ethereum <- Crypto("ETH-USD",first_one, last_day)#2017-11-09
+Solana <- Crypto("SOL-USD",first_one, last_day)# 2020-04-10
+Ripple <- Crypto("XRP-USD",first_one, last_day)#2017-11-09
 #lsit for names of the Cryptos
 NameCryptos <- list("Bitcoin","Ethereum","Solana","Ripple")
 
@@ -53,6 +53,9 @@ for (i in 1:4) {
 Training_all_pro<-as.data.frame(Training_all_pro)
 colnames(Training_all_pro)<-NameCryptos
 
+# Converting to timeseries
+ts_Training_all <- ts(Training_all)
+
 #Removes all extra global variables so it doesn't get to crowded
 rm(df)
 rm(i)
@@ -65,3 +68,4 @@ for (i in NameCryptos) {
 }
 rm(NameCryptos_adj)
 #Now they are ready to be imported to the main document
+

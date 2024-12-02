@@ -1,9 +1,7 @@
-
-ts_Training_all <- ts(Training_all)
-
 # Engel Granger test
-library(lmtest)
-library(forecast)
+
+
+
 
 
 #### Engel Granger test, testing pairwise cointegration ------------------------
@@ -50,3 +48,10 @@ print(crypto_pairs)
 
 
 
+
+
+
+
+#### Model 1 -------------------------------------------------------------------
+
+#### Model 
