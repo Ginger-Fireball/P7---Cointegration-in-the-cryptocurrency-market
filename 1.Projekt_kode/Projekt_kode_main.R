@@ -13,6 +13,7 @@ library(tseries)
 library(lmtest)
 library(forecast)
 library(tidyverse)
+library(tsDyn)
 set.seed(420)#Blaze It
 #start dag
 first_one <- "2020-10-10" #skal være tidligst 2020-04-10
