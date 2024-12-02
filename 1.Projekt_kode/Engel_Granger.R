@@ -1,9 +1,7 @@
-
-ts_Training_all <- ts(Training_all)
-
 # Engel Granger test
-library(lmtest)
-library(forecast)
+
+
+
 
 
 
@@ -56,3 +54,10 @@ rm(crypto_pairs)
 
 
 
+
+
+
+
+#### Model 1 -------------------------------------------------------------------
+
+#### Model 

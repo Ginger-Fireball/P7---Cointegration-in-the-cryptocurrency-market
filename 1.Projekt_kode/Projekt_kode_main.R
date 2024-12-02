@@ -10,16 +10,20 @@ library(dplyr)
 library(urca)
 library(vars)     
 library(tseries)
+library(lmtest)
+library(forecast)
+library(tidyverse)
 set.seed(420)#Blaze It
 #start dag
-day_one <- "2022-10-10" #skal være tidligst 2020-04-10
+first_one <- "2020-10-10" #skal være tidligst 2020-04-10
+last_day <- "2023-10-10"
 #Bruges til at trække Crypto priser 
 
 
 
 #code to bring in the data and refine it into one data frame + check for NA values
 source("Projekt_kode_Pull_Crypto.R")
-
+#
 
 source("Plots1.R")
 
