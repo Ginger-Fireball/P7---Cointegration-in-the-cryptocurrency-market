@@ -6,8 +6,8 @@ source("Projekt_kode_Pull_Crypto.R")
 
 VARselect(ts_Training_all, lag.max = 10, type = "none")
 
-Johansen_trace <- ca.jo(ts_Training_all, type="trace", K=5, ecdet="const", spec="longrun")
-Johansen_eigen <- ca.jo(ts_Training_all, type="eigen", K=5, ecdet="const", spec="longrun")
+Johansen_trace <- ca.jo(ts_Training_all, type="trace", K=6, ecdet="const", spec="longrun")
+Johansen_eigen <- ca.jo(ts_Training_all, type="eigen", K=6, ecdet="const", spec="longrun")
 
 print(summary(Johansen_trace))
 print(summary(Johansen_eigen))
@@ -15,13 +15,13 @@ print(summary(Johansen_eigen))
 
 #### Model building ------------------------------------------------------------
 # Build the model
-Johansen_model <- VECM(ts_Training_all, lag = 5, r = 2, estim = ("ML"))
+Johansen_model <- VECM(ts_Training_all, lag = 6, r = 2, estim = ("ML"))
 # Converting into VAR system
 Johansen_model_Var <- vec2var(Johansen_trace, r=2)
 
 ## Diagnostic Tests ##
 # Serial Correlation
-serial.test(Johansen_model_Var, lags.pt = 6, type = "PT.asymptotic")
+serial.test(Johansen_model_Var, lags.pt = 7, type = "PT.asymptotic")
 
 # ARCH Effects
 
@@ -46,8 +46,6 @@ fanchart(forecast, names = "Solana", xlab = "time", ylab = "Solana")
 fanchart(forecast, names = "Ripple", xlab = "time", ylab = "Ripple")
 
 
-Validation_all
-Training_all
 
 # Combine forecast data
 forecast_df <- data.frame(
@@ -58,10 +56,6 @@ forecast_df <- data.frame(
   Actual_prices = Validation_all$Bitcoin[1:20]
   )
 
-Validation_all$Bitcoin[1:20] - forcast$Bitcoin[1:20]
-
-forecast
-Validation_all$Bitcoin[1:20]
 
 # Plot Bitcoin Forecast
 ggplot(forecast_df, aes(x = Time)) +

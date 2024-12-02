@@ -41,9 +41,10 @@ Crypto_all_adj <- as.data.frame(Crypto_all_adj)
 # Making Training and validation data set
 Training_size <- round(0.9*nrow(Crypto_all_adj))
 validation_size <- nrow(Crypto_all_adj) - Training_size
+
 # Splitting the data
-Training_all <- tail(Crypto_all_adj, n = Training_size)
-Validation_all <- head(Crypto_all_adj, n = validation_size)
+Training_all <- head(Crypto_all_adj, n = Training_size)
+Validation_all <- tail(Crypto_all_adj, n = validation_size)
 
 #this looks at makes it so we can see it in procentege 
 Training_all_pro <- NULL
