@@ -96,7 +96,7 @@ this will help us in proving the next theorem.
     The $r$ eigenvectors which corresponds to the $r$ greatest eigenvalues of $\hat{S}_{i,j}$ (obtained in \eqref{eq:prod_mom_mat}) is the same as the maximum likelihood estimator spanned by the matrix $\beta$.\\
     Furthermore the likelihood ratio test statistic for hypothesis two ($H_2:\Pi=\alpha\beta^{\top}$) is given as 
     \begin{align}\label{eq:lrmax_coint_r}
-        -2ln(H(r)|H(k))=-T\sum_{i=r+1}^k ln(1-\hat{\lambda}_i)
+        -2ln\mathcal{Q}(H(r)|H(k))=-T\sum_{i=r+1}^k ln(1-\hat{\lambda}_i)
     \end{align}
     where $\hat{\lambda}_{r+1},\ldots,\hat{\lambda}_{k}$ are the $r-k$ smallest eigenvalues.\\
     The maximum likelihood estimates are given as
@@ -109,7 +109,7 @@ this will help us in proving the next theorem.
 \begin{bevis}
     Using $R_{0,t}$ and $R_{1,t}$ then a concentrated likelihood function can be written:
     \begin{align}\label{eq:concentrated_likelihood}
-        L(\alpha,\beta,\Sigma)=|\Sigma|^{T/2}\cdot exp\left(-1/2\sum_{t=1}^T\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\Sigma^{-1}\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\right)
+        L(\alpha,\beta,\Sigma)=|\Sigma|^{-T/2}\cdot exp\left(-1/2\sum_{t=1}^T\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\Sigma^{-1}\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\right)
     \end{align}
     The reasoning behind \eqref{eq:concentrated_likelihood}, being constructed as above, is a result of the residuals in an OLS being normally distributed.\\\\
  Fixing $\beta$ allows for a maximisation of $\alpha$ and $\Sigma$ by a regular regression of $R_{0,t}$ on $-\beta^\top R_{1,t}$ (this is obtained by isolating $R_{0,t}$ in the parenthesis' in \eqref{eq:concentrated_likelihood}). Maximising these two parameters with respect to $\beta$ gives the following results
@@ -169,15 +169,15 @@ When constructing a likelihood ratio test statistic then the likelihood under th
 \end{align*}
 and therefore, when checking if there is at max $r$ cointegrating relations the likelihood ratio test statistic will then be of the form
 \begin{align}\label{eq:lr_test_stat}
-\text{Likelihood ratio test statistic}=H(r)|H(k)=\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}
+\mathcal{Q}(H(r)|H(k))^{-2/T}=\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}
 \end{align}
 where $\hat{\lambda}_{r+1},\ldots\hat{\lambda}_k$ are the $k-r$ smallest eigenvalues.\\
 Now it is possible to rewrite \eqref{eq:lr_test_stat} to obtain \eqref{eq:lrmax_coint_r}:
 \begin{align*}
-ln(H(r)|H(k))&=ln\left(\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}\right)\\
-    ln(H(r)|H(k))&=ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\\
-    -2ln(H(r)|H(k))&=-2\left( ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\right)\\
-    -2ln(H(r)|H(k))&=-2\sum_{i=r+1}^k(1-\hat{\lambda}_i)
+ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=ln\left(\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}\right)\\
+    ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\\
+    -2ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=-2\left( ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\right)\\
+    -2ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=-2\sum_{i=r+1}^k(1-\hat{\lambda}_i)
 \end{align*}
 
 \end{bevis} 

@@ -7,7 +7,7 @@ In short co-integration is a concept which describes the correlation of two or m
 
 
 
-\section{Spurious regression}
+\section{Spurious Regression}
 In economic theory, trends are often encountered. If the trend is purely deterministic, then, in classic linear regression, it can either be removed before performing the regression or included in the model. It does not matter which of the solutions are used the inference will be the same. However, this is not the case with difference-stationary data. The error terms are in this case often highly correlated. The $t$ and $F$ statistics are ineffective when dealing with difference-stationary data since the null hypothesis, which typically states that there are no relationships, is rejected far too often for a given critical value. This regression is called spurious regression or nonsense regression and it is called such since it finds a relation between two phenomena that are not related. It is characterized by having a high $R^2$ value (close to $1$). This is initially due to the endogenous variable containing a stochastic trend and also that total variation is calculated as
 
 %The $t$ and $F$ statistics can be biased or inflated, leading to the frequent rejection of the null hypothesis for a given critical value.
@@ -96,7 +96,7 @@ In the first two cases there are no cointegration and therefore no use for the V
 \Delta \boldsymbol{x}_t = \alpha\beta^\top \boldsymbol{x}_{t-p} + \sum_{i=1}^{p-1}\Gamma_i\Delta \boldsymbol{x}_{t-i} + \b{\mu} + \Phi \b{d}_t + \boldsymbol{\varepsilon}_t.
     \label{eq:VECM_2}
 \end{equation}
-\section{Granger representation}
+\section{Granger Representation}
 
 \noindent The Granger representation theorem links cointegration and the VECM, as it states that if a set of variables are cointegrated, then a VECM exist.\\
 %
