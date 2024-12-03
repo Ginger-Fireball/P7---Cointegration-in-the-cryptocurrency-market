@@ -42,12 +42,14 @@ print(lag_selection$selection)
 plot_Aic_lag<-as.data.frame(t(lag_selection$criteria))
 
 pdf("Billeder/Crypto_lags.pdf")
-ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
+
+pic<-ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
        y = plot_Aic_lag[,1] ) +
   geom_point(aes(y = plot_Aic_lag[,1], colour = "darkred"),size = 2) +
   labs(x = "Lags", y = "AIC score") + 
   theme_minimal()+ 
   theme(legend.position = "none") 
+print(pic)
 dev.off()
 #we use AIC
 
@@ -147,8 +149,8 @@ rm(std_residuals)
 rm(ts_residuals)
 rm(ts_Training_all)
 rm(df_ts_residuals)
-rm(lag_selection)
-rm(plot_Aic_lag)
+#rm(lag_selection)
+#rm(plot_Aic_lag)
 rm(p)
 rm(p2)
 rm(p3)
