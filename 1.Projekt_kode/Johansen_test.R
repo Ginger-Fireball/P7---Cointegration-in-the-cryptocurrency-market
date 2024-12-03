@@ -132,7 +132,7 @@ for (i in 1:4){
 colnames(MAE_total) <- c("one-day-ahead", "two-day-ahead", "three-day-ahead", 
                          "four-day-ahead", "five-day-ahead")
 MAE_total
-
+round(MAE_total, digits = 4)
 
 # RMSE
 RMSE_total <- NULL
@@ -149,7 +149,7 @@ for (i in 1:4){
 colnames(RMSE_total) <- c("one-day-ahead", "two-day-ahead", "three-day-ahead", 
                           "four-day-ahead", "five-day-ahead")
 RMSE_total
-
+round(RMSE_total, digits = 4)
 
 # MAPE
 MAPE_total <- NULL
@@ -166,12 +166,7 @@ for (i in 1:4){
 colnames(MAPE_total) <- c("one-day-ahead", "two-day-ahead", "three-day-ahead", 
                           "four-day-ahead", "five-day-ahead")
 MAPE_total
-
-
-
-
-
-
+round(MAPE_total, digits = 4)
 
 
 
