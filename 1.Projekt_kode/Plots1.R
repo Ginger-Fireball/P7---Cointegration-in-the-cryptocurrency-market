@@ -107,12 +107,13 @@ for (i in 1:4){
   
   
   pdf(paste0("Billeder/plot_grid_", as.character(NameCryptos[i]), ".pdf"))
-  plot_grid(
+  pic<-plot_grid(
     plot_grid(p3, p2, ncol = 2 ),   # Top row: p1 and p2 side by side
     p1,                            # Second row: p3 spans the entire width
     ncol = 1,                      # Stack top row and p3 vertically
     rel_heights = c(1, 1)        # Adjust height proportions (optional)
   )
+  print(pic)
   dev.off()
 }
 
