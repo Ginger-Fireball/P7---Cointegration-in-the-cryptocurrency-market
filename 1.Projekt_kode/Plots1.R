@@ -67,26 +67,33 @@ for (i in 1:4){
   # Making the residuals
   ts_Training_all <- ts(Training_all[,i])
   ts_residuals <- diff(ts_Training_all)
+  df_ts_residuals<-as.data.frame(ts_residuals)
+  df_ts_residuals$x <- as.numeric(df_ts_residuals$x)
   # plotting and saving them as pdf's:
   ## Plotting the residual
   pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 240,height = 100)
-  p1 <- plot(ts_residuals) +
+  p1 <- ggplot(df_ts_residuals, aes(x = 1:length(x))) +
+    geom_line(aes(y=x)) +
+    geom_point(aes(y = x),colour="red",size=0.5,show.legend = NA)+ #for no points in residual remove this
+    labs(x = "Time", y = "Residuals") +
   theme_minimal()
   print(p1)
   dev.off()
   ## Plotting the acf
   pdf(paste0("Billeder/acf_", as.character(NameCryptos[i]), ".pdf"))
-  p2 <- acf(ts_residuals) +
-  theme_minimal()
+  p2 <- ggAcf(ts_residuals) +
+  theme_minimal() +
+    geom_segment(size = 1.3) +
+    labs(title = NULL)
   print(p2)
   dev.off()
   ## Plotting the residuals as histrogram
   pdf(paste0("Billeder/Residuals_histrogram_", as.character(NameCryptos[i]), ".pdf"))
-  p3 <- ggplot(as.data.frame(ts_residuals), aes(x = ts_residuals)) +
-    geom_histogram(aes(y = ..density..), binwidth = max(ts_residuals)/50, fill = "lightblue", color = "black") +
+  p3 <- ggplot(df_ts_residuals, aes(x = x)) +
+    geom_histogram(aes(y = ..density..), binwidth = max(df_ts_residuals$x)/50, fill = "lightblue", color = "black") +
     stat_function(
       fun = dnorm, 
-      args = list(mean = mean(ts_residuals), sd = sd(ts_residuals)), 
+      args = list(mean = mean(df_ts_residuals$x), sd = sd(df_ts_residuals$x)), 
       color = "red", 
       size = 0.5
     ) +
@@ -94,7 +101,25 @@ for (i in 1:4){
     theme_minimal()
   print(p3)
   dev.off()
+  
+  
+  pdf(paste0("Billeder/plot_grid_", as.character(NameCryptos[i]), ".pdf"))
+  plot_grid(
+    plot_grid(p3, p2, ncol = 2 ),   # Top row: p1 and p2 side by side
+    p1,                            # Second row: p3 spans the entire width
+    ncol = 1,                      # Stack top row and p3 vertically
+    rel_heights = c(1, 1)        # Adjust height proportions (optional)
+  )
+  dev.off()
 }
+
+
+
+
+
+
+
+
 
 
 # QQ-plot---------------------
@@ -120,24 +145,11 @@ for (i in 1:4){
 rm(std_residuals)
 rm(ts_residuals)
 rm(ts_Training_all)
+rm(df_ts_residuals)
 rm(lag_selection)
 rm(plot_Aic_lag)
 rm(p)
 rm(p2)
 rm(p3)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
