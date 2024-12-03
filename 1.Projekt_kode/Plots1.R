@@ -70,12 +70,14 @@ for (i in 1:4){
   # plotting and saving them as pdf's:
   ## Plotting the residual
   pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 240,height = 100)
-  p1 <- plot(ts_residuals) 
+  p1 <- plot(ts_residuals) +
+  theme_minimal()
   print(p1)
   dev.off()
   ## Plotting the acf
   pdf(paste0("Billeder/acf_", as.character(NameCryptos[i]), ".pdf"))
-  p2 <- acf(ts_residuals)
+  p2 <- acf(ts_residuals) +
+  theme_minimal()
   print(p2)
   dev.off()
   ## Plotting the residuals as histrogram
