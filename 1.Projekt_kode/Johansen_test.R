@@ -44,8 +44,7 @@ fanchart(forecast, names = "Solana", xlab = "time", ylab = "Solana")
 fanchart(forecast, names = "Ripple", xlab = "time", ylab = "Ripple")
 
 
-i <- 4
-# Combine forecast data
+# Plotting 20 day ahead predictions
 for (i in 1:4){
   # Producing data frame for plots
   forecast_df <- data.frame(
@@ -69,23 +68,23 @@ for (i in 1:4){
 
 
 
+# Calculating the Mean Prediction Error
+i <- 0
+Training_plus <- rbind(Training_all, Validation_all[i,])
 
 
+Johansen_trace <- ca.jo(Training_plus, type="trace", K=6, ecdet="const", spec="longrun")
+Johansen_model_Var <- vec2var(Johansen_trace, r=2)
 
+forecast <- predict(Johansen_model_Var, n.ahead = 5)
 
+df_MPE <- 0
+df_MPE <- bind(df_MPE, data.frame((forecast$fcst[[1]][,1]) ,  (forecast$fcst[[2]][,1])))
+df_MPE
 
+df_forecast <- as.data.frame(forecast)
 
-
-
-
-
-
-
-
-
-
-
-
+View(forecast)
 
 
 
