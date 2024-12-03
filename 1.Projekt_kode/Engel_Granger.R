@@ -1,6 +1,7 @@
 # Engel Granger test
 
-
+#makes it so the dat is saved as a 4 way timeseries
+ts_Training_all<-ts(Training_all)
 
 #### Engel Granger test, testing pairwise cointegration ------------------------
 # Generate all permutations of two elements

@@ -116,7 +116,6 @@ for (i in 1:4){
 #deleting nonessential global Variables------------
 rm(std_residuals)
 rm(ts_residuals)
-rm(ts_Training_all)
 rm(lag_selection)
 rm(plot_Aic_lag)
 rm(p)
