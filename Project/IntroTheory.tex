@@ -1,7 +1,14 @@
-\chapter{intro}
+\chapter{Intro}
 Spurious regression is a random relationship which can occur when analyzing time series. It occurs when there seems to be a relation between two time series and when such relation occurs, especially if the time series observed are non-stationary, there is a risk for it being a spurious regression. The issue with spurious regression is that it insinuates that two time series, which are not related, has a correlation.\\\\
-Naturally there are multiple cases where cointegration is present and a significant factor, hence cases where the relation is reliable and one series has an impact on the other and vice versa. This eventually propose 
+Naturally there are multiple cases where cointegration is present and a significant factor, hence cases where the relation is reliable and one series has an impact on the other and vice versa. Cointegration is often occurring when analyzing time series which are describing some economic movement such as assets. When analyzing time series then, if cointegration is present, it means that two or more series has a correlation in the long run. In general this means that even though the different series does not exhibit a short run correlation then in the long run they will not diverge from a common equilibrium. When series share a long run equilibrium they are cointegrated.\cite{Intro_cointegration}\\\\
+There are several ways to determine wether series are cointegrated and as mentioned economic related time series are often cointegrated. Series such as prduct supply, demand and time will over time share an equilibrium.\\
+This project will examine cointegration between price levels over time of different cryptocurrencies. Cryptocurrencies are digitally exchanged assets and one of their perks is the lack of need for a trusted third party such as a government or financial institute. In this project, we will examine whether some or all of the four chosen cryptocurrencies are cointegrated.\\
+By just plotting the prices over time, three of the four examined time exhibit a somewhat identical graph which could be caused by a general market consensus regarding both the interest, and varying private equity over time. [Coinmarket kilde her] Bitcoin is by far the most well-known crytovaluta and has, since its publication in 2008 risen to a value of over 95.000\$ and the year-to-date percentage change is over 130\%. Although Bitcoin is the most expensive and well-known cryptovaluta, the existence of other cryptovalutas are important to create a decentralized financial system and avoid a monopole.\\
+Having different cryptovalutas then a natural wondering is whether these have a long run realationship. If they have this could be useful in different regards. The aim of this project is to 
 
+
+
+ 
 This chapter is based on \cite{co-Integration_and_error_correction}.
 \\
 Given a time series $X_t$ if stationarity is achieved trough differencing, but a linear combination of the time series $\alpha X$ also gives a stationary time series, the time series is said to be co-integrated. When looking at the long run equilibrium of the the co-integrated time series it has to give a finite variance. From this it can be concluded that deviations form the equilibrium are stationary.
