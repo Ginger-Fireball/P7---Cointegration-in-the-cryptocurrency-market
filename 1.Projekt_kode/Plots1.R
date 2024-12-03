@@ -38,6 +38,7 @@ ggplot(Training_all_pro, aes(x = 1:nrow(Training_all_pro), y = Training_all_pro)
 #Number of lags in our model
 lag_selection <- VARselect(Training_all, lag.max = 10, type = "const")
 print(lag_selection$selection)
+
 plot_Aic_lag<-as.data.frame(t(lag_selection$criteria))
 
 pdf("Billeder/Crypto_lags.pdf")
