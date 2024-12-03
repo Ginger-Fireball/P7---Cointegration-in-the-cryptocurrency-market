@@ -48,7 +48,7 @@ ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
   theme_minimal()+ 
   theme(legend.position = "none") 
 dev.off()
-#we use AIC and it says 3 
+#we use AIC
 
 
 #I(1) and stationary----------------- 
@@ -69,7 +69,7 @@ for (i in 1:4){
   ts_residuals <- diff(ts_Training_all)
   # plotting and saving them as pdf's:
   ## Plotting the residual
-  pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"))
+  pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 300,height = 100)
   p1 <- plot(ts_residuals) 
   print(p1)
   dev.off()
