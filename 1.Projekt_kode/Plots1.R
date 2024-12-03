@@ -69,7 +69,7 @@ for (i in 1:4){
   ts_residuals <- diff(ts_Training_all)
   # plotting and saving them as pdf's:
   ## Plotting the residual
-  pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 300,height = 100)
+  pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 270,height = 100)
   p1 <- plot(ts_residuals) 
   print(p1)
   dev.off()
