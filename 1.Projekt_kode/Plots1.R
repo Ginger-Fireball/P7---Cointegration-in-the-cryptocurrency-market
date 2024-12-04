@@ -68,8 +68,7 @@ adf.test(ts_Training_all[, "Ripple"])
 # Plotting the residuals in two ways and the acf plot
 for (i in 1:4){
   # Making the residuals
-  ts_Training_all <- ts(Training_all[,i])
-  ts_residuals <- diff(ts_Training_all)
+  ts_residuals <- diff(ts(Training_all[,i]))
   df_ts_residuals<-as.data.frame(ts_residuals)
   df_ts_residuals$x <- as.numeric(df_ts_residuals$x)
   # plotting and saving them as pdf's:
@@ -133,11 +132,10 @@ for (i in 1:4){
 for (i in 1:4){
   pdf(paste0("Billeder/qqplot_", as.character(NameCryptos[i]), ".pdf"))
   # Making time series
-  ts_Training_all <- ts(Training_all[,i])
-  ts_residuals <- diff(ts_Training_all)
+  tsu_residuals <- diff(ts(Training_all[,i]))
 
   # Standardize the residuals
-  std_residuals <- (ts_residuals - mean(ts_residuals)) / sd(ts_residuals)
+  std_residuals <- (tsu_residuals - mean(tsu_residuals)) / sd(tsu_residuals)
 
   # QQ-plot
   qqnorm(std_residuals, main = "" , ylab = "Standardized Residuals")
@@ -147,13 +145,16 @@ for (i in 1:4){
 
 #deleting nonessential global Variables------------
 rm(std_residuals)
-rm(ts_residuals)
-rm(ts_Training_all)
+rm(std_residuals)
 rm(df_ts_residuals)
+rm(tsu_residuals)
+rm(ts_residuals)
 #rm(lag_selection)
 #rm(plot_Aic_lag)
 rm(p)
+rm(pic)
+rm(p1)
 rm(p2)
 rm(p3)
-
+rm(i)
 

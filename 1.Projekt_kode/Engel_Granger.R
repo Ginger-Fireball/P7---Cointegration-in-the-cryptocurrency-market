@@ -39,8 +39,8 @@ crypto_pairs <- crypto_pairs %>%
 # Print the updated data frame
 print(crypto_pairs)
 
-#rm(crypto_pairs)
-
+rm(crypto_pairs)
+rm(lag_selection)
 
 
 #### Model building Ripple ~ Bitcoin -------------------------------------------

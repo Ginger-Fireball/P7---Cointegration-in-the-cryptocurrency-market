@@ -26,16 +26,18 @@ last_day <- "2024-10-10"
 
 #code to bring in the data and refine it into one data frame + check for NA values
 source("Projekt_kode_Pull_Crypto.R")
-#
+#from this 5 global variabels come out dont chang them 
+#Crypto_all_adj,NameCrypots,Traning_all,Traning_all_pro,ts_Training_all
+# and Validation_all
 
 source("Plots1.R")
-
+#from this 1 global variabel come out dont change it 
+#
 
 source("Engel_Granger.R")
+#from this 2 global variabels come out dont change it 
+#lag_selection, ts_Traning_all
 
 
-
-source("Tests_in_Code.R")
-  
 
 
