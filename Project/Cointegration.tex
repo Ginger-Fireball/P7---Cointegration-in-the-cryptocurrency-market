@@ -67,7 +67,7 @@ The error correction model is a tool used when
 \end{comment}
 
 \section{System of Cointegrated Variables}
-During this section, the topic of multivariate cointegrations is considered. The p-dimensional vector autoregressive model VAR$(p)$ $\b{x}_t$ is given as
+This section regards the topic multivariate cointegration. The p-dimensional vector autoregressive model VAR$(p)$ $\b{x}_t$ is given as
 \begin{equation}
     \boldsymbol{x}_t=\Pi_1 \b{x}_{t-1} + \dots + \Pi_p \b{x}_{t-p} + \b{\mu} + \Phi \boldsymbol{d}_t +\boldsymbol{\varepsilon}_t \phantomsection \:\:\: \text{ for } \:\:\: t=1,\dots,T.
     \label{eq:p-dimensional_Var_model}
@@ -88,9 +88,9 @@ We examine the three possibilities for $\Pi$ below.
 \begin{enumerate}
     \item If $\text{rank}(\Pi)=k$, then $\Pi$ has full rank, this means that all elements of $\b{x}_t$ is stationary i.e. $I(0)$.
     \item If $\text{rank}(\Pi)=0$, then $\Pi=\textbf{0}$ i.e. $\Pi$ is the null matrix, therefore no cointegration is present, hence the VECM \eqref{eq:VECM_1} is reduced to a standard VAR model.
-    \item If $0<\text{rank}(\Pi)=r<k$, then there exist $r$ cointegrating vectors, this indicates that there are $r$ linear stationary combination of the non-stationary variables in $\b{x}_t$.
+    \item If $0<\text{rank}(\Pi)=r<k$, then there exist $r$ cointegrating vectors meaning the system has $r$ linear stationary combinations of the non-stationary variables in $\b{x}_t$.
 \end{enumerate}
-In the first two cases there are no cointegration and therefore no use for the VECM. The third and last case is interesting since it contains cointegration. This case has $r$ cointegrating relations with $0<r<k$ thus it is neither the null matrix nor is it full rank. Therefore there exist two matrices $\alpha$ and $\beta$ both in $\R^{k\times r}$, such that $\Pi=\alpha \beta^\top$. Where $\alpha$ is the adjustment coefficient matrix, which determines the speed of the adjustments to long-run equilibrium. The matrix $\beta$ contains the cointegrating vectors, which are the $r$ linearly independent rows. A linear combination exists such that $\alpha\beta^\top \b{x}_t$ is stationary. This system can be modelled by the VECM \eqref{eq:VECM_1} and using $\Pi=\alpha\beta^\top$ it can be written as
+In the first two cases there are no cointegration and therefore no use for the VECM. The third and last case is interesting since cointegration is present and therefore $r$ cointegrating relations exists with $0<r<k$ meaning $\Pi$ is neither the null matrix nor is it full rank. Therefore there exist two matrices $\alpha$ and $\beta$ both in $\R^{k\times r}$, such that $\Pi=\alpha \beta^\top$. Where $\alpha$ is the adjustment coefficient matrix, which determines the speed of the adjustments to long-run equilibrium. The matrix $\beta$ contains the cointegrating vectors, which are the $r$ linearly independent rows and the linear combination $\alpha\beta^\top \b{x}_t$ is stationary. This system can be modelled by the VECM \eqref{eq:VECM_1} and using $\Pi=\alpha\beta^\top$ it can be written as
 
 \begin{equation}
 \Delta \boldsymbol{x}_t = \alpha\beta^\top \boldsymbol{x}_{t-p} + \sum_{i=1}^{p-1}\Gamma_i\Delta \boldsymbol{x}_{t-i} + \b{\mu} + \Phi \b{d}_t + \boldsymbol{\varepsilon}_t.
@@ -100,7 +100,8 @@ In the first two cases there are no cointegration and therefore no use for the V
 
 \noindent The Granger representation theorem links cointegration and the VECM, as it states that if a set of variables are cointegrated, then a VECM exist.\\
 %
-\noindent The properties of $\b{x}_t$ is investigated though the characteristic matrix polynomial $\Pi(z)$ which is given as 
+\noindent 
+Before introducing the Granger representation theorem the characteristic matrix polynomial $\Pi(z)$ is given as
 \begin{equation*}
     \Pi(z)=(1-z)I_{k\times k}-\Pi z-(1-z)\sum_{i=1}^{p-1}\Gamma_i z^i
 \end{equation*}
@@ -126,7 +127,7 @@ In the first two cases there are no cointegration and therefore no use for the V
     If there is a vector $\b{\beta}_i \neq \b{0}$ so that $\b{\beta}_i^\top \b{x}_t$ is stationary, then $\boldsymbol{x}_t$ is cointegrated with cointegrating vector $\b{\beta}_i$. The number of linearly independent cointegrating vectors is the cointegrating rank.
 \end{defi}
 
-\noindent If the characteristic polynomial $\Pi(z)$ has a unit root, then $\Pi(1)=-\Pi$ is singular and have rank r, this gives us a non stationary process. 
+\noindent If the characteristic polynomial $\Pi(z)$ has a unit root, then $\Pi(1)=-\Pi$ is singular and has rank $r$, this gives us a non stationary process. 
 
 % Then the matrix $\b{\beta'} \in \R^{r \times p }$ matrix denotes the r linearly independent rows of $\Pi$ and let this gives us a non stationary process.
 % Then the $\b{\alpha}\in \R^{r \times p}$ matrix contain the coefficients that express each row of $-\Pi$ as a combination of vectors $\b{\beta'}$ this means that $\Pi=\b{ \alpha\beta'}$ from this and  \eqref{eq:VECM_1} we can write
@@ -137,14 +138,14 @@ In the first two cases there are no cointegration and therefore no use for the V
 We define $\Gamma=I-\sum_{i=1}^{k-1}\Gamma_i$, which is used to construct the following condition.
 
 \begin{condition}\phantom{}\\
-    This condition assumes that $\text{det}(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and also that $\text{det}(\alpha^\top_{\perp}\Gamma \beta_{\perp})\neq0$, with $\alpha_{\perp}$ being the orthogonal complement of $\alpha$, this is the same as saying $\text{det}(\Pi(z))=0$ have rank $p-r$.
+    This condition assumes that $\text{det}(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and also that $\text{det}(\alpha^\top_{\perp}\Gamma \beta_{\perp})\neq0$, with $\alpha_{\perp}$ being the orthogonal complement of $\alpha$, this is the same as saying $\text{det}(\Pi(z))=0$ has rank $p-r$.
     \label{condition_granger}
 \end{condition}
 
 % \begin{enumerate} \label{condition_granger}
 %     \item condition says we assume that $det(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and assmue also that $det(\b{\alpha}'_{\perp}\Gamma\b{\beta}_{\perp})\neq0$ this is the same as saying $det(\Pi(z))=0$ have rank $p-r$
 % \end{enumerate}
-\noindent This insures that we do not have solutions with seasonal- or explosive-roots, and that the solutions of order two or higher are avoided. The Granger Representation Theorem can now be formulated.
+\noindent This insures that we do not have solutions with seasonal- or explosive roots, and that the solutions of order two or higher are avoided. The Granger Representation Theorem can now be formulated.
 \begin{thm}{The Granger Representation Theorem}
     If $\Pi(z)$ has a unit root and Condition \ref{condition_granger} is satisfied then
     \begin{equation}\label{Granger_representation_eq_1}
