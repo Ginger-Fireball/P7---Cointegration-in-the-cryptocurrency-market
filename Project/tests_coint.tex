@@ -174,12 +174,11 @@ and therefore, when checking if there is at max $r$ cointegrating relations the 
 where $\hat{\lambda}_{r+1},\ldots\hat{\lambda}_k$ are the $k-r$ smallest eigenvalues.\\
 Now it is possible to rewrite \eqref{eq:lr_test_stat} to obtain \eqref{eq:lrmax_coint_r}:
 \begin{align*}
-ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=ln\left(\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}\right)\\
-    ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\\
-    -2ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=-2\left( ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\right)\\
-    -2ln\mathcal{Q}(H(r)|H(k))^{-2/T}&=-2\sum_{i=r+1}^k(1-\hat{\lambda}_i)
+ln\left(\mathcal{Q}(H(r)|H(k))^{-2/T}\right)&=ln\left(\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}\right)\\
+    \frac{-2}{T}ln\left(\mathcal{Q}(H(r)|H(k))\right)&=ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\\
+    -2ln\left(\mathcal{Q}(H(r)|H(k))\right)&=T\left( ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\right)\\
+    -2ln\left(\mathcal{Q}(H(r)|H(k))\right)&=-T\sum_{i=r+1}^kln((1-\hat{\lambda}_i))
 \end{align*}
-
 \end{bevis} 
 
 
