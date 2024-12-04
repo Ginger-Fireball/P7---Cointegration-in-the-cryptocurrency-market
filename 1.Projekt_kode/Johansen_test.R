@@ -35,16 +35,16 @@ normality.test(Johansen_model_Var, multivariate.only = TRUE)
 
 #### VECM Forecasting ----------------------------------------------------------
 # Predicting x-dayahead 
-forecast <- predict(Johansen_model_Var, n.ahead = 20)
+forecasts <- predict(Johansen_model_Var, n.ahead = 20)
 
 # Plotting 20 day ahead predictions
 for (i in 1:4){
   # Producing data frame for plots
   forecast_df <- data.frame(
     Time = 1:20,
-    Price = forecast$fcst[[i]][, 1],    
-    Pricein_Lower = forecast$fcst[[i]][, 2],
-    Pricein_Upper = forecast$fcst[[i]][, 3],
+    Price = forecasts$fcst[[i]][, 1],    
+    Pricein_Lower = forecasts$fcst[[i]][, 2],
+    Pricein_Upper = forecasts$fcst[[i]][, 3],
     Actual_prices = Validation_all[[i]][1:20]
    )
   # Plot Price Predictions
@@ -73,12 +73,12 @@ for (i in 1:(validation_size-5)){
   Johansen_trace <- ca.jo(Training_plus, type="trace", K=6, ecdet="const", spec="longrun")
   Johansen_model_Var <- vec2var(Johansen_trace, r=2)
   # Forecast the 5-day-ahead and converting it into data frame
-  forecast <- predict(Johansen_model_Var, n.ahead = 5)
+  forecasts <- predict(Johansen_model_Var, n.ahead = 5)
   ## Extract the `fcst` column from each cryptocurrency
-  bitcoin_fcst <- forecast$fcst$Bitcoin[, 1]
-  ethereum_fcst <- forecast$fcst$Ethereum[, 1]
-  solana_fcst <- forecast$fcst$Solana[, 1]
-  ripple_fcst <- forecast$fcst$Ripple[, 1]
+  bitcoin_fcst <- forecasts$fcst$Bitcoin[, 1]
+  ethereum_fcst <- forecasts$fcst$Ethereum[, 1]
+  solana_fcst <- forecasts$fcst$Solana[, 1]
+  ripple_fcst <- forecasts$fcst$Ripple[, 1]
   
   ## Combine into a data frame
   fcst_df <- data.frame(
