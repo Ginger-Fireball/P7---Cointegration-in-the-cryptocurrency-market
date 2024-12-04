@@ -73,12 +73,12 @@ for (i in 1:4){
   df_ts_residuals<-as.data.frame(ts_residuals)
   df_ts_residuals$x <- as.numeric(df_ts_residuals$x)
   # plotting and saving them as pdf's:
+  
   ## Plotting the residual
   pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 240,height = 100)
   p1 <- ggplot(df_ts_residuals, aes(x = 1:length(x))) +
     geom_line(aes(y=x)) +
-    geom_point(aes(y = x),colour="red",size=0.5,show.legend = NA)+ #for no points in residual remove this
-    labs(x = "Time", y = "Residuals") +
+ labs(x = "Time", y = "Residuals") +
   theme_minimal()
   print(p1)
   dev.off()
