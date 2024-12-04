@@ -66,12 +66,21 @@ for (i in 1:4){
 MAE_1 <- NULL ; MAE_2 <- NULL ; MAE_3 <- NULL ; MAE_4 <- NULL ; MAE_5 <- NULL
 RMSE_1 <- NULL ; RMSE_2 <- NULL ; RMSE_3 <- NULL ; RMSE_4 <- NULL ; RMSE_5 <- NULL
 MAPE_1 <- NULL ; MAPE_2 <- NULL ; MAPE_3 <- NULL ; MAPE_4 <- NULL ; MAPE_5 <- NULL
+Lags_optimal <- data.frame(matrix(NA, ncol = 4, nrow = (validation_size-5)))
 
 for (i in 1:(validation_size-5)){
+  
+  #Optimal amount of lags
+  lag_selection <- VARselect(Training_plus, lag.max = 10, type = "const")
+  Lags_optimal[i , ] <- lag_selection$selection
+
   # Making the new model:
   Training_plus <- rbind(Training_all, Validation_all[i,])
-  Johansen_trace <- ca.jo(Training_plus, type="trace", K=6, ecdet="const", spec="longrun")
+  Johansen_trace <- ca.jo(Training_plus, type="trace", K=Lags_optimal[i,1], ecdet="const", spec="longrun")
   Johansen_model_Var <- vec2var(Johansen_trace, r=2)
+  
+
+  
   # Forecast the 5-day-ahead and converting it into data frame
   forecasts <- predict(Johansen_model_Var, n.ahead = 5)
   ## Extract the `fcst` column from each cryptocurrency

@@ -15,6 +15,7 @@ library(forecast)
 library(tidyverse)
 library(tsDyn)
 library(cowplot)
+library(rlang)
 set.seed(420)#Blaze It
 #start dag
 first_one <- "2020-12-10" #skal være tidligst 2020-04-10
