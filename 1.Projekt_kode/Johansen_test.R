@@ -87,7 +87,7 @@ for (i in 1:(validation_size-5)){
     Solana = solana_fcst,
     Ripple = ripple_fcst
   )
-  # Calculating MAE 
+  # Calculating Mean Absolute Error
   mae <- abs(Validation_all[i:(i+4),] - fcst_df)
   ## Saving the Absolute values
   MAE_1 <- rbind(MAE_1, mae[1,])
@@ -96,7 +96,7 @@ for (i in 1:(validation_size-5)){
   MAE_4 <- rbind(MAE_4, mae[4,])
   MAE_5 <- rbind(MAE_5, mae[5,])
   
-  # Calculating RMSE
+  # Calculating Root Mean Square Error
   rmse <- (Validation_all[i:(i+4),] - fcst_df)^2
   ## Saving the Absolute values
   RMSE_1 <- rbind(RMSE_1, rmse[1,])
@@ -105,7 +105,7 @@ for (i in 1:(validation_size-5)){
   RMSE_4 <- rbind(RMSE_4, rmse[4,])
   RMSE_5 <- rbind(RMSE_5, rmse[5,])
   
-  # Calculating MAPE
+  # Calculating Mean Absolute Percentage Error
   mape <- abs((Validation_all[i:(i+4),] - fcst_df) / Validation_all[i:(i+4),])
   ## Saving the Absolute values
   MAPE_1 <- rbind(MAPE_1, mape[1,])
@@ -117,7 +117,7 @@ for (i in 1:(validation_size-5)){
 
 # combining the predictions errors into dataframes
 
-# MAE 
+# Mean Absolute Error
 MAE_total <- NULL
 for (i in 1:4){
   MAE <- NULL
@@ -134,7 +134,7 @@ colnames(MAE_total) <- c("one-day-ahead", "two-day-ahead", "three-day-ahead",
 MAE_total
 round(MAE_total, digits = 4)
 
-# RMSE
+# Root Mean Square Error
 RMSE_total <- NULL
 for (i in 1:4){
   RMSE <- NULL
@@ -151,7 +151,7 @@ colnames(RMSE_total) <- c("one-day-ahead", "two-day-ahead", "three-day-ahead",
 RMSE_total
 round(RMSE_total, digits = 4)
 
-# MAPE
+# Mean Absolute Percentage Error
 MAPE_total <- NULL
 for (i in 1:4){
   MAPE <- NULL
