@@ -5,10 +5,10 @@ Crypto<-function(stock,period1,period2){
 }
 #after the function will the date for the first data be written
 #how far you can go back in time from yahoo
-Bitcoin <- Crypto("BTC-USD",first_one, last_day)#2014-09-17
-Ethereum <- Crypto("ETH-USD",first_one, last_day)#2017-11-09
-Solana <- Crypto("SOL-USD",first_one, last_day)# 2020-04-10
-Ripple <- Crypto("XRP-USD",first_one, last_day)#2017-11-09
+Bitcoin <- Crypto("BTC-USD",first_day, last_day)#2014-09-17
+Ethereum <- Crypto("ETH-USD",first_day, last_day)#2017-11-09
+Solana <- Crypto("SOL-USD",first_day, last_day)# 2020-04-10
+Ripple <- Crypto("XRP-USD",first_day, last_day)#2017-11-09
 #lsit for names of the Cryptos
 NameCryptos <- list("Bitcoin","Ethereum","Solana","Ripple")
 

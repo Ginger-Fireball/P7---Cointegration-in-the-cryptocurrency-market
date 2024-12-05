@@ -15,9 +15,9 @@ library(forecast)
 library(tidyverse)
 library(tsDyn)
 library(cowplot)
-set.seed(420)#Blaze It
+set.seed(420)
 #start dag
-first_one <- "2020-12-10" #skal være tidligst 2020-04-10
+first_day <- "2020-12-10" #skal være tidligst 2020-04-10
 last_day <- "2024-10-10"
 #Bruges til at trække Crypto priser 
 
