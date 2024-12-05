@@ -15,10 +15,7 @@ library(forecast)
 library(tidyverse)
 library(tsDyn)
 library(cowplot)
-<<<<<<< Updated upstream
-=======
 library(rlang)
->>>>>>> Stashed changes
 set.seed(420)
 #start dag
 first_day <- "2020-12-10" #skal være tidligst 2020-04-10
