@@ -62,11 +62,11 @@ for (i in 1:4){
 
 
 #### Calculating the Prediction Errors -----------------------------------------
-
 MAE_1 <- NULL ; MAE_2 <- NULL ; MAE_3 <- NULL ; MAE_4 <- NULL ; MAE_5 <- NULL
 RMSE_1 <- NULL ; RMSE_2 <- NULL ; RMSE_3 <- NULL ; RMSE_4 <- NULL ; RMSE_5 <- NULL
 MAPE_1 <- NULL ; MAPE_2 <- NULL ; MAPE_3 <- NULL ; MAPE_4 <- NULL ; MAPE_5 <- NULL
 Lags_optimal <- data.frame(matrix(NA, ncol = 4, nrow = (validation_size-5)))
+
 
 for (i in 1:(validation_size-5)){
   
@@ -98,7 +98,7 @@ for (i in 1:(validation_size-5)){
   )
   # Calculating Mean Absolute Error
   mae <- abs(Validation_all[i:(i+4),] - fcst_df)
-  ## Saving the Absolute values
+  ## Saving the Values
   MAE_1 <- rbind(MAE_1, mae[1,])
   MAE_2 <- rbind(MAE_2, mae[2,])
   MAE_3 <- rbind(MAE_3, mae[3,])
@@ -107,7 +107,7 @@ for (i in 1:(validation_size-5)){
   
   # Calculating Root Mean Square Error
   rmse <- (Validation_all[i:(i+4),] - fcst_df)^2
-  ## Saving the Absolute values
+  ## Saving the Values
   RMSE_1 <- rbind(RMSE_1, rmse[1,])
   RMSE_2 <- rbind(RMSE_2, rmse[2,])
   RMSE_3 <- rbind(RMSE_3, rmse[3,])
@@ -116,7 +116,7 @@ for (i in 1:(validation_size-5)){
   
   # Calculating Mean Absolute Percentage Error
   mape <- abs((Validation_all[i:(i+4),] - fcst_df) / Validation_all[i:(i+4),])
-  ## Saving the Absolute values
+  ## Saving the Values
   MAPE_1 <- rbind(MAPE_1, mape[1,])
   MAPE_2 <- rbind(MAPE_2, mape[2,])
   MAPE_3 <- rbind(MAPE_3, mape[3,])
