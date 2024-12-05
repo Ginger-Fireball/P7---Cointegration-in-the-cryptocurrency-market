@@ -76,7 +76,7 @@ for (i in 1:(validation_size-5)){
 
   # Making the new model:
   Training_plus <- rbind(Training_all, Validation_all[i,])
-  Johansen_trace <- ca.jo(Training_plus, type="trace", K=Lags_optimal[i,1], ecdet="const", spec="longrun")
+  Johansen_trace <- ca.jo(Training_plus, type="trace", K=Lags_optimal[i,1]-1, ecdet="const", spec="longrun")
   Johansen_model_Var <- vec2var(Johansen_trace, r=2)
   
 
