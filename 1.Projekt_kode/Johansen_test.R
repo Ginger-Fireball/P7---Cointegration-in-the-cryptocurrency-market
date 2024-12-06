@@ -70,12 +70,12 @@ Lags_optimal <- data.frame(matrix(NA, ncol = 4, nrow = (validation_size-5)))
 
 for (i in 1:(validation_size-5)){
   
+  Training_plus <- rbind(Training_all, Validation_all[i,])
   #Optimal amount of lags
   lag_selection <- VARselect(Training_plus, lag.max = 10, type = "const")
   Lags_optimal[i , ] <- lag_selection$selection
 
   # Making the new model:
-  Training_plus <- rbind(Training_all, Validation_all[i,])
   Johansen_trace <- ca.jo(Training_plus, type="trace", K=Lags_optimal[i,1], ecdet="const", spec="longrun")
   Johansen_model_Var <- vec2var(Johansen_trace, r=2)
   
