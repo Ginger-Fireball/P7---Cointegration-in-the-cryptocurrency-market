@@ -21,21 +21,95 @@ crypto_pairs
 Engel_granger <- function(x,y){
   # Run the cointegration regression 
   cointegration_model <- lm(ts_Training_all[,x] ~ ts_Training_all[,y])
-  
   # Extract residuals from the regression
-  residuals <- resid(cointegration_model)
-  
+  residuals <- cointegration_model$residuals
+
   # Perform ADF test on residuals
   adf_result <- adf.test(residuals)
-  return(adf_result$p.value)
+  
+  
+  # Crit value
+  #adf_test <- ur.df(residuals, type = "none", lags = adf_result$parameter)
+  
+  return(c(adf_result$p.value,as.numeric(adf_result$statistic)))
 }
 
+#summary(adf_test)
 # Add a new column with the p-value using mutate()
 crypto_pairs <- crypto_pairs %>%
-  mutate(P_Value = mapply(Engel_granger, First, Second))
+  mutate(P_Value = mapply(function(x,y) Engel_granger(x,y)[1], First, Second))
 
 crypto_pairs <- crypto_pairs %>%
   mutate(P_Value_Good = (P_Value<0.05) )
+
+crypto_pairs <- crypto_pairs %>%
+  mutate(test_statistic = mapply(function(x,y) Engel_granger(x,y)[2], First, Second))
+
+crypto_Cointegrated <- crypto_pairs %>%
+  filter(P_Value_Good == TRUE)
+
+
+#THis wil pirnt ACF, The reisduals on a graph and the density for it.
+for (i in 1:4){
+  # Making the residuals
+  Responce_var <- crypto_Cointegrated[i,1]
+  Predictor_var <- crypto_Cointegrated[i,2]
+  Model_adf<-lm(ts_Training_all[,Responce_var] ~ ts_Training_all[,Predictor_var])
+  model_adf_residuals <- Model_adf$residuals
+  model_adf_residuals_df<-as.data.frame(model_adf_residuals)
+  model_adf_residuals_df$index <- 1:nrow(model_adf_residuals_df)
+  
+ 
+  # plotting and saving them as pdf's:
+  #df_ts_residuals
+  ## Plotting the residual
+  p1 <- ggplot(model_adf_residuals_df, aes(x = index, y = model_adf_residuals)) +
+        geom_line() +
+    labs(x = "Time", y = "Residuals") +
+    geom_smooth(method = "lm",formula = y ~ x, colour = "red") + #laver en lige linje kan hjælpe med trend
+    theme_minimal()
+
+    ## Plotting the acf
+  p2 <- ggAcf(model_adf_residuals) +
+    theme_minimal() +
+    geom_segment(size = 1.3) +
+    labs(title = NULL)
+ 
+  ## Plotting the residuals as histrogram
+  p3 <- ggplot(model_adf_residuals_df, aes(x = model_adf_residuals_df[,1])) +
+    geom_histogram(aes(y = ..density..), binwidth = max(model_adf_residuals_df[,1])/50, fill = "lightblue", color = "black") +
+    stat_function(
+      fun = dnorm, 
+      args = list(mean = mean(model_adf_residuals_df[,1]), sd = sd(model_adf_residuals_df[,1])), 
+     color = "red", 
+      size = 0.5
+    ) +
+    labs(x = "Residuals", y = "Density") +
+    theme_minimal()
+  
+  
+  pdf(paste0("Billeder/plot_grid_ADF_", as.character(Responce_var),"-",as.character(Predictor_var), ".pdf"))
+  pic<-plot_grid(
+    plot_grid(p3, p2, ncol = 2 ),   # Top row: p1 and p2 side by side
+    p1,                            # Second row: p3 spans the entire width
+    ncol = 1,                      # Stack top row and p3 vertically
+    rel_heights = c(1, 1)        # Adjust height proportions (optional)
+  )
+  print(pic)
+  dev.off()
+}
+
+
+
+#crypto_pairs <- crypto_pairs %>%
+#  mutate(Crit_value = mapply(function(x,y) Engel_granger(x,y)[3], First, Second) )
+
+#crypto_pairs <- crypto_pairs %>%
+#  mutate(Crit_value_Good = (test_statistic< as.numeric(-2.8) ) )
+
+#crypto_pairs <- crypto_pairs %>%
+#  mutate(Crit_value_Good = (test_statistic<Crit_value) )
+
 # Print the updated data frame
 print(crypto_pairs)
 
