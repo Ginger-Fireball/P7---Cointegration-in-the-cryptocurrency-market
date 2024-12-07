@@ -100,16 +100,6 @@ for (i in 1:4){
 }
 
 
-
-#crypto_pairs <- crypto_pairs %>%
-#  mutate(Crit_value = mapply(function(x,y) Engel_granger(x,y)[3], First, Second) )
-
-#crypto_pairs <- crypto_pairs %>%
-#  mutate(Crit_value_Good = (test_statistic< as.numeric(-2.8) ) )
-
-#crypto_pairs <- crypto_pairs %>%
-#  mutate(Crit_value_Good = (test_statistic<Crit_value) )
-
 # Print the updated data frame
 print(crypto_pairs)
 

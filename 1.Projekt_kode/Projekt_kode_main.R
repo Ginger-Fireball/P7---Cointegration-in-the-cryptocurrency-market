@@ -39,6 +39,6 @@ source("Engel_Granger.R")
 #lag_selection, ts_Traning_all
 
 
-
-
+source("johansen_test.R")
+#from this alot of global variabels come out pls do change it
 
