@@ -133,7 +133,7 @@ day_ahead_plot <- function(df, predict_choice){
 
 #### Calculating the Prediction Errors -----------------------------------------
 
-Prediction_Error(S_E)
+  Prediction_Error(S_E)
 
 Prediction_Error <- function(predict_choice){
   MAE_1 <- NULL ; MAE_2 <- NULL ; MAE_3 <- NULL ; MAE_4 <- NULL ; MAE_5 <- NULL
