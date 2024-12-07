@@ -12,10 +12,8 @@ To build the models, we first check for cointegration. This is done by making a 
 \end{tabular}
 \end{center}
 \pause
-\noindent The four cases will be abbreviated, SE, RE, ES and RS respectively. Next four VECM Models will be built using the above relations. First the function \textit{Varselect} is used to find the optimal lag order, the function evaluates it based on four criterions namely, Akaike Information Criterion, Hannan Quinn Criterion, Schwarz Criterion and Final prediction error. We have chosen to use AIC, since it theoretical is the best when predicting in the short term. The AIC scores for each combination have been plotted below.
-
-
-\begin{figure}[!ht]
+\noindent The four cases will be abbreviated, SOL\&ETH, XRP\&ETH, ETH\&SOL and XRP\&SOL respectively. Next four VECM Models will be built using the above relations. First the function \textit{Varselect} is used to find the optimal lag order, the function evaluates it based on four criterions namely, Akaike Information Criterion, Hannan Quinn Criterion, Schwarz Criterion and Final prediction error. We have chosen to use AIC, since it theoretical is the best when predicting in the short term. The AIC scores for each combination have been plotted in Figure \ref{fig:AIC_plots}. The optimal lag order for a VAR model for each combination, is found by visual interpretation of the plots in Figure \ref{fig:AIC_plots}.
+\begin{figure}[H]
   \centering
   \subfloat[][Solana \& Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/AIC_Lag_for_SE.pdf}}\quad
   \subfloat[][Ripple \& Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/AIC_Lag_for_RE.pdf}}\\
@@ -24,6 +22,7 @@ To build the models, we first check for cointegration. This is done by making a 
   \caption{AIC values for all combinations}
   \label{fig:AIC_plots}
 \end{figure}
+The lag order is chosen to be $6$, $10$, $6$ and $6$ respectively for each case.
 
 The for lags each combination are respectively . The VECM have the been made
 
