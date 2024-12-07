@@ -145,7 +145,7 @@ We define $\Gamma=I-\sum_{i=1}^{k-1}\Gamma_i$, which is used to construct the fo
 % \begin{enumerate} \label{condition_granger}
 %     \item condition says we assume that $det(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and assmue also that $det(\b{\alpha}'_{\perp}\Gamma\b{\beta}_{\perp})\neq0$ this is the same as saying $det(\Pi(z))=0$ have rank $p-r$
 % \end{enumerate}
-\noindent This insures that we do not have solutions with seasonal- or explosive roots, and that the solutions of order two or higher are avoided. The Granger Representation Theorem can now be formulated.
+\noindent When the condition above is fulfilled then there are no solutions with seasonal- or explosive roots, in unison with the fact that solutions of order two or higher are avoided. The Granger Representation Theorem can now be formulated.
 \begin{thm}{The Granger Representation Theorem}
     If $\Pi(z)$ has a unit root and Condition \ref{condition_granger} is satisfied then
     \begin{equation}\label{Granger_representation_eq_1}
@@ -225,17 +225,17 @@ Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_
     \caption{Hypotheses}
     \label{tab:Various_Hypotheses}
 \end{table}
-\noindent The case where the non-stationary process is experiencing an absence of a linear trend. The augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
+\noindent As earlier mentioned, if the process is non-stationary then there is an absence of a linear trend. The augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
 \pause
 
 The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there is $r$ or fewer cointegrating relations. 
  \newline
- The process makes it possible to conduct inferences about the number of cointegrating relations $(r)$ through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one, in the number of cointegrating vectors, improves the model, hence testing if $H_2(r)$ is in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
+ The process makes it possible to conduct inferences about the number of cointegrating relations $r$ through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one, in the number of cointegrating vectors, improves the model, hence testing if $H_2(r)$ is in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
 %The models $H(r)$ form nested sequence
 \begin{equation*}
     H(0) \subset \dots \subset H(r) \subset \dots \subset H(k),
 \end{equation*}
-where the processes $H(r)$ includes all process with cointegration equal to or less than $r$. The formulation above allows for the derivation of the likelihood ratio test for hypothesis $H(r)$ in $H(k)$. These tests can then be applied to check if prior knowledge of the number of cointegrating relations is consistent with the data or to construct an estimator of the cointegrating rank.
+where the processes $H(r)$ contains the processes with cointegration equal to or less than $r$. The formulation above allows for the derivation of the likelihood ratio test for hypothesis $H(r)$ in $H(k)$. These tests can then be applied to check if prior knowledge of the number of cointegrating relations is consistent with the data or to construct an estimator of the cointegrating rank.
 
 
 

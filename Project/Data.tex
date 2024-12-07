@@ -2,33 +2,33 @@
 This project will investigate if there exists a cointegrating relation between the four cryptocurrencies namely, Bitcoin, Ethereum, Solana and Ripple. In this chapter, we will examine the data with visual interpretation of plots and qualitative tests.
 
 \section{Data Introduction}
-The data that has been used can be found [ref].\\
-
-
-    
-
-
-\begin{figure}[!ht]
-  \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Bitcoin.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ethereum.pdf}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Solana.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ripple.pdf}}
-  \caption{First group of subfigures.}
-  \label{fig:sub1}
-\end{figure}
-A visual inspection of the data in levels reveal no trend
+The data that has been used can be found at yahoo  [ref].\\
+The data chosen for this project consists of opening prices, the daily lowest prices, the daily highest price and the closing prices all in USD for Bitcoin, Ethereum, Solana and Ripple. These have been chosen because of the amount of transaction volume and market capitalization, to evade coins that might be rug pulled and coins that are very explosive because of limited amount. The data from these Crypto currency's have been cleaned to only contain closing prices with no NA values. The data is then split into 2 with $90\%$ going towards the training data and the last $10\%$ as validation data. The training data is then used to make the model that can be foretasted. Finally the foretasted values can then be checked against the validation set to inspect the accuracy of our model. 
 \newpage
-Number of lags in our model
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{1.Projekt_kode/Billeder/Crypto_lags.pdf}
-    \caption{AIC score for different lags}
-    \label{fig:enter-label}
+\section{Leveled graph}
+For the leveled graphs the closing prices will be plotted this will be done from Start-dato to slut-dato for all 4 Crypto currencies and can be found below, this is called the leveled graph.
+
+\begin{figure}[h]
+  \centering
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Bitcoin.pdf}}\quad
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ethereum.pdf}}\\
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Solana.pdf}}\quad
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ripple.pdf}}
+  \caption{First group of subfigures.}
+  \label{graph_in _levels}
 \end{figure}
+looking at the 4 crypto currencies there are multiple similarity's for \ref{graph_in _levels} an example of this is that a,b and c all have a rise time $1000$ and forward of our training set and all four also have a somewhat low period in the middle of the data set, other similarity's can be found but we will not go into detail about all these instead the similarity's give an occasion to look at whether cointegration is possible which can be cheeked using the Johanson, and or Engle granger. Before this can be done, other tests must be made to check whether the data even can be cointegrated this is done checking for multiple things 
+\begin{enumerate}
+    \item Determining the number of lags
+    \item check it is $I(1)$ and that the differenced data is stationary 
+    \item Looking at QQ-plots
+\end{enumerate}
 
-residuals acf og histogram
-
+\section{Model Validation}
+To check whether the Data can be used for cointegration, we must first check for the number of lags this is done using the function $VARselect$ this provides us with 4 different tests the AIC,HQ,BIC and FPE. Here the AIC is chosen since it favors more complex models and give better predictions for short term prediction.
+\pause
+\subsection{check $I(1)$}
+When looking at the 
 \begin{figure}[!ht]
   \centering
   \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/plot_grid_Bitcoin.pdf}}\quad
