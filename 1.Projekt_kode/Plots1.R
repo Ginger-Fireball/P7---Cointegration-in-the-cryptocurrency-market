@@ -66,17 +66,17 @@ adf.test(ts_Training_all[, "Solana"])
 adf.test(ts_Training_all[, "Ripple"])
 
 
-# Plotting the residuals in two ways and the acf plot
+# Plotting the diff in two ways and the acf plot
 for (i in 1:4){
   # Making the residuals
-  ts_residuals <- diff(ts(Training_all[,i]))
-  df_ts_residuals<-as.data.frame(ts_residuals)
-  df_ts_residuals$x <- as.numeric(df_ts_residuals$x)
+  ts_diffed <- diff(ts(Training_all[,i]))
+  df_ts_diffed<-as.data.frame(ts_diffed)
+  df_ts_diffed$x <- as.numeric(df_ts_diffed$x)
   # plotting and saving them as pdf's:
   
   ## Plotting the residual
   pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 240,height = 100)
-  p1 <- ggplot(df_ts_residuals, aes(x = 1:length(x))) +
+  p1 <- ggplot(df_ts_diffed, aes(x = 1:length(x))) +
     geom_line(aes(y=x)) +
  labs(x = "Time", y = "Residuals") +
   theme_minimal()
@@ -84,7 +84,7 @@ for (i in 1:4){
   dev.off()
   ## Plotting the acf
   pdf(paste0("Billeder/acf_", as.character(NameCryptos[i]), ".pdf"))
-  p2 <- ggAcf(ts_residuals) +
+  p2 <- ggAcf(ts_diffed) +
   theme_minimal() +
     geom_segment(size = 1.3) +
     labs(title = NULL)
@@ -92,11 +92,11 @@ for (i in 1:4){
   dev.off()
   ## Plotting the residuals as histrogram
   pdf(paste0("Billeder/Residuals_histrogram_", as.character(NameCryptos[i]), ".pdf"))
-  p3 <- ggplot(df_ts_residuals, aes(x = x)) +
-    geom_histogram(aes(y = ..density..), binwidth = max(df_ts_residuals$x)/50, fill = "lightblue", color = "black") +
+  p3 <- ggplot(df_ts_diffed, aes(x = x)) +
+    geom_histogram(aes(y = ..density..), binwidth = max(df_ts_diffed$x)/50, fill = "lightblue", color = "black") +
     stat_function(
       fun = dnorm, 
-      args = list(mean = mean(df_ts_residuals$x), sd = sd(df_ts_residuals$x)), 
+      args = list(mean = mean(df_ts_diffed$x), sd = sd(df_ts_diffed$x)), 
       color = "red", 
       size = 0.5
     ) +
@@ -147,9 +147,9 @@ for (i in 1:4){
 #deleting nonessential global Variables------------
 rm(std_residuals)
 rm(std_residuals)
-rm(df_ts_residuals)
+rm(df_ts_diffed)
 rm(tsu_residuals)
-rm(ts_residuals)
+rm(ts_diffed)
 #rm(lag_selection)
 #rm(plot_Aic_lag)
 rm(p)
