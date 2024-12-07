@@ -189,11 +189,14 @@ Prediction_Error <- function(predict_choice){
 Training_S_E <- cbind(ts_Training_all[,"Solana"], ts_Training_all[,"Ethereum"])
 S_E_select <- VARselect(Training_S_E, lag.max = 10, type = "const")
 S_E_select
+pdf(paste0("Billeder/AIC_Lag_for_SE.pdf"), width = 240,height = 100)
 plot(S_E_select$criteria[1,])
+dev.off()
+
 
 # VECM model is build, lag = aic(value) - 1
-vecm_S_E <- VECM(Training_S_E, r=1, estim = c("2OLS"), lag = 6)
-summary(vecm_S_E)
+vecm_S_E <- VECM(Training_S_E, r=1, estim = c("2OLS"), lag = 5)
+summary(vecm_S_E) # beta = 1, -0.03250492 :::: tjek igen inden brug
 
 # 20-day-ahead predictins
 forecast_S_E <- predict(vecm_S_E, n.ahead = 20)
@@ -210,11 +213,13 @@ Prediction_Error(S_E)
 Training_R_E <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Ethereum"])
 R_E_select <- VARselect(Training_R_E, lag.max = 10, type = "const")
 R_E_select
+pdf(paste0("Billeder/AIC_Lag_for_RE.pdf"), width = 240,height = 100)
 plot(R_E_select$criteria[1,])
+dev.off()
 
 # VECM model is build, lag = aic(value) - 1
-vecm_R_E <- VECM(Training_R_E, r=1, estim = c("2OLS"), lag = 6)
-summary(vecm_R_E)
+vecm_R_E <- VECM(Training_R_E, r=1, estim = c("2OLS"), lag = 4)
+summary(vecm_R_E) # beta = 1 , -0.000267678
 
 # 20-day-ahead predictins
 forecast_R_E <- predict(vecm_R_E, n.ahead = 20)
@@ -229,11 +234,14 @@ Prediction_Error(R_E)
 Training_E_S <- cbind(ts_Training_all[,"Ethereum"], ts_Training_all[,"Solana"])
 E_S_select <- VARselect(Training_E_S, lag.max = 10, type = "const")
 E_S_select
+pdf(paste0("Billeder/AIC_Lag_for_ES.pdf"), width = 240,height = 100)
 plot(E_S_select$criteria[1,])
+dev.off()
+
 
 # VECM model is build, lag = aic(value) - 1
-vecm_E_S <- VECM(Training_E_S, r=1, estim = c("2OLS"), lag = 6)
-summary(vecm_E_S)
+vecm_E_S <- VECM(Training_E_S, r=1, estim = c("2OLS"), lag = 5)
+summary(vecm_E_S) #beta = 1 , -25.22835
 
 # 20-day-ahead predictins
 forecast_E_S <- predict(vecm_E_S, n.ahead = 20)
@@ -248,11 +256,14 @@ Prediction_Error(E_S)
 Training_R_S <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Solana"])
 R_S_select <- VARselect(Training_R_S, lag.max = 10, type = "const")
 R_S_select
+pdf(paste0("Billeder/AIC_Lag_for_RS.pdf"), width = 240,height = 100)
 plot(R_S_select$criteria[1,])
+dev.off()
+
 
 # VECM model is build, lag = aic(value) - 1
-vecm_R_S <- VECM(Training_R_S, r=1, estim = c("2OLS"), lag = 6)
-summary(vecm_R_S)
+vecm_R_S <- VECM(Training_R_S, r=1, estim = c("2OLS"), lag = 5)
+summary(vecm_R_S) #beta = 1 , -0.006285195
 
 # 20-day-ahead predictins
 forecast_R_S <- predict(vecm_R_S, n.ahead = 20)
