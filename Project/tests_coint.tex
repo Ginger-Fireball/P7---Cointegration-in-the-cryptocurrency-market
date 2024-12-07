@@ -1,27 +1,23 @@
 \chapter{Co-integration tests}
 This section is based on \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} and \cite{Engle_grang_test}.\\\\
-\noindent As explained in Chapter \ref{chap:Coint} when two non-stationary variables shares a stationary linear combination in the long run there exists a cointegration vector $\b{\beta}$. There are multiple ways to estimate the cointegration vector $\b{\beta}$ and one of them was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
+\noindent As explained in Chapter \ref{chap:Coint} when a linear combination of two non-stationary variables has a stationary long run equilibrium there also exists a cointegration vector $\b{\beta}$. During this section different ways of estimating the cointegration vector, $\b{\beta}$, will be introduced. One of these was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
 \section{Engle and Granger test}
-Engle and Granger formulated a two-step estimation technique and in this project the variables of interest are $I(1)$ and therefore this is only considered, even though sufficient theory of the general issue of $I(d)$ does exist. \\
-\indent\indent \textbf{1.}\\ 
+Engle and Granger formulated a two-step estimation technique and in this project the variables of interest are $I(1)$ and therefore this is only considered, even though sufficient theory of the general issue of $I(d)$ does exist. \\\\ 
 Firstly each time series is examined to ensure they are $I(1)$. Next we use the $I(1)$ variables e.g. $x_{1,t},x_{2,t},\ldots,x_{k,t}$ which construct the vector $\b{x}_t$ with $k$ entries. Now each time series is estimated in a regression where the other time series are regressors here shown for $x_{1,t}$:
 \begin{align*}
     x_{1,t}=\mu+z_{1,t}+\sum^k_{j=2}\beta_j x_{j,t}
 \end{align*}
-Here $z_{1,t}$ is the error term and the vector with the coefficients is given as $\b{\hat{\beta}}=[-\hat{\beta}_1,\ldots-\hat{\beta}_k]^\top$ and we know from Definition \ref{Def:Co-integrated of order d,b} that $z_t=\b{\beta}^\top \b{x}_t$ and therefore $\b{\hat{\beta}}$ is then obtained by using OLS. This leaves us with
+Here $z_{1,t}$ is the residual term from the regression. It varies from $\b{\varepsilon}$ in Chapter \ref{chap:Coint} and the vector with the coefficients is given as $\b{\hat{\beta}}=[-\hat{\beta}_1,\ldots-\hat{\beta}_k]^\top$ and we know from Definition \ref{Def:Co-integrated of order d,b} that $z_t=\b{\beta}^\top \b{x}_t$ and therefore $\b{\hat{\beta}}$ is then obtained by using OLS. This leaves us with
 \begin{align}\label{eq:z hat_t}
 \hat{z}_t=\hat{\b{\beta}}^\top \b{x}_t=-\hat{\beta}_{1}x_{1,t}-\hat{\beta}_{2}x_{2,t}-\cdots-\hat{\beta}_{k}x_{k,t}.
 \end{align}
-When having obtained $\hat{z}_t$ in \eqref{eq:z hat_t} then one must check whether $\hat{z}_t$ is $I(1)$. This can be done using the Dickey Fuller or Augmented Dickey Fuller test, but since $\hat{z}_t$ is an estimate, other critical values are needed which are found in \cite{ENGLE1987143}. A hypothesis test is then constructed:
+After obtaining $\hat{z}_t$ from \eqref{eq:z hat_t} it is necessary to verify whether $\hat{z}_t$ is $I(1)$. This can be done using the Dickey Fuller or Augmented Dickey Fuller test, but since $\hat{z}_t$ is an estimate, other critical values are needed which are found in \cite{ENGLE1987143}. A hypothesis test is then constructed:
 \begin{itemize}
 \centering
     \item[$\b{H_0}$] : No cointegration. Hence $\hat{z}_t$ is non-stationary and is therefore $I(1)$.
-    \item [$\b{H_1}$] : If the null-hypothesis is rejected then $x_1,x_2,\ldots x_k$  is cointegrated.
+    \item [$\b{H_1}$] : If the null-hypothesis is rejected then $x_1,x_2,\ldots x_k$  are cointegrated.
 \end{itemize}
-When the null hypothesis has been rejected then it is possible to proceed to the next step.
-\newline\phantomsection
-\newline
-\indent\indent \textbf{2.}\\
+When the null hypothesis has been rejected then it is possible to proceed to the next step.\\\\
 In the second step we restrict the problem to a bivariate case. Considering the two $I(1)$ variables $x_{1,t}$ and $x_{2,t}$ we construct an error correction model for each as follows:
 % \begin{align}
 %     \Delta x_{1,t}=&\psi_0+\gamma_1\hat{z}_{t-1}+\sum^K_{i=1}\psi_{1,i}\Delta x_{1,t-i}+\sum^L_{i=1}\psi_{2,i}\Delta x_{2,t-i}+\b{\varepsilon}_{1,t} \label{eq:3.2a}\\
@@ -77,7 +73,7 @@ where
 \begin{align*}
     \Gamma_i=-I+\Pi_1+\cdots+\Pi_i,\;\;\;\; i=1,\ldots,p
 \end{align*}
-where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and $(\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma)$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^\top$ is not considered anymore. By doing so the impact matrix is the coefficients of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
+where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and the parameters $\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^\top$ is not considered anymore. By doing so the impact matrix is the coefficients of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
 \noindent The maximisation of the first $p-1$ $\Gamma$ parameters is made with OLS regression of $\Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}$ which is done by isolating in \eqref{eq:Pi_enters_explicit}:
 \begin{align}
     \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p}\b{x}_{t-p}+\b{\varepsilon}_t\\
