@@ -189,7 +189,7 @@ Prediction_Error <- function(predict_choice){
 Training_S_E <- cbind(ts_Training_all[,"Solana"], ts_Training_all[,"Ethereum"])
 S_E_select <- VARselect(Training_S_E, lag.max = 10, type = "const")
 S_E_select
-pdf(paste0("Billeder/AIC_Lag_for_SE.pdf"), width = 240,height = 100)
+pdf(paste0("Billeder/AIC_Lag_for_SE.pdf"))
 plot(S_E_select$criteria[1,])
 dev.off()
 
@@ -213,7 +213,7 @@ Prediction_Error(S_E)
 Training_R_E <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Ethereum"])
 R_E_select <- VARselect(Training_R_E, lag.max = 10, type = "const")
 R_E_select
-pdf(paste0("Billeder/AIC_Lag_for_RE.pdf"), width = 240,height = 100)
+pdf(paste0("Billeder/AIC_Lag_for_RE.pdf"))
 plot(R_E_select$criteria[1,])
 dev.off()
 
@@ -234,7 +234,7 @@ Prediction_Error(R_E)
 Training_E_S <- cbind(ts_Training_all[,"Ethereum"], ts_Training_all[,"Solana"])
 E_S_select <- VARselect(Training_E_S, lag.max = 10, type = "const")
 E_S_select
-pdf(paste0("Billeder/AIC_Lag_for_ES.pdf"), width = 240,height = 100)
+pdf(paste0("Billeder/AIC_Lag_for_ES.pdf"))
 plot(E_S_select$criteria[1,])
 dev.off()
 
@@ -256,7 +256,7 @@ Prediction_Error(E_S)
 Training_R_S <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Solana"])
 R_S_select <- VARselect(Training_R_S, lag.max = 10, type = "const")
 R_S_select
-pdf(paste0("Billeder/AIC_Lag_for_RS.pdf"), width = 240,height = 100)
+pdf(paste0("Billeder/AIC_Lag_for_RS.pdf"))
 plot(R_S_select$criteria[1,])
 dev.off()
 
