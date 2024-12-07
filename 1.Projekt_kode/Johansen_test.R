@@ -3,10 +3,15 @@
 
 #### Testing for cointegration with Johansen test ------------------------------
 
-VARselect(ts_Training_all, lag.max = 10, type = "none")
+Johansen_lag_select <- VARselect(ts_Training_all, lag.max = 10, type = "none")
+Johansen_lag_select
+plot(Johansen_lag_select$criteria[1,])
 
-Johansen_trace <- ca.jo(ts_Training_all, type="trace", K=6, ecdet="const", spec="longrun")
-Johansen_eigen <- ca.jo(ts_Training_all, type="eigen", K=6, ecdet="const", spec="longrun")
+# Lag order should be one less than var lag order aka: varlag -1, the function does take
+# it into acount
+# K The lag order of the series (levels) in the VAR
+Johansen_trace <- ca.jo(ts_Training_all, type="trace", K=7, ecdet="const", spec="longrun")
+Johansen_eigen <- ca.jo(ts_Training_all, type="eigen", K=7, ecdet="const", spec="longrun")
 
 print(summary(Johansen_trace))
 print(summary(Johansen_eigen))

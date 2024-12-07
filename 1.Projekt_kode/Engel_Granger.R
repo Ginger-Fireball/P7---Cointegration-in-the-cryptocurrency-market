@@ -187,7 +187,9 @@ Prediction_Error <- function(predict_choice){
 
 #### Model building Solana ~ Ethereum ------------------------------------------
 Training_S_E <- cbind(ts_Training_all[,"Solana"], ts_Training_all[,"Ethereum"])
-VARselect(Training_S_E, lag.max = 10, type = "const")
+S_E_select <- VARselect(Training_S_E, lag.max = 10, type = "const")
+S_E_select
+plot(S_E_select$criteria[1,])
 
 # VECM model is build, lag = aic(value) - 1
 vecm_S_E <- VECM(Training_S_E, r=1, estim = c("2OLS"), lag = 6)
@@ -206,7 +208,9 @@ Prediction_Error(S_E)
 
 #### Model building Ripple ~ Ethereum ------------------------------------------
 Training_R_E <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Ethereum"])
-VARselect(Training_R_E, lag.max = 10, type = "const")
+R_E_select <- VARselect(Training_R_E, lag.max = 10, type = "const")
+R_E_select
+plot(R_E_select$criteria[1,])
 
 # VECM model is build, lag = aic(value) - 1
 vecm_R_E <- VECM(Training_R_E, r=1, estim = c("2OLS"), lag = 6)
@@ -223,7 +227,9 @@ Prediction_Error(R_E)
 
 #### Model building Ethereum ~ Solana ------------------------------------------
 Training_E_S <- cbind(ts_Training_all[,"Ethereum"], ts_Training_all[,"Solana"])
-VARselect(Training_E_S, lag.max = 10, type = "const")
+E_S_select <- VARselect(Training_E_S, lag.max = 10, type = "const")
+E_S_select
+plot(E_S_select$criteria[1,])
 
 # VECM model is build, lag = aic(value) - 1
 vecm_E_S <- VECM(Training_E_S, r=1, estim = c("2OLS"), lag = 6)
@@ -240,7 +246,9 @@ Prediction_Error(E_S)
 
 #### Model building Ripple ~ Solana --------------------------------------------
 Training_R_S <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Solana"])
-VARselect(Training_R_S, lag.max = 10, type = "const")
+R_S_select <- VARselect(Training_R_S, lag.max = 10, type = "const")
+R_S_select
+plot(R_S_select$criteria[1,])
 
 # VECM model is build, lag = aic(value) - 1
 vecm_R_S <- VECM(Training_R_S, r=1, estim = c("2OLS"), lag = 6)
