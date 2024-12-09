@@ -78,7 +78,7 @@ for (i in 1:4){
   pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 240,height = 100)
   p1 <- ggplot(df_ts_diffed, aes(x = 1:length(x))) +
     geom_line(aes(y=x)) +
- labs(x = "Time", y = "Residuals") +
+ labs(x = "Time", y = "Differenced") +
   theme_minimal()
   print(p1)
   dev.off()
@@ -100,7 +100,7 @@ for (i in 1:4){
       color = "red", 
       size = 0.5
     ) +
-    labs(x = "Residuals", y = "Density") +
+    labs(x = "Differenced", y = "Density") +
     theme_minimal()
   print(p3)
   dev.off()
