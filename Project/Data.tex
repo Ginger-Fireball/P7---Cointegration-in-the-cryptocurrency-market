@@ -17,7 +17,7 @@ For the leveled graphs the closing prices will be plotted this will be done from
   \caption{First group of subfigures.}
   \label{graph_in _levels}
 \end{figure}
-looking at the 4 crypto currencies there are multiple similarity's for \ref{graph_in _levels} an example of this is that a,b and c all have a rise time $1000$ and forward of our training set and all four also have a somewhat low period in the middle of the data set, other similarity's can be found but we will not go into detail about all these instead the similarity's give an occasion to look at whether cointegration is possible which can be cheeked using the Johanson, and or Engle granger. Before this can be done, other tests must be made to check whether the data even can be cointegrated this is done checking for multiple things 
+\noindent looking at the 4 crypto currencies there are multiple similarity's for \ref{graph_in _levels} an example of this is that a,b and c all have a rise time $1000$ and forward of our training set and all four also have a somewhat low period in the middle of the data set, other similarity's can be found but we will not go into detail about all these instead the similarity's give an occasion to look at whether cointegration is possible which can be cheeked using the Johanson, and or Engle granger. Before this can be done, other tests must be made to check whether the data even can be cointegrated this is done checking for multiple things 
 \begin{enumerate}
     \item Determining the number of lags
     \item check it is $I(1)$ and that the differenced data is stationary 
@@ -25,16 +25,17 @@ looking at the 4 crypto currencies there are multiple similarity's for \ref{grap
 \end{enumerate}
 
 \section{Model Validation}
-To check whether the Data can be used for cointegration, we must first check for the number of lags this is done using the function $VARselect$ this provides us with 4 different tests the AIC,HQ,BIC and FPE. Here the AIC is chosen since it favors more complex models and give better predictions for short term prediction.
+To check whether the Data can be used for cointegration, we must first check for the number of lags this is done using the function $VARselect$ this provides us with 4 different tests the AIC, HQ, BIC and FPE. Here the AIC is chosen since the AIC and BIC is preferred when forecasting. There are incentives for choosing both an AIC or BIC, the BIC is sometimes preferred for large sample sizes which are used in this instance but in hindsight the BIC chooses a less complicated model since it penalizes extra parameters more than the AIC. This in unison with the fact that the BIC is often advantageous when the true model is present which we can not assume leads us to believe the AIC is more efficient since the price of cryptovalutas is also influenced by external factors not included in the model \cite{AICorBIC}.
+
 \pause
 \subsection{check $I(1)$}
-When looking at the 
-\begin{figure}[!ht]
+For the data to be cointegrating it  must be non-stationary of order 1 or $I(1)$ this is checked by differencing the data doing so takes $x_t-x_{t-1}$ and gives us the diffrenced data set the is then used to plot these 3 graphs that is seen here. The first in the top left of the 4 pictures is the Histogram and checks that the data is noormally distributed so no constant is present. The second is the top right ACF function plot to check for quick decay and that no seasonality is present and looking at the plots there does not seam to be a indication that there is slow decay or seasonality so the conclusion must be that the data is stationary which is further backed up by the last picture the graph of the diffed values, that is stationary around zero. this is true for all 4 timeseries seen in the graphs below
+\begin{figure}[!h]
   \centering
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/plot_grid_Bitcoin.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ethereum.pdf}}\\
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ripple.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/plot_grid_Solana.pdf}}
-  \caption{First group of subfigures.}
-  \label{fig:sub1}
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Bitcoin.pdf}}\quad
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ethereum.pdf}}\\
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ripple.pdf}}\quad
+  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Solana.pdf}}
+  \caption{(a) Bitcoin, (b) Ethereum, (c) Ripple, (d) Solana }
 \end{figure}
+Looking at the QQ-plots it must becheked that the data does not have heavy tails

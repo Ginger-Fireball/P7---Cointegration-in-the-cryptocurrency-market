@@ -3,7 +3,7 @@ In this Chapter, the data is analyzed for cointegration relations. This will fir
 
 
 \section{Engel Granger Model Building}
-To build the models, we first check for cointegration. This is done by making a linear model of all the $12$ possible combination of the crypto currencies. In theory cointegration is not directional, but in practice one acts as the regressand and therefore we check all $12$ combinations. Hereafter it is check whether the model is $I(0)$ which is needed for it to be cointegrated, which is done be applying the \textit{adf.test} function in \textit{R}, which calculate the augmented Dickey Fuller test, to the residuals of the model. It should be noted that the ADF's critical values are different from the normal ones used. Thus to reject the null hypothesis at a corresponding $5\%$ significance level the test statistic must be less than critical value $find hvad den skal være$. This results in the following four pair wise currencies being $I(0)$ meaning they are cointegrating. 
+To build the models, we first check for cointegration. This is done by making a linear model of all the $12$ possible combination of the crypto currencies. In theory cointegration is not directional, but in practice one acts as the regressand and therefore we check all $12$ combinations. Hereafter it is checked whether the model is $I(0)$ which is needed for it to be cointegrated, which is done be applying the \textit{adf.test} function in \textit{R}, which calculate the augmented Dickey Fuller test, to the residuals of the model. It should be noted that the ADF's critical values are different from the normal ones used. Thus to reject the null hypothesis at a corresponding $5\%$ significance level the test statistic must be less than critical value $find hvad den skal være$. This results in the following four pair wise currencies being $I(0)$ meaning they are cointegrating. 
 \pause
 \begin{center}
 \begin{tabular}{cccc}
@@ -22,11 +22,56 @@ To build the models, we first check for cointegration. This is done by making a 
   \caption{AIC values for all combinations}
   \label{fig:AIC_plots}
 \end{figure}
-The lag order is chosen to be $6$, $10$, $6$ and $6$ respectively for each case.
+The lag order is chosen to be $VAR(6)$, $VAR(10)$, $VAR(6)$ and $VAR(6)$ respectively for each case. With the lag order determined. We can now build the VECM, where the lag order is simply one less than the $VAR$ counterpart.
 
-The for lags each combination are respectively . The VECM have the been made
+The VECM is specified as follows, represented as a system of equations:\\
+
+\begin{center}
+    \textbf{SOL \& ETH}
+\end{center}
+$\text{Cointegrating Equation:} \quad  \beta = 1, \quad -0.03250492 \cdot \text{Ethereum} \\
+\text{Equations:}$
+\begin{align*}
+\Delta S_t &= -0.0073 \cdot ECT_{t-1} + 0.0438 \cdot S_{t-1} - 0.0325 \cdot E_{t-1} - 0.0151 \cdot S_{t-2} - 0.0961 \cdot E_{t-2} + \dots + \varepsilon_{S_t} \\
+\Delta E_t &= -0.0516 \cdot ECT_{t-1} - 1.6153 \cdot E_{t-1} + 1.8980 \cdot E_{t-4} + \dots + \varepsilon_{E_t} \\
+ECT_{t-1} &= S_{t-1} - 0.0325 \cdot E_{t-1}
+\end{align*}
+%
+\begin{center}
+    \textbf{XRP \& ETH}
+\end{center}
+$\text{Cointegrating Equation:} \quad  \beta = 1, \quad -0.000267678 \cdot \text{Ethereum} \\
+\text{Equations:} $
 
 
+%
+\begin{center}
+   \textbf{ETH \& SOL}
+\end{center}
+$\text{Cointegrating Equation:} \quad  \beta = 1, \quad -25.22835 \cdot \text{Solana} \\
+\text{Equations:} $
+
+
+%
+\begin{center}
+    \textbf{XRP \& SOL}
+\end{center}
+$\text{Cointegrating Equation:} \quad  \beta = 1, \quad -0.006285195 \cdot \text{Solana}\\
+\text{Equations:} $
+
+
+%
+
+Where:
+\begin{itemize}
+    \item \(\Delta \text{Solana}_t\) and \(\Delta \text{Ethereum}_t\) represent the differenced series.
+    \item \(\text{ECT}_{t-1}\) is the error correction term, representing deviations from the long-term equilibrium:
+    \[
+    \text{ECT}_{t-1} = \text{Solana}_{t-1} - 0.0325 \cdot \text{Ethereum}_{t-1}
+    \]
+    \item Coefficients are reported with their corresponding standard errors (not shown for clarity here).
+    \item \(\epsilon_{\text{Solana}, t}\) and \(\epsilon_{\text{Ethereum}, t}\) are error terms.
+\end{itemize}
 
 Beta coefficients for the four models:
 \begin{table}[]
@@ -37,13 +82,32 @@ Beta coefficients for the four models:
     \end{tabular}
     \caption{Caption}
     \label{tab:my_label}
-\end{table}
+\end{table}  
 
 
 
 
+\section{Johansen Model Building}
+One of the advantages using the Johansen test, is its ability to detect cointegration among multiple time series at a time. This means that we are not only able to look at pairwise integrated series. We will throughout this secction both be using the trace test statistic explained in Section \cite{Johansen_test} and the Maximal Eigenvalue test. \\\\
+The overall difference between the two tests is that the Trace test tests has $H_0$ saying there are at max $r$ cointegration relations versus $H_1$ stating the presence of more than $r$ cointegrating relations and has the statistic described in Section \cite{Johansen_test} \eqref{eq:lrmax_coint_r} where the Maximal Eigenvalue test has $H_0$ stating the presence of $r$ cointegrating relations whereas $H_1$ indicates the presence of $r+1$ cointegrating relations and has the test statistic $-Tln(1-\lambda_{r_0+1})$ meaning it tests each eigenvalue's influence individually.\\
+Generally there is little to no difference between the results achieved through the two tests. The Trace test although are more likely to dismiss $H_0$ even though it might be true hence having higher probability of type 1 errors. At the same time the Trace test is more efficient in finding cointegration relations when they do exist and is more advantageous when multiple cointegration relations exists. Since both tests are beneficial in different scenarios it is preferable to perform both to see whether the comply with each other, and if not, examine further why this could be the case \citep{johansentestdifferences}.\\\\
+
+\subsection{Trace test}
+From earlier 
 
 
 
 
+\section{Forecast}
+To evaluate models ability to correctly forecast, we first look at a plot of a single 20-day-ahead prediction. Secondly an 5-day-ahead forecast has been made iteratively, with each iteration adding another day to the training data set until the entire validation data set has been predicted upon. These predictions will be evaluated using the three different means mean absolute value, root mean square error and mean absolute percentage error:
+\begin{align*}
+    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|, \quad \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}, \quad \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100
+\end{align*}
+\textbf{Engel Granger}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}

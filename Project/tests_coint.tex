@@ -42,7 +42,7 @@ As in the section  above, where we introduced the procedure of the Engle-Granger
 \end{align}
 Johansen has then shown that the likelihood-ratio test statistic of the null hypothesis \ref{tab:Various_Hypotheses}
 \end{comment}
-\section{Johansen test}
+\section{Johansen test}\label{sect:johansen test}
 This section is based on \cite{Johansen_test}.\\
 As in the section above, where we introduced the procedure of the Engle-Granger test and how to use it for cointegration testing, this section also regards a cointegration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise cointegration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
 \begin{align}\label{eq:var_p_johansen}
@@ -173,7 +173,7 @@ Now it is possible to rewrite \eqref{eq:lr_test_stat} to obtain \eqref{eq:lrmax_
 ln\left(\mathcal{Q}(H(r)|H(k))^{-2/T}\right)&=ln\left(\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}\right)\\
     \frac{-2}{T}ln\left(\mathcal{Q}(H(r)|H(k))\right)&=ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\\
     -2ln\left(\mathcal{Q}(H(r)|H(k))\right)&=T\left( ln\left(|\hat{S}_{0,0}| \sum_{i=1}^r (1-\hat{\lambda_i})\right)-ln\left(|\hat{S}_{0,0}|\sum_{i=1}^k (1-\hat{\lambda_i})\right)\right)\\
-    -2ln\left(\mathcal{Q}(H(r)|H(k))\right)&=-T\sum_{i=r+1}^kln((1-\hat{\lambda}_i))
+    -2ln\left(\mathcal{Q}(H(r)|H(k))\right)&=-T\sum_{i=r+1}^kln(1-\hat{\lambda}_i)
 \end{align*}
 \end{bevis} 
 
