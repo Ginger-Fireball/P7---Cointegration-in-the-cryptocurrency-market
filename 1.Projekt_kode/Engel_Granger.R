@@ -115,8 +115,8 @@ day_ahead_plot <- function(df, predict_choice){
     forecast_df <- data.frame(
       Time = 1:20,
       Price <- df[i],    
-      Pricein_Lower <- df[predict_choice[i]] - (0),  # 1.96
-      Pricein_Upper <- df[predict_choice[i]] + (0), # 1.96
+      Pricein_Lower <- df[predict_choice[i]] ,  # 1.96
+      Pricein_Upper <- df[predict_choice[i]] , # 1.96
       Actual_prices <- Validation_all[predict_choice[i]][1:20,]
     )
     colnames(forecast_df) <- c("Time", "Price", "Pricein_Lower", "Pricein_Upper", "Actual_prices")
@@ -133,6 +133,8 @@ day_ahead_plot <- function(df, predict_choice){
   }
 }
 
+
+#
 #### Calculating the Prediction Errors -----------------------------------------
 
   Prediction_Error(S_E)
@@ -242,6 +244,9 @@ Prediction_Error <- function(predict_choice){
   MAPE_total
   round(MAPE_total, digits = 4)
   
+  Ratio <- RMSE_total/MAE_total
+  print("RMSE/MAE Ratio")
+  print(Ratio)
   print("MAE")
   print(MAE_total)
   print("RMSE")
