@@ -46,6 +46,7 @@ rm(lag_selection)
 #### Plotting 20 day ahead predictions -----------------------------------------
 day_ahead_plot <- function(df, predict_choice){
   for (i in 1:2){
+    pdf(paste0("Billeder/20_day_ahead_plot_", predict_choice[1],predict_choice[2],as.character(i), ".pdf"))
     # Producing data frame for plots
     forecast_df <- data.frame(
       Time = 1:20,
@@ -64,6 +65,7 @@ day_ahead_plot <- function(df, predict_choice){
             theme_minimal())
     plot(p)
     rm(p)
+    dev.off()
   }
 }
 
