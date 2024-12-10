@@ -108,36 +108,129 @@ rm(lag_selection)
 #------------------------------- Functions used -------------------------------#
 
 #### Plotting 20 day ahead predictions -----------------------------------------
-day_ahead_plot <- function(df, predict_choice){
-  for (i in 1:2){
-    pdf(paste0("Billeder/20_day_ahead_plot_", predict_choice[1],predict_choice[2],as.character(i), ".pdf"))
-    # Producing data frame for plots
-    forecast_df <- data.frame(
-      Time = 1:20,
-      Price <- df[i],    
-      Pricein_Lower <- df[predict_choice[i]] ,  # 1.96
-      Pricein_Upper <- df[predict_choice[i]] , # 1.96
-      Actual_prices <- Validation_all[predict_choice[i]][1:20,]
-    )
-    colnames(forecast_df) <- c("Time", "Price", "Pricein_Lower", "Pricein_Upper", "Actual_prices")
-    # Plot Price Predictions
-    p <- (ggplot(forecast_df, aes(x = Time)) +
-            geom_line(aes(y = Price), color = "blue") +
-            geom_line(aes(y=Actual_prices), color = "red") +
-            geom_ribbon(aes(ymin = Pricein_Lower, ymax = Pricein_Upper), fill = "blue", alpha = 0.2) +
-            labs(title = paste("20-Day", as.character(predict_choice[i]), "Forecast"), x = "Days Ahead", y = "Value") +
-            theme_minimal())
-    plot(p)
-    rm(p)
-    dev.off()
-  }
+day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
+  
+  
+  
+  ts_Training_coin<-ts(Data_train)
+  Training_coins <- cbind(ts_Training_coin[,coin1], ts_Training_coin[,coin2])
+  coins_select <- VARselect(Training_coins, lag.max = 10, type = "const")
+  pdf(paste0("Billeder/AIC_Lag_for",as.character(coin1),"_",as.character(coin2),".pdf"))
+  plot(coins_select$criteria[1,])
+  dev.off()
+  
+  # VECM model is build, lag = aic(value) - 1
+  vecm_coins <- VECM(Training_coins, r=1, estim = c("2OLS"), lag = ((as.numeric(coins_select$selection[1])-1)))
+  #summary(vecm_coins) #if needed
+  forecast_coins <- predict(vecm_coins, n.ahead = 20)
+  forecast_coins_df <- data.frame(forecast_coins)
+  colnames(forecast_coins_df) <- c(coin1 , coin2)
+  #pull values out for prediction intervals
+  forecasted_Coin1<-forecast_coins_df[,1]
+  forecasted_Coin2<-forecast_coins_df[,2]
+  #Confidence interval
+  residuals_vecm <- residuals(vecm_coins)
+  # Estimate the standard errors for each series (use standard deviation of residuals)
+  h<-1:20
+  se_coin1 <- sd(residuals_vecm[, 1])*sqrt(h)
+  se_coin2 <- sd(residuals_vecm[, 2])*sqrt(h)
+  z_score <- qnorm(0.975)  # 1.96 for 95% CI
+  
+  # Confidence intervals for Solana
+  lower_coin1 <- forecasted_Coin1 - z_score * se_coin1
+  upper_coin1 <- forecasted_Coin1 + z_score * se_coin1
+  
+  # Confidence intervals for Ethereum
+  lower_coin2 <- forecasted_Coin2 - z_score * se_coin2
+  upper_coin2 <- forecasted_Coin2 + z_score * se_coin2
+  
+  # Combine forecasts and CI into a data frame
+  result_with_confi <- data.frame(
+    Period = 1:20,
+    Coin1_Forecast = forecasted_Coin1,
+    Lower_Coin1 = lower_coin1,
+    Upper_Coin1 = upper_coin1,
+    Coin2_Forecast = forecasted_Coin2,
+    Lower_Coin2 = lower_coin2,
+    Upper_Coin2 = upper_coin2
+  )
+  #Giving actual values for the coins
+  result_with_confi<- result_with_confi %>%
+    mutate(actual_Coin1=head(Data_vali[,coin1],n = 20))
+  result_with_confi<- result_with_confi %>%
+    mutate(actual_Coin2=head(Data_vali[,coin2],n = 20))
+  #making ekstra for color change in graph
+  result_with_confi<- result_with_confi %>%
+    mutate(actual_Coin1_1=actual_Coin1)
+  
+  result_with_confi<- result_with_confi %>%
+    mutate(actual_Coin2_1=actual_Coin2)
+  
+  historical_data <- data.frame(
+    Period = -10:0,  # Example: Historical periods
+    actual_Coin1 = tail(Data_train[,coin1],n = 11),
+    actual_Coin2 = tail(Data_train[,coin2],n = 11)
+  )
+  
+  #For the first coin
+  result_with_coin1 <- result_with_confi%>%
+    subset(select = c(Period,Coin1_Forecast,Lower_Coin1,Upper_Coin1,actual_Coin1,actual_Coin1_1))
+  history_with_coin1 <- historical_data%>%
+    subset(select = c(Period,actual_Coin1))
+  # Assign the same value to the entire 11th row
+  result_with_coin1<-rbind(history_with_coin1$actual_Coin1[11],result_with_coin1)
+  result_with_coin1[1,"Period" ] <- 0
+  
+  #for the second coin
+  result_with_coin2 <- result_with_confi%>%
+    subset(select = c(Period,Coin2_Forecast,Lower_Coin2,Upper_Coin2,actual_Coin2,actual_Coin2_1))
+  history_with_coin2 <- historical_data%>%
+    subset(select = c(Period,actual_Coin2))
+  # Assign the same value to the entire 11th row
+  result_with_coin2<-rbind(history_with_coin2$actual_Coin2[11],result_with_coin2)
+  result_with_coin2[1,"Period" ] <- 0
+  
+  
+  pdf(paste0("Billeder/20_day_ahed_",as.character(coin1),"_from_",as.character(coin1),"_",as.character(coin2),".pdf"))
+  
+  p2<-ggplot() +
+    # Plot historical data (1st geom_line)
+    geom_line(data = history_with_coin1, aes(x = Period, y = actual_Coin1), color = "black") +  # Historical actual data
+    # Plot forecasted data (2nd geom_line)
+    geom_line(data = result_with_coin1, aes(x = Period, y = Coin1_Forecast), color = "blue") +  # Forecasted values
+    # Plot actual values after Period = 0 (3rd geom_line)
+    geom_line(data = result_with_coin1, aes(x = Period, y = actual_Coin1), color = "red") +  # Actual after forecasted period
+    # Confidence intervals for forecasted data
+    geom_ribbon(data = result_with_coin1, aes(x = Period, ymin = Lower_Coin1, ymax = Upper_Coin1), fill = "blue", alpha = 0.2) + 
+    # Labels and theme
+    labs(title = paste0("Forecast for ", coin1, " with Confidence Intervals"),
+         x = "Period", y = "Forecasted Value") +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5))
+  print(p2)
+  dev.off()
+  
+  pdf(paste0("Billeder/20_day_ahed_",as.character(coin2),"_from_",as.character(coin1),"_",as.character(coin2),".pdf"))
+  p3<-ggplot() +
+    # Plot historical data (1st geom_line)
+    geom_line(data = history_with_coin2, aes(x = Period, y = actual_Coin2), color = "black") +  # Historical actual data
+    # Plot forecasted data (2nd geom_line)
+    geom_line(data = result_with_coin2, aes(x = Period, y = Coin2_Forecast), color = "blue") +  # Forecasted values
+    # Plot actual values after Period = 0 (3rd geom_line)
+    geom_line(data = result_with_coin2, aes(x = Period, y = actual_Coin2), color = "red") +  # Actual after forecasted period
+    # Confidence intervals for forecasted data
+    geom_ribbon(data = result_with_coin2, aes(x = Period, ymin = Lower_Coin2, ymax = Upper_Coin2), fill = "blue", alpha = 0.2) + 
+    # Labels and theme
+    labs(title = paste0("Forecast for ", coin2, " with Confidence Intervals"),
+         x = "Period", y = "Forecasted Value") +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5))
+  print(p3)
+  dev.off()
 }
-
-
-#
 #### Calculating the Prediction Errors -----------------------------------------
 
-  Prediction_Error(S_E)
+  
 
 Prediction_Error <- function(predict_choice){
   MAE_1 <- NULL ; MAE_2 <- NULL ; MAE_3 <- NULL ; MAE_4 <- NULL ; MAE_5 <- NULL
@@ -244,9 +337,6 @@ Prediction_Error <- function(predict_choice){
   MAPE_total
   round(MAPE_total, digits = 4)
   
-  Ratio <- RMSE_total/MAE_total
-  print("RMSE/MAE Ratio")
-  print(Ratio)
   print("MAE")
   print(MAE_total)
   print("RMSE")
@@ -257,92 +347,25 @@ Prediction_Error <- function(predict_choice){
 
 
 #### Model building Solana ~ Ethereum ------------------------------------------
-Training_S_E <- cbind(ts_Training_all[,"Solana"], ts_Training_all[,"Ethereum"])
-S_E_select <- VARselect(Training_S_E, lag.max = 10, type = "const")
-S_E_select
-pdf(paste0("Billeder/AIC_Lag_for_SE.pdf"))
-plot(S_E_select$criteria[1,])
-dev.off()
-
-
-# VECM model is build, lag = aic(value) - 1
-vecm_S_E <- VECM(Training_S_E, r=1, estim = c("2OLS"), lag = 5)
-summary(vecm_S_E) # beta = 1, -0.03250492 :::: tjek igen inden brug
-
-# 20-day-ahead predictins
-forecast_S_E <- predict(vecm_S_E, n.ahead = 20)
-forecast_S_E_df <- data.frame(forecast_S_E)
-colnames(forecast_S_E_df) <- c("Solana" , "Ethereum")
-S_E <- c("Solana", "Ethereum") 
-
-day_ahead_plot(forecast_S_E_df, S_E)
+R_S <- c("Ripple", "Solana")
+day_ahead_plot(Training_all,Validation_all,"Solana","Ethereum")
 Prediction_Error(S_E)
 
 
 
 #### Model building Ripple ~ Ethereum ------------------------------------------
-Training_R_E <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Ethereum"])
-R_E_select <- VARselect(Training_R_E, lag.max = 10, type = "const")
-R_E_select
-pdf(paste0("Billeder/AIC_Lag_for_RE.pdf"))
-plot(R_E_select$criteria[1,])
-dev.off()
-
-# VECM model is build, lag = aic(value) - 1
-vecm_R_E <- VECM(Training_R_E, r=1, estim = c("2OLS"), lag = 4)
-summary(vecm_R_E) # beta = 1 , -0.000267678
-
-# 20-day-ahead predictins
-forecast_R_E <- predict(vecm_R_E, n.ahead = 20)
-forecast_R_E_df <- data.frame(forecast_R_E)
-colnames(forecast_R_E_df) <- c("Ripple" , "Ethereum")
-R_E <- c("Ripple", "Ethereum") 
-
-day_ahead_plot(forecast_R_E_df, R_E)
+R_S <- c("Ripple","Ethereum")
+day_ahead_plot(Training_all,Validation_all,"Ripple","Ethereum")
 Prediction_Error(R_E)
 
 #### Model building Ethereum ~ Solana ------------------------------------------
-Training_E_S <- cbind(ts_Training_all[,"Ethereum"], ts_Training_all[,"Solana"])
-E_S_select <- VARselect(Training_E_S, lag.max = 10, type = "const")
-E_S_select
-pdf(paste0("Billeder/AIC_Lag_for_ES.pdf"))
-plot(E_S_select$criteria[1,])
-dev.off()
-
-
-# VECM model is build, lag = aic(value) - 1
-vecm_E_S <- VECM(Training_E_S, r=1, estim = c("2OLS"), lag = 5)
-summary(vecm_E_S) #beta = 1 , -25.22835
-
-# 20-day-ahead predictins
-forecast_E_S <- predict(vecm_E_S, n.ahead = 20)
-forecast_E_S_df <- data.frame(forecast_E_S)
-colnames(forecast_E_S_df) <- c("Ethereum" , "Solana")
-E_S <- c("Ethereum", "Solana") 
-
-day_ahead_plot(forecast_E_S_df, E_S)
+R_S <- c("Ethereum","Solana")
+day_ahead_plot(Training_all,Validation_all,"Ethereum","Solana")
 Prediction_Error(E_S)
 
 #### Model building Ripple ~ Solana --------------------------------------------
-Training_R_S <- cbind(ts_Training_all[,"Ripple"], ts_Training_all[,"Solana"])
-R_S_select <- VARselect(Training_R_S, lag.max = 10, type = "const")
-R_S_select
-pdf(paste0("Billeder/AIC_Lag_for_RS.pdf"))
-plot(R_S_select$criteria[1,])
-dev.off()
-
-
-# VECM model is build, lag = aic(value) - 1
-vecm_R_S <- VECM(Training_R_S, r=1, estim = c("2OLS"), lag = 5)
-summary(vecm_R_S) #beta = 1 , -0.006285195
-
-# 20-day-ahead predictins
-forecast_R_S <- predict(vecm_R_S, n.ahead = 20)
-forecast_R_S_df <- data.frame(forecast_R_S)
-colnames(forecast_R_S_df) <- c("Ripple" , "Solana")
 R_S <- c("Ripple", "Solana") 
-
-day_ahead_plot(forecast_R_S_df, R_S)
+day_ahead_plot(Training_all,Validation_all,"Ripple", "Solana")
 Prediction_Error(R_S)
 
 

@@ -78,7 +78,7 @@ for (i in 1:4){
   pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 240,height = 100)
   p1 <- ggplot(df_ts_diffed, aes(x = 1:length(x))) +
     geom_line(aes(y=x)) +
- labs(x = "Time", y = "Residuals") +
+ labs(x = "Time", y = "Differenced") +
   theme_minimal()
   print(p1)
   dev.off()
@@ -100,7 +100,7 @@ for (i in 1:4){
       color = "red", 
       size = 0.5
     ) +
-    labs(x = "Residuals", y = "Density") +
+    labs(x = "Differenced", y = "Density") +
     theme_minimal()
   print(p3)
   dev.off()
@@ -139,13 +139,12 @@ for (i in 1:4){
   std_residuals <- (tsu_residuals - mean(tsu_residuals)) / sd(tsu_residuals)
 
   # QQ-plot
-  qqnorm(std_residuals, main = "" , ylab = "Standardized Residuals")
+  qqnorm(std_residuals, main = "" , ylab = "Standardized Differenced")
   qqline(std_residuals, col = "black", lwd = 2)  
   dev.off()
 }
 
 #deleting nonessential global Variables------------
-rm(std_residuals)
 rm(std_residuals)
 rm(df_ts_diffed)
 rm(tsu_residuals)
