@@ -183,7 +183,9 @@ MAPE_total
 round(MAPE_total, digits = 4)
 
 
-
+Ratio <- RMSE_total/MAE_total
+print("RMSE/MAE Ratio")
+print(Ratio)
 
 
 
