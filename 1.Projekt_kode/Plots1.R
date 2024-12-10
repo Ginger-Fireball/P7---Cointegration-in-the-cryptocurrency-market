@@ -139,13 +139,12 @@ for (i in 1:4){
   std_residuals <- (tsu_residuals - mean(tsu_residuals)) / sd(tsu_residuals)
 
   # QQ-plot
-  qqnorm(std_residuals, main = "" , ylab = "Standardized Residuals")
+  qqnorm(std_residuals, main = "" , ylab = "Standardized Differenced")
   qqline(std_residuals, col = "black", lwd = 2)  
   dev.off()
 }
 
 #deleting nonessential global Variables------------
-rm(std_residuals)
 rm(std_residuals)
 rm(df_ts_diffed)
 rm(tsu_residuals)
