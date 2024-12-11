@@ -17,11 +17,14 @@ print(summary(Johansen_trace))
 print(summary(Johansen_eigen))
 
 
+
 #### Model building ------------------------------------------------------------
 # Build the model
-Johansen_model <- VECM(ts_Training_all, lag = 6, r = 2, estim = ("ML"))
+Johansen_model <- cajorls(Johansen_trace, r = 2, reg.number =  4)
+Johansen_model
 # Converting into VAR system
 Johansen_model_Var <- vec2var(Johansen_trace, r=2)
+Johansen_model_Var
 
 ## Diagnostic Tests ##
 # Serial Correlation
