@@ -33,7 +33,7 @@ For cointegration relations to exist, each time series must be $I(1)$. Thus each
 \noindent The first of the three graphs in the top left is a histogram, from which it can be inferred that the data is normally distributed with mean zero. The Second plot is an ACF plot indicating stationary data. In the last plot, the data seems to fluctuate evenly around zero, once again indicating stationary data.
 Since Both the graphs and the test indicates stationary data. It can be concluded that all four time series are each individually $I(1)$.\\
 
-\noindent Next the residuals of the optimal $VAR$ model will be examined. First the R function \textit{VARselect} will be used on the differenced data, which gives the optimal lag order based four different criteria namely AIC, HQ, BIC and FPE. Here the AIC has been chosen, and it is computed with
+\noindent Next the residuals of the optimal $VAR$ model will be examined. First the R function \textit{VARselect} will be used on the differenced data, which gives the optimal lag order based on four different criteria namely AIC, HQ, BIC and FPE. Here the AIC has been chosen, and it is computed with
 \begin{equation*}
     AIC=2k-2ln(L)
 \end{equation*}
