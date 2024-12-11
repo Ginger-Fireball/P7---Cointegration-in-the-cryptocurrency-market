@@ -71,6 +71,11 @@ ts_Training_all <- ts(Training_all)
 # Making VAR model 
 Var_lag <- VARselect(diff(ts_Training_all), lag.max = 10, type = "none")
 Var_lag
+
+pdf(paste0("Billeder/AIC_diffed_VAR.pdf"))
+plot(Var_lag$criteria["AIC(n)",], ylab = "AIC score", xlab = "lag order")
+dev.off()
+
 VAR_lag9 <- VAR(diff(ts_Training_all), p = 9)
 VAR_lag9
 
