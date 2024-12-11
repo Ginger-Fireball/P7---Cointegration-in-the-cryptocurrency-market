@@ -1,4 +1,4 @@
-#levels---------------
+#I(1) and stationary----------------- 
 # Plotting prices in levels, with each Crypto having it's own plot
 for (i in 1:4) {
   # Open pdf device
@@ -19,31 +19,6 @@ for (i in 1:4) {
   dev.off()
 }
 
-
-
-#lags----------------------
-
-#Number of lags in our model
-lag_selection <- VARselect(Training_all, lag.max = 10, type = "const")
-
-print(lag_selection$selection)
-
-plot_Aic_lag<-as.data.frame(t(lag_selection$criteria))
-
-pdf("Billeder/Crypto_lags.pdf")
-
-pic<-ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
-       y = plot_Aic_lag[,1] ) +
-  geom_point(aes(y = plot_Aic_lag[,1], colour = "darkred"),size = 2) +
-  labs(x = "Lags", y = "AIC score") + 
-  theme_minimal()+ 
-  theme(legend.position = "none") 
-print(pic)
-dev.off()
-#we use AIC
-
-
-#I(1) and stationary----------------- 
 
 
 #to check if they are stationary  with Argmented dickifuller test
@@ -104,6 +79,99 @@ for (i in 1:4){
   print(pic)
   dev.off()
 }
+
+############################ Check error terms are good--------------
+
+#Number of lags in our model
+lag_selection <- VARselect(diff(ts_Training_all), lag.max = 10, type = "const")
+
+print(lag_selection$selection)
+
+plot_Aic_lag<-as.data.frame(t(lag_selection$criteria))
+
+pdf("Billeder/Crypto_lags.pdf")
+
+pic<-ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
+            y = plot_Aic_lag[,1] ) +
+  geom_point(aes(y = plot_Aic_lag[,1], colour = "darkred"),size = 2) +
+  labs(x = "Lags", y = "AIC score") + 
+  theme_minimal()+ 
+  theme(legend.position = "none") 
+print(pic)
+dev.off()
+VAR_lag9 <- VAR(diff(ts_Training_all), p = as.numeric(lag_selection$selection[1]))
+#we use AIC
+
+Residuals_BTC <- residuals(VAR_lag9$varresult$Bitcoin)
+Residuals_ETH <- residuals(VAR_lag9$varresult$Ethereum)
+Residuals_XRP <- residuals(VAR_lag9$varresult$Ripple)
+Residuals_SOL <- residuals(VAR_lag9$varresult$Solana)
+Name_Residuals_Cryptos<-c("Residuals_BTC","Residuals_ETH","Residuals_XRP","Residuals_SOL")
+
+
+
+# Ljung-box test
+Box.test(Residuals_BTC, lag = 9, type = "Ljung-Box")
+Box.test(Residuals_ETH, lag = 9, type = "Ljung-Box")
+Box.test(Residuals_XRP, lag = 9, type = "Ljung-Box")
+Box.test(Residuals_SOL, lag = 9, type = "Ljung-Box")
+
+i<-"Residuals_BTC"
+for (i in Name_Residuals_Cryptos){
+  # Making the residuals
+  df<-as.data.frame(get("Residuals_BTC"))
+  colnames(df)<-i
+  # plotting and saving them as pdf's:
+  
+  ## Plotting the residual
+  #pdf(paste0("Billeder/Residuals_", as.character(NameCryptos[i]), ".pdf"),width = 240,height = 100)
+  p1 <- ggplot(df, aes(x = 1:length(Residuals_BTC))) +
+    geom_line(aes(y=Residuals_BTC)) +
+    labs(x = "Time", y = "Residuals") +
+    theme_minimal()
+  print(p1)
+  #dev.off()
+  ## Plotting the acf
+  #pdf(paste0("Billeder/acf_", as.character(i), ".pdf"))
+  p2 <- ggAcf(df) +
+    theme_minimal() +
+    geom_segment(size = 1.3) +
+    labs(title = NULL)
+  print(p2)
+  #dev.off()
+  ## Plotting the residuals as histrogram
+  #pdf(paste0("Billeder/Residuals_histrogram_", as.character(NameCryptos[i]), ".pdf"))
+  p3 <- ggplot(df, aes(x = Residuals_BTC)) +
+    geom_histogram(aes(y = ..density..), binwidth = max(Residuals_BTC)/50, fill = "lightblue", color = "black") +
+    stat_function(
+      fun = dnorm, 
+      args = list(mean = mean(Residuals_BTC), sd = sd(Residuals_BTC)), 
+      color = "red", 
+      size = 0.5
+    ) +
+    labs(x = "Residuals", y = "Density") +
+    theme_minimal()
+  print(p3)
+  dev.off()
+  
+  
+  pdf(paste0("Billeder/plot_grid_Residuals", as.character(i), ".pdf"))
+  pic<-plot_grid(
+    plot_grid(p3, p2, ncol = 2 ),   # Top row: p1 and p2 side by side
+    p1,                            # Second row: p3 spans the entire width
+    ncol = 1,                      # Stack top row and p3 vertically
+    rel_heights = c(1, 1)        # Adjust height proportions (optional)
+  )
+  print(pic)
+  dev.off()
+}
+
+
+
+
+
+
+
 
 
 
