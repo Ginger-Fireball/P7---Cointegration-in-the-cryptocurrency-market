@@ -67,6 +67,8 @@ for (i in 1:4){
   Johan_forecasts_df[1,"Time" ] <- 0
   
   # Plot Price Predictions
+  pdf(paste0("Billeder/20_day_ahead_",as.character(crypto_now[i]),"_from_johanson.pdf"))
+  
   p <- (ggplot() +
     geom_line(data = historical_data, aes(x = Time, y = actual_data), color = "black") +
     geom_line(data = Johan_forecasts_df, aes(x = Time, y = Price), color = "blue") +
@@ -75,6 +77,7 @@ for (i in 1:4){
     labs(title = paste("20-Day", as.character(NameCryptos[i]), "Forecast"), x = "Days Ahead", y = "Value") +
     theme_minimal())
   plot(p)
+  dev.off()
   rm(p)
 }
 
