@@ -104,18 +104,25 @@ normality.test(VAR_lag9)
 
 
 # Create the QQ-plot
+pdf(paste0("Billeder/QQ-Plot_of_Bitcoin_Residuals_plot.pdf"))
 qqnorm(Residuals_BTC, main = "QQ-Plot of Bitcoin Residuals")
 qqline(Residuals_BTC, col = "red", lwd = 2)
+dev.off()
 
+pdf(paste0("Billeder/QQ-Plot_of_Ethereum_Residuals_plot.pdf"))
 qqnorm(Residuals_ETH, main = "QQ-Plot of Ethereum Residuals")
 qqline(Residuals_ETH, col = "red", lwd = 2)
+dev.off()
 
+pdf(paste0("Billeder/QQ-Plot_of_Ripple_Residuals_plot.pdf"))
 qqnorm(Residuals_XRP, main = "QQ-Plot of Ripple Residuals")
 qqline(Residuals_XRP, col = "red", lwd = 2)
+dev.off()
 
+pdf(paste0("Billeder/QQ-Plot_of_Solana_Residuals_plot.pdf"))
 qqnorm(Residuals_SOL, main = "QQ-Plot of Solana Residuals")
 qqline(Residuals_SOL, col = "red", lwd = 2)
-
+dev.off()
 
 #Removes all extra global variables so it doesn't get to crowded
 rm(df)
