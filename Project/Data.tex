@@ -25,12 +25,11 @@ For the leveled graphs the closing prices will be plotted this will be done from
 \end{enumerate}
 
 \section{Model Validation}
-To check whether the Data can be used for cointegration, we must first check for the number of lags this is done using the function $VARselect$ this provides us with 4 different tests the AIC, HQ, BIC and FPE. Here the AIC is chosen since the AIC and BIC is preferred when forecasting. There are incentives for choosing both an AIC or BIC, the BIC is sometimes preferred for large sample sizes which are used in this instance but in hindsight the BIC chooses a less complicated model since it penalizes extra parameters more than the AIC. This in unison with the fact that the BIC is often advantageous when the true model is present which we can not assume leads us to believe the AIC is more efficient since the price of cryptovalutas is also influenced by external factors not included in the model \cite{AICorBIC}.
+Before examining whether cointegration is present it is nescessary to have the optimal amount of lags in our $VAR$ model which is done using the function $VARselect$ which provides four different tests; the AIC, HQ, BIC and FPE. Here the AIC is chosen since the AIC and BIC is preferred when forecasting. There are incentives for choosing both an AIC or BIC, the BIC is sometimes preferred for large sample sizes which is the case in this instance but in hindsight the BIC generally chooses a less complicated model since it penalizes extra parameters more than the AIC. This in unison with the fact that the BIC is often advantageous when the true model is present which we can not assume leads us to believe the AIC is more efficient since the price of cryptovalutas is also influenced by external factors not included in the model \cite{AICorBIC}.
 
-\pause
-\subsection{check $I(1)$}
-For the data to be cointegrating it  must be non-stationary of order 1 or $I(1)$ this is checked by differencing the data doing so takes $x_t-x_{t-1}$ and gives us the diffrenced data set the is then used to plot these 3 graphs that is seen here. The first in the top left of the 4 pictures is the Histogram and checks that the data is noormally distributed so no constant is present. The second is the top right ACF function plot to check for quick decay and that no seasonality is present and looking at the plots there does not seam to be a indication that there is slow decay or seasonality so the conclusion must be that the data is stationary which is further backed up by the last picture the graph of the diffed values, that is stationary around zero. this is true for all 4 timeseries seen in the graphs below
-\begin{figure}[!h]
+\subsection{Check $I(1)$}
+For the data to be cointegrating it  must be non-stationary of order 1 or $I(1)$ this is checked by differencing the data doing so takes $x_t-x_{t-1}$ and gives us the diffrenced data set the is then used to plot these 3 graphs that is seen here. The first in the top left of the 4 pictures is the Histogram and checks that the data is noormally distributed so no constant is present. The second is the top right ACF function plot to check for quick decay and that no seasonality is present and looking at the plots there does not seam to be a indication that there is slow decay or seasonality so the conclusion must be that the data is stationary which is further backed up by the last picture the graph of the diffed values, that is stationary around zero. this is true for all 4 time series seen in the graphs below
+\begin{figure}[H]
   \centering
   \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Bitcoin.pdf}}\quad
   \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ethereum.pdf}}\\
@@ -38,4 +37,16 @@ For the data to be cointegrating it  must be non-stationary of order 1 or $I(1)$
   \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Solana.pdf}}
   \caption{(a) Bitcoin, (b) Ethereum, (c) Ripple, (d) Solana }
 \end{figure}
-Looking at the QQ-plots it must becheked that the data does not have heavy tails
+\newpage
+\subsection{QQ-plots}
+
+Looking at the quintile quintile plots also called QQ-plots it must be checked that the data is normally distributed and valued if there is an existence of heavy tails.
+\begin{figure}[H]
+  \centering
+  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Bitcoin.pdf}}\quad
+  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Ethereum.pdf}}\\
+  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Ripple.pdf}}\quad
+  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Solana.pdf}}
+  \caption{(a) Bitcoin, (b) Ethereum, (c) Ripple, (d) Solana }
+\end{figure}
+Looking at the QQ-plots it clear to see that all the differenced data is symmetric in their respective QQ-plots but all have heavy tails meaning that they have more extreme values than a normal distribution, this can also be seen earlier in the histogram. This is something to consider when evaluating the model, but for now the data is still considered normally distributed.
