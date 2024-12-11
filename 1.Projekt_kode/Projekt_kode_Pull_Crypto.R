@@ -76,7 +76,7 @@ pdf(paste0("Billeder/AIC_diffed_VAR.pdf"))
 plot(Var_lag$criteria["AIC(n)",], ylab = "AIC score", xlab = "lag order")
 dev.off()
 
-VAR_lag9 <- VAR(diff(ts_Training_all), p = 9)
+VAR_lag9 <- VAR(diff(ts_Training_all), p = 5)
 VAR_lag9
 
 # Residuals of VAR model
@@ -88,10 +88,10 @@ Residuals_SOL <- residuals(VAR_lag9$varresult$Solana)
 
 
 # Ljung-box test
-Box.test(Residuals_BTC, lag = 9, type = "Ljung-Box")
-Box.test(Residuals_ETH, lag = 9, type = "Ljung-Box")
-Box.test(Residuals_XRP, lag = 9, type = "Ljung-Box")
-Box.test(Residuals_SOL, lag = 9, type = "Ljung-Box")
+Box.test(Residuals_BTC, lag = 5, type = "Ljung-Box")
+Box.test(Residuals_ETH, lag = 5, type = "Ljung-Box")
+Box.test(Residuals_XRP, lag = 5, type = "Ljung-Box")
+Box.test(Residuals_SOL, lag = 5, type = "Ljung-Box")
 
 
 # Serial test
