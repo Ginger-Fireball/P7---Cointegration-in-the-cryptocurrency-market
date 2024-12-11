@@ -57,6 +57,54 @@ colnames(Training_all_pro)<-NameCryptos
 # Converting to timeseries
 ts_Training_all <- ts(Training_all)
 
+# Making VAR model 
+Var_lag <- VARselect(ts_Training_all, lag.max = 10, type = "none")
+Var_lag
+VAR_lag7 <- VAR(diff(ts_Training_all), p = 7)
+VAR_lag7
+
+# Residuals of VAR model
+Residuals_BTC <- residuals(VAR_lag7$varresult$Bitcoin)
+Residuals_ETH <- residuals(VAR_lag7$varresult$Ethereum)
+Residuals_XRP <- residuals(VAR_lag7$varresult$Ripple)
+Residuals_SOL <- residuals(VAR_lag7$varresult$Solana)
+
+# Check residuals
+checkresiduals(Residuals_BTC, plot = TRUE)
+checkresiduals(Residuals_ETH, plot = TRUE)
+checkresiduals(Residuals_XRP, plot = TRUE)
+checkresiduals(Residuals_SOL, plot = TRUE)
+
+# Ljung-box test
+Box.test(Residuals_BTC, lag = 7, type = "Ljung-Box")
+Box.test(Residuals_ETH, lag = 7, type = "Ljung-Box")
+Box.test(Residuals_XRP, lag = 7, type = "Ljung-Box")
+Box.test(Residuals_SOL, lag = 7, type = "Ljung-Box")
+
+
+# Serial test
+serial.test(VAR_lag7)
+
+# ARCH test
+arch.test(VAR_lag7)
+
+normality.test(VAR_lag7)
+
+
+# Create the QQ-plot
+qqnorm(Residuals_BTC, main = "QQ-Plot of Bitcoin Residuals")
+qqline(Residuals_BTC, col = "red", lwd = 2)
+
+qqnorm(Residuals_ETH, main = "QQ-Plot of Ethereum Residuals")
+qqline(Residuals_ETH, col = "red", lwd = 2)
+
+qqnorm(Residuals_XRP, main = "QQ-Plot of Ripple Residuals")
+qqline(Residuals_XRP, col = "red", lwd = 2)
+
+qqnorm(Residuals_SOL, main = "QQ-Plot of Solana Residuals")
+qqline(Residuals_SOL, col = "red", lwd = 2)
+
+
 #Removes all extra global variables so it doesn't get to crowded
 rm(df)
 rm(i)

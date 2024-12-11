@@ -22,6 +22,7 @@ print(summary(Johansen_eigen))
 # Build the model
 Johansen_model <- cajorls(Johansen_trace, r = 2, reg.number =  4)
 Johansen_model
+
 # Converting into VAR system
 Johansen_model_Var <- vec2var(Johansen_trace, r=2)
 Johansen_model_Var
