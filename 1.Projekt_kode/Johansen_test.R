@@ -43,23 +43,35 @@ normality.test(Johansen_model_Var, multivariate.only = TRUE)
 
 #### VECM Forecasting ----------------------------------------------------------
 # Predicting x-dayahead 
-forecasts <- predict(Johansen_model_Var, n.ahead = 20)
+Johan_forecasts <- predict(Johansen_model_Var, n.ahead = 20)
 
 # Plotting 20 day ahead predictions
 for (i in 1:4){
   # Producing data frame for plots
-  forecast_df <- data.frame(
+  Johan_forecasts_df <- data.frame(
     Time = 1:20,
-    Price = forecasts$fcst[[i]][, 1],    
-    Pricein_Lower = forecasts$fcst[[i]][, 2],
-    Pricein_Upper = forecasts$fcst[[i]][, 3],
+    Price = Johan_forecasts$fcst[[i]][, 1],    
+    Pricein_Lower = Johan_forecasts$fcst[[i]][, 2],
+    Pricein_Upper = Johan_forecasts$fcst[[i]][, 3],
     Actual_prices = Validation_all[[i]][1:20]
    )
+  crypto_now<-names(Johan_forecasts$fcst)
+  
+  given_training<-Training_all[,crypto_now[i]]
+  
+  historical_data <- data.frame(
+    Time = -10:0,  # Example: Historical periods
+    actual_data = tail(given_training,n = 11)
+  )
+  Johan_forecasts_df<-rbind(historical_data$actual_data[11],Johan_forecasts_df)
+  Johan_forecasts_df[1,"Time" ] <- 0
+  
   # Plot Price Predictions
-  p <- (ggplot(forecast_df, aes(x = Time)) +
-    geom_line(aes(y = Price), color = "blue") +
-    geom_line(aes(y=Actual_prices), color = "red") +
-    geom_ribbon(aes(ymin = Pricein_Lower, ymax = Pricein_Upper), fill = "blue", alpha = 0.2) +
+  p <- (ggplot() +
+    geom_line(data = historical_data, aes(x = Time, y = actual_data), color = "black") +
+    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Price), color = "blue") +
+    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Actual_prices), color = "red") +
+    geom_ribbon(data = Johan_forecasts_df, aes(x = Time, ymin = Pricein_Lower, ymax = Pricein_Upper), fill = "blue", alpha = 0.2) +
     labs(title = paste("20-Day", as.character(NameCryptos[i]), "Forecast"), x = "Days Ahead", y = "Value") +
     theme_minimal())
   plot(p)
