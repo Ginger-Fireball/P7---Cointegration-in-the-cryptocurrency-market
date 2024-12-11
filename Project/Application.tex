@@ -3,9 +3,15 @@ In this Chapter, the data is analyzed for cointegration relations. This will fir
 
 
 \section{Engel Granger Model Building}
-To build the models, we first check for cointegration. This is done by making a linear model of all the $12$ possible combination of the crypto currencies. In theory cointegration is not directional, but in practice one acts as the regressand and therefore we check all $12$ combinations. Hereafter it is checked whether the model is $I(0)$ which is needed for it to be cointegrated, which is done be applying the \textit{adf.test} function in \textit{R}, which calculate the augmented Dickey Fuller test, to the residuals of the model.(jp indsæt) It should be noted that the ADF's critical values are different from the normal ones used. Thus to reject the null hypothesis at a corresponding $5\%$ significance level the test statistic must be less than critical value $find hvad den skal være$. This results in the following four pair wise currencies being $I(0)$ meaning they are cointegrating. 
+To build the models, we first check for cointegration. This is done by making a linear model of all the $12$ possible combination of the crypto currencies. In theory cointegration is not directional, but in practice one acts as the regressand and therefore we check all $12$ combinations. Hereafter it is checked whether the model is $I(0)$ which is needed for it to be cointegrated, which is done be applying the \textit{adf.test} function in \textit{R}, which calculate the augmented Dickey Fuller test, to the residuals of the model. From this test, 4 models gave a p-value that reject the null hypothesis, meaning they are stationary, but to check if they are cointegrated one must check if their Critical value is larger than the given test statistic for the model. An example of this is shown for Solana & Ethereum, here the acf, graph and histogram is made to check for constant and/or trend. This is because the Critical value changes if the data has a trend or a constant in what the argmented dikky fuller test deemed stationary.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\linewidth]{1.Projekt_kode/Billeder/plot_grid_ADF_Solana-Ethereum.pdf}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
 
-From this test 4 models have a p-value that reject the null hypothesis but to check if they are cointegrated one must check if their Critical value is larger than the given test statistic for the model.
+From this figure it is clear form the ACF that a trend is present in the data, but no constant this give us a critical value of with no constant but trend, as this could not be found the critical value with constant and trend is choesn. the gicen value is $-3.413$ (from IDK) the test-statistic for the given ADF test is $-4.059027$ and it can then be seen that $Critical\; Value>Test\;statistic$ the Null hypothesis can therefore be rejected and it is stationary. This is done for the other 3 models and they all reject the null hypothesis. This results in the following four pair wise currencies being $I(0)$ meaning they are cointegrating. 
 
 
 
@@ -263,14 +269,14 @@ Ripple $t-7$  & $1.248777 \cdot 10^6$  & $6121.3729$   \\ \hline
 
 
 \section{Forecast}
-To evaluate models ability to correctly forecast, we first look at a plot of a single 20-day-ahead prediction. Secondly an 5-day-ahead forecast has been made iteratively, with each iteration adding another day to the training data set until the entire validation data set has been predicted upon. These predictions will be evaluated using the three different means mean absolute value (MAE), root mean square error(RMSE) and mean absolute percentage error(MAPE). The MAE is straight forward and measure the error value, while in the RMSE more weight is given to outliers. These two are a great combination, as a large difference between these two will indicate large outliers. The MAPE is used because it intuitively gives a great understanding of the errors. The formulas for calculation is given below:
+To evaluate models ability to correctly forecast, we first look at a plot of a single 20-day-ahead prediction, where the prediction in blue are plotted against the true values in red and the $95\%$ confidence interval which is the shaded area. The black line is the actual values before just before forecasting. Secondly an 5-day-ahead forecast has been made iteratively, with each iteration adding another day to the training data set until the entire validation data set has been predicted upon. These predictions will be evaluated using the three different means mean absolute value (MAE), root mean square error(RMSE) and mean absolute percentage error(MAPE). The MAE is straight forward and measure the error value, while in the RMSE more weight is given to outliers. These two are a great combination, as a large difference between these two will indicate large outliers. The MAPE is used because it intuitively gives a great understanding of the errors. The formulas for calculation is given below:
 \begin{align*}
     \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|, \quad \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}, \quad \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100.
 \end{align*}
 \noindent Where $y_i$ is the actual value and $\hat{y}_i$ is the predicted value and is the number of observation.
 
 \subsection{Engel Granger}
-First the 20-day-ahead predictions plot will looked at. These are however not very representable of the actual accuracy of the models, since it is just a single prediction. It does however give an insight if the model is able to capture the movements of the actual data.\\
+First the 20-day-ahead predictions plot will be looked at. These are however not very representable of the actual accuracy of the models, since it is just a single prediction. It does however give an insight if the model is able to capture the movements of the actual data.\\
 \begin{center}
     \textbf{SOL \& ETH}
 \end{center}
@@ -308,7 +314,7 @@ First the 20-day-ahead predictions plot will looked at. These are however not ve
   \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Ripple_Solana.pdf}}
   \label{}
 \end{figure}
-\noindent For most of the plots above it can be seen that some of the first half of the predictions seems to be somewhat accurate and for others quite a bit off. This were to be expected, due to crypto currencies high volatility. Furthermore the models seem to only capture the price movement at start of the period. Some of the plots do capture the direction in which the price moves, but without any nuances as the predictions seem to move straight after the first seven-day-ahead prediction. this is because it reverts to the long term equilibrium. It is quite positive that all the actual values lies within the $95\%$ confidence interval. It can be seen that the plots for the models of combination SOL \& ETH and ETH \& SOL looks identical which is to be expected since cointegration is not directionally. Below tables with the models level of predictability is stated:
+\noindent For most of the plots above it can be seen that some of the first half of the predictions seems to be somewhat accurate and for others quite a bit off. This were to be expected, due to crypto currencies high volatility. Furthermore the models seem to only capture the price movement at start of the period. Some of the plots do capture the direction in which the price moves, but without any nuances as the predictions seem to move in a straight line after a certain point. this is because it reverts to the long term equilibrium. It is quite positive that all the actual values lies within the $95\%$ confidence interval. It can be seen that the plots for the models of combination SOL \& ETH and ETH \& SOL looks identical which is to be expected since cointegration is not directionally. Below tables with the models level of predictability is stated:
 
 \begin{table}[H]
 \centering
@@ -403,6 +409,16 @@ Solana        & 19.711 & 17.741 & 18.062 & 17.901 & 17.711 \\
 \subsection{Johansen}
 Like with Engel Granger forecast, we first inspect the 20-day-ahead prediction plots. 
 
+\begin{figure}[H]
+  \centering
+  \subfloat[][Bitcoin]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_Bitcoin_from_johanson.pdf}}\quad
+  \subfloat[][Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_Ethereum_from_johanson.pdf}}\\
+  \subfloat[][Rippe]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_Ripple_from_johanson.pdf}}\quad
+  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_Solana_from_johanson.pdf}}
+  \caption{20-day-ahead Predictions}
+  \label{fig:20_day_Johansen}
+\end{figure}
+\noindent The plots seems to be somewhat accurate. All the actual values lies within confidence interval. Furthermore the model captures the movement somewhat in the start. Looking at bitcoin and ethereum the first quarter of predictions looks to be quite good. For Bitcoin the first prediction is so good that the lines overlap each other. The prediction do seem to move in a straight line from a certain point.
 
 \begin{table}[H]
 \centering
@@ -432,10 +448,10 @@ Ripple    &   2.0972 &    5.1196 &    8.8016 &    8.0928 &   10.1982 \\
 \end{tabular}
 \end{table}
 \noindent In the table it can be seen that the MAE gets larger, the longer into the future we predict, this is to be expected, due to the high volatility of crypto currencies. The MAPE especially for ond-day-ahead is quint low across the board with bitcoin standing out as the best, with an prediction error of $0.72\%$ and reaching an error at five-day-ahead prediction of $4.66\%$. Just a single prediction namely five-day-ahead for Ripple is larger than $10\%$.\\
-\textbf{forhold plot og table til hinanden.}
 
-\textbf{Comparison of Engel Granger and Johansen}
-First looking at the plots, 
 
-secondly looking the prediction errors, here it becomes very clear that the prediction accuracy is significantly better for the model build by Johansen compared to the models build by Engel Granger.\\
+\noindent \textbf{Comparison of Engel Granger and Johansen}\\
+
+\noindent First looking at the plots, the predictions looks better for the Johansen model. Both Engel Granger and Johansen plots seems to behave similar, as they capture some movement at the start, and then moves in a straight line, this is expected and it is caused by the error correction.
+Secondly looking the prediction errors, here it becomes very clear that the prediction accuracy is significantly better for the model build by Johansen compared to the models build by Engel Granger. The MAPE for Johansen on only have a single day-ahead prediction which is off by more than $10\%$ and most day-ahead predictions with a deviation from the true value with less than $5\%$. Compared to the Engel Granger, which do not have a single prediction which is off by less than $8\%$.\\
 It is therefore concluded that the Engel Granger model is somewhat accurate while the Johansen model is quite accurate. Furthermore we conclude that the Johansen model is the best at forecasting.
