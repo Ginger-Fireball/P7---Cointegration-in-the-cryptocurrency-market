@@ -58,7 +58,7 @@ for (i in 1:4){
   model_adf_residuals <- Model_adf$residuals
   model_adf_residuals_df<-as.data.frame(model_adf_residuals)
   model_adf_residuals_df$index <- 1:nrow(model_adf_residuals_df)
-  
+  mean(model_adf_residuals_df$model_adf_residuals)
  
   # plotting and saving them as pdf's:
   #df_ts_residuals
