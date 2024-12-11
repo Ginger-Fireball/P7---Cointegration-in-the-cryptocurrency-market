@@ -35,7 +35,7 @@ Since Both the graphs and the test indicates stationary data. It can be conclude
 
 \noindent Next the residuals of the optimal $VAR$ model will be examined. First the R function \textit{VARselect} will be used on the differenced data, which gives the optimal lag order based four different criteria namely AIC, HQ, BIC and FPE. Here the AIC has been chosen, and it is computed with
 \begin{equation*}
-    \textbf{AIC\_ligning}
+    AIC=2k-2ln(L)
 \end{equation*}
 The maximum lag is chosen to be $10$. The Selected lag is then $9$.\textbf{AFLÆS AIC plot, tjek den siger det samme}\\
 \begin{figure}[H]
@@ -75,10 +75,10 @@ with $r$ being the accumulated sample autocorrelations, T the number of observat
 Looking at the quintile quintile plots also called QQ-plots it must be checked that the data is normally distributed and valued if there is an existence of heavy tails.
 \begin{figure}[H]
   \centering
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Bitcoin.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Ethereum.pdf}}\\
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Ripple.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/qqplot_Solana.pdf}}
+  \subfloat[][Bitcoin]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Bitcoin_Residuals_plot.pdf}}\quad
+  \subfloat[][Ethereum]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Ethereum_Residuals_plot.pdf}}\\
+  \subfloat[][Ripple]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Ripple_Residuals_plot.pdf}}\quad
+  \subfloat[][Solana]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Solana_Residuals_plot.pdf}}
   \caption{(a) Bitcoin, (b) Ethereum, (c) Ripple, (d) Solana }
 \end{figure}
 Looking at the QQ-plots it clear to see that all the differenced data is symmetric in their respective QQ-plots but all have heavy tails meaning that they have more extreme values than a normal distribution, this can also be seen earlier in the histogram. This is something to consider when evaluating the model, but for now the data is still considered normally distributed.
