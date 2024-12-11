@@ -16,7 +16,7 @@ The four crypto currencies' closing prices in levels have been plotted below.
   \caption{Closing Prices in the Training Data}
   \label{graph_in _levels}
 \end{figure}
-Initially the four plots above exhibit a somewhat shared movement with a lot of similarities one of which is an explosive movement around day 1000 for BIT, ETH and SOL with these after reaching a peak all also having a steep decrease. These joint movements emphasizes the theory of having some sort of cointegrating movements. If cointegration is present then in order to forecast these prices is advantageous to incorporate 
+Initially the four plots above exhibit a somewhat shared movement with a lot of similarities one of which is an explosive movement around day 1000 for BIT, ETH and SOL with these after reaching a peak all also having a steep decrease. These joint movements emphasizes the theory of having some sort of cointegrating movements. If cointegration is present then to forecast these prices is advantageous to incorporate 
 
 \noindent \textbf{looking at the 4 crypto currencies there are multiple similarity's for \ref{graph_in _levels} an example of this is that a,b and c all have a rise time $1000$ and forward of our training set and all four also have a somewhat low period in the middle of the data set, other similarity's can be found but we will not go into detail about all these instead the similarity's give an occasion to look at whether cointegration is possible which can be cheeked using the Johanson, and or Engle granger. Before this can be done, other tests must be made to check whether the data even can be cointegrated this is done checking for multiple things}
 
@@ -43,6 +43,12 @@ Since Both the graphs and the test indicates stationary data. It can be conclude
     \textbf{AIC\_ligning}
 \end{equation*}
 The maximum lag is chosen to be $10$. The Selected lag is then $9$.\textbf{AFLÆS AIC plot, tjek den siger det samme}\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{1.Projekt_kode/Billeder/AIC_diffed_VAR.pdf}
+    \caption{AIC values lag 1 though 10}
+    \label{fig:enter-label}
+\end{figure}
 By the use of the R function $VAR$ with the lag order specified to $9$ a $VAR(9)$ model is produced the coefficient can be found in \textbf{APPENDIX}. Next the R command \textit{checkresiduals} have been applied to the residuals of each currencies. It produce both the following plots and the Ljung-Box test. The Ljung-Box test is a statistical tool used in order to analyze if the errors exploit an uncorrelated pattern. It has the test statistic 
 \begin{align*}
     Q=T(T-2)\sum^H_{h=1}\frac{r^2_{h}}{n-h}
