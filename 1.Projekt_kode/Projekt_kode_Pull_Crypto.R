@@ -100,6 +100,7 @@ serial.test(VAR_lag9)
 # ARCH test
 arch.test(VAR_lag9)
 
+# Normality test
 normality.test(VAR_lag9)
 
 
