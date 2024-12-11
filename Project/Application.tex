@@ -276,8 +276,8 @@ First the 20-day-ahead predictions plot will looked at. These are however not ve
 \end{center}
 \begin{figure}[H]
   \centering
-  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_SolanaEthereum1.pdf}}\quad
-  \subfloat[][Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_SolanaEthereum2.pdf}}
+  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Solana_Ethereum.pdf}}\quad
+  \subfloat[][Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ethereum_from_Solana_Ethereum.pdf}}
   \label{}
 \end{figure}
 \begin{center}
@@ -285,8 +285,8 @@ First the 20-day-ahead predictions plot will looked at. These are however not ve
 \end{center}
 \begin{figure}[H]
   \centering
-  \subfloat[][Ripple]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_RippleEthereum1.pdf}}\quad
-  \subfloat[][Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_RippleEthereum2.pdf}}
+  \subfloat[][Ripple]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ripple_from_Ripple_Ethereum.pdf}}\quad
+  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ethereum_from_Ripple_Ethereum.pdf}}
   \label{}
 \end{figure}
 \begin{center}
@@ -295,8 +295,8 @@ First the 20-day-ahead predictions plot will looked at. These are however not ve
 
 \begin{figure}[H]
   \centering
-  \subfloat[][Solana \& Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_EthereumSolana1.pdf}}\quad
-  \subfloat[][Ripple \& Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_EthereumSolana2.pdf}}
+  \subfloat[][Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ethereum_from_Ethereum_Solana.pdf}}\quad
+  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Ethereum_Solana.pdf}}
   \label{}
 \end{figure}
 \begin{center}
@@ -304,11 +304,11 @@ First the 20-day-ahead predictions plot will looked at. These are however not ve
 \end{center}
 \begin{figure}[H]
   \centering
-  \subfloat[][Ripple]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_RippleSolana1.pdf}}\quad
-  \subfloat[][Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_plot_RippleSolana2.pdf}}
+  \subfloat[][Ripple]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ripple_from_Ripple_Solana.pdf}}\quad
+  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Ripple_Solana.pdf}}
   \label{}
 \end{figure}
-\noindent For all the plots above it can be seen that the accuracy of the model do not seem to be high, which were to be expected, due to crypto currencies high volatility. Furthermore the models do not seem to capture the movement of the actual value. Some of the plots do capture the direction in which the currencies move, but without the nuances. It can be seen that the plots for the models of combination SOL \& ETH and ETH \& SOL looks identical which is to be expected since cointegration is not directionally. Below tables with the models level of predictability is stated:
+\noindent For most of the plots above it can be seen that some of the first half of the predictions seems to be somewhat accurate and for others quite a bit off. This were to be expected, due to crypto currencies high volatility. Furthermore the models seem to only capture the price movement at start of the period. Some of the plots do capture the direction in which the price moves, but without any nuances as the predictions seem to move straight after the first seven-day-ahead prediction. this is because it reverts to the long term equilibrium. It is quite positive that all the actual values lies within the $95\%$ confidence interval. It can be seen that the plots for the models of combination SOL \& ETH and ETH \& SOL looks identical which is to be expected since cointegration is not directionally. Below tables with the models level of predictability is stated:
 
 \begin{table}[H]
 \centering
