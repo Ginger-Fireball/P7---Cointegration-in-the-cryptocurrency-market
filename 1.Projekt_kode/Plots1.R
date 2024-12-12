@@ -109,7 +109,7 @@ Residuals_SOL <- residuals(VAR_lag9$varresult$Solana)
 Name_Residuals_Cryptos<-c("Residuals_BTC","Residuals_ETH","Residuals_XRP","Residuals_SOL")
 
 
-
+  
 # Ljung-box test
 Box.test(Residuals_BTC, lag = 9, type = "Ljung-Box")
 Box.test(Residuals_ETH, lag = 9, type = "Ljung-Box")
@@ -169,36 +169,45 @@ for (i in Name_Residuals_Cryptos){
 
 
 
+# Serial test
+serial.test(VAR_lag9)
 
+# ARCH test
+arch.test(VAR_lag9)
 
-
-
-
-
-
-
-
+# Normality test
+normality.test(VAR_lag9)
 
 
 
 
 # QQ-plot---------------------
+# Create the QQ-plot
+pdf(paste0("Billeder/QQ-Plot_of_Bitcoin_Residuals_plot.pdf"))
+qqnorm((Residuals_BTC - mean(Residuals_BTC)) / sqrt(var(Residuals_BTC)), main = "QQ-Plot of Bitcoin Residuals")
+qqline((Residuals_BTC - mean(Residuals_BTC)) / sqrt(var(Residuals_BTC)), col = "red", lwd = 2)
+dev.off()
+
+
+pdf(paste0("Billeder/QQ-Plot_of_Ethereum_Residuals_plot.pdf"))
+qqnorm((Residuals_ETH - mean(Residuals_ETH)) / sqrt(var(Residuals_ETH)), main = "QQ-Plot of Ethereum Residuals")
+qqline((Residuals_ETH - mean(Residuals_ETH)) / sqrt(var(Residuals_ETH)), col = "red", lwd = 2)
+dev.off()
+
+
+pdf(paste0("Billeder/QQ-Plot_of_Ripple_Residuals_plot.pdf"))
+qqnorm((Residuals_XRP - mean(Residuals_XRP)) / sqrt(var(Residuals_XRP)), main = "QQ-Plot of Ripple Residuals")
+qqline((Residuals_XRP - mean(Residuals_XRP)) / sqrt(var(Residuals_XRP)), col = "red", lwd = 2)
+dev.off()
+
+
+pdf(paste0("Billeder/QQ-Plot_of_Solana_Residuals_plot.pdf"))
+qqnorm((Residuals_SOL - mean(Residuals_SOL)) / sqrt(var(Residuals_SOL)), main = "QQ-Plot of Solana Residuals")
+qqline((Residuals_SOL - mean(Residuals_SOL)) / sqrt(var(Residuals_SOL)), col = "red", lwd = 2)
+dev.off()
 
 
 
-for (i in 1:4){
-  pdf(paste0("Billeder/qqplot_", as.character(NameCryptos[i]), ".pdf"))
-  # Making time series
-  tsu_residuals <- diff(ts(Training_all[,i]))
-
-  # Standardize the residuals
-  std_residuals <- (tsu_residuals - mean(tsu_residuals)) / sd(tsu_residuals)
-
-  # QQ-plot
-  qqnorm(std_residuals, main = "" , ylab = "Standardized Differenced")
-  qqline(std_residuals, col = "black", lwd = 2)  
-  dev.off()
-}
 
 #deleting nonessential global Variables------------
 rm(std_residuals)

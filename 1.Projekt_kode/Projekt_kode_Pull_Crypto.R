@@ -54,79 +54,8 @@ for (i in 1:4) {
 Training_all_pro<-as.data.frame(Training_all_pro)
 colnames(Training_all_pro)<-NameCryptos
 
-# Converting to timeseries
-ts_Training_all <- ts(Training_all)
 
 
-
-
-
-
-
-
-
-
-
-
-# Making VAR model 
-Var_lag <- VARselect(diff(ts_Training_all), lag.max = 10, type = "none")
-Var_lag
-
-pdf(paste0("Billeder/AIC_diffed_VAR.pdf"))
-plot(Var_lag$criteria["AIC(n)",], ylab = "AIC score", xlab = "lag order")
-dev.off()
-
-VAR_lag9 <- VAR(diff(ts_Training_all), p = 5)
-VAR_lag9
-
-# Residuals of VAR model
-Residuals_BTC <- residuals(VAR_lag9$varresult$Bitcoin)
-Residuals_ETH <- residuals(VAR_lag9$varresult$Ethereum)
-Residuals_XRP <- residuals(VAR_lag9$varresult$Ripple)
-Residuals_SOL <- residuals(VAR_lag9$varresult$Solana)
-
-
-
-# Ljung-box test
-Box.test(Residuals_BTC, lag = 5, type = "Ljung-Box")
-Box.test(Residuals_ETH, lag = 5, type = "Ljung-Box")
-Box.test(Residuals_XRP, lag = 5, type = "Ljung-Box")
-Box.test(Residuals_SOL, lag = 5, type = "Ljung-Box")
-
-
-# Serial test
-serial.test(VAR_lag9)
-
-# ARCH test
-arch.test(VAR_lag9)
-
-# Normality test
-normality.test(VAR_lag9)
-
-
-# Create the QQ-plot
-pdf(paste0("Billeder/QQ-Plot_of_Bitcoin_Residuals_plot.pdf"))
-qqnorm((Residuals_BTC - mean(Residuals_BTC)) / sqrt(var(Residuals_BTC)), main = "QQ-Plot of Bitcoin Residuals")
-qqline((Residuals_BTC - mean(Residuals_BTC)) / sqrt(var(Residuals_BTC)), col = "red", lwd = 2)
-dev.off()
-
-
-pdf(paste0("Billeder/QQ-Plot_of_Ethereum_Residuals_plot.pdf"))
-qqnorm((Residuals_ETH - mean(Residuals_ETH)) / sqrt(var(Residuals_ETH)), main = "QQ-Plot of Ethereum Residuals")
-qqline((Residuals_ETH - mean(Residuals_ETH)) / sqrt(var(Residuals_ETH)), col = "red", lwd = 2)
-dev.off()
-
-
-pdf(paste0("Billeder/QQ-Plot_of_Ripple_Residuals_plot.pdf"))
-qqnorm((Residuals_XRP - mean(Residuals_XRP)) / sqrt(var(Residuals_XRP)), main = "QQ-Plot of Ripple Residuals")
-qqline((Residuals_XRP - mean(Residuals_XRP)) / sqrt(var(Residuals_XRP)), col = "red", lwd = 2)
-dev.off()
-
-
-pdf(paste0("Billeder/QQ-Plot_of_Solana_Residuals_plot.pdf"))
-qqnorm((Residuals_SOL - mean(Residuals_SOL)) / sqrt(var(Residuals_SOL)), main = "QQ-Plot of Solana Residuals")
-qqline((Residuals_SOL - mean(Residuals_SOL)) / sqrt(var(Residuals_SOL)), col = "red", lwd = 2)
-dev.off()
 
 #Removes all extra global variables so it doesn't get to crowded
 rm(df)
