@@ -1,6 +1,6 @@
 # Engel Granger test
-
-#makes it so the dat is saved as a 4 way timeseries
+#Training all er bare vores 4 tidsserier
+#makes it so the data is saved as a 4 way timeseries
 ts_Training_all<-ts(Training_all)
 
 #### Engel Granger test, testing pairwise cointegration ------------------------
@@ -107,16 +107,22 @@ rm(crypto_pairs)
 rm(lag_selection)
 #------------------------------- Functions used -------------------------------#
 
+
+#day_ahead_plot(Training_all,Validation_all,"Solana","Ethereum")
+
 #### Plotting 20 day ahead predictions -----------------------------------------
 day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
-  
-  
+  #Data_train <- Training_all
+  #Data_vali <- Validation_all
+  #coin1 <- "Solana"
+  #coin2<- "Ethereum"
   
   ts_Training_coin<-ts(Data_train)
   Training_coins <- cbind(ts_Training_coin[,coin1], ts_Training_coin[,coin2])
   coins_select <- VARselect(Training_coins, lag.max = 10, type = "const")
   pdf(paste0("Billeder/AIC_Lag_for",as.character(coin1),"_",as.character(coin2),".pdf"))
-  plot(coins_select$criteria[1,])
+  plot(coins_select$criteria[1,]) 
+  legend("topright", legend = paste("Value:",coins_select$selection[1] ), col = "blue", pch = 19, bty = "n")
   dev.off()
   
   # VECM model is build, lag = aic(value) - 1
