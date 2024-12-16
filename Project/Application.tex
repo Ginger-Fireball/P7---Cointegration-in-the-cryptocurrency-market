@@ -3,15 +3,15 @@ In this Chapter, the data is analyzed for cointegration relations. This will fir
 
 
 \section{Engel Granger Model Building}
-To build the models, we first check for cointegration. This is done by making a linear model of all the $12$ possible combination of the crypto currencies. In theory cointegration is not directional, but in practice one acts as the regressand and therefore we check all $12$ combinations. Hereafter it is checked whether the model is $I(0)$ which is needed for it to be cointegrated, which is done be applying the \textit{adf.test} function in \textit{R}, which calculate the augmented Dickey Fuller test, to the residuals of the model. From this test, 4 models gave a p-value that reject the null hypothesis, meaning they are stationary, but to check if they are cointegrated one must check if their Critical value is larger than the given test statistic for the model. An example of this is shown for Solana & Ethereum, here the acf, graph and histogram is made to check for constant and/or trend. This is because the Critical value changes if the data has a trend or a constant in what the argmented dikky fuller test deemed stationary.
-\begin{figure}
+To build the models, we first check for cointegration. This is done by making a linear model of all the $12$ possible combination of the cryptocurrencies. In theory cointegration is not directional, but in practice one acts as the regressand and therefore we check all $12$ combinations. Hereafter it is checked whether the model is $I(0)$ which is needed for it to be cointegrated, which is done be applying the \textit{adf.test} function in \textit{R}, which calculate the augmented Dickey Fuller test, to the residuals of the model. From this test, 4 models gave a p-value that reject the null hypothesis, meaning they are stationary, but to check if they are cointegrated one must check if their Critical value is larger than the given test statistic for the model. An example of this is shown for Solana \& Ethereum, here the acf, graph and histogram is made to check for constant and/or trend. This is because the Critical value changes if the data has a trend or a constant in what the augmented dickey fuller test deemed stationary.
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.4\linewidth]{1.Projekt_kode/Billeder/plot_grid_ADF_Solana-Ethereum.pdf}
     \caption{Caption}
     \label{fig:enter-label}
 \end{figure}
 
-From this figure it is clear form the ACF that a trend is present in the data, but no constant this give us a critical value of with no constant but trend, as this could not be found the critical value with constant and trend is choesn. the gicen value is $-3.413$ (from IDK) the test-statistic for the given ADF test is $-4.059027$ and it can then be seen that $Critical\; Value>Test\;statistic$ the Null hypothesis can therefore be rejected and it is stationary. This is done for the other 3 models and they all reject the null hypothesis. This results in the following four pair wise currencies being $I(0)$ meaning they are cointegrating. 
+\noindent From this figure it is clear from the ACF that a trend is present in the data, but no constant this give us a critical value with no constant but trend, as this could not be found the critical value with constant and trend is chosen. the given value is $-3.413$ (from IDK) the test-statistic for the given ADF test is $-4.059027$ and it can then be seen that $Critical\; Value>Test\;statistic$ the Null hypothesis can therefore be rejected and it is stationary. This is done for the other 3 models and they all reject the null hypothesis. This results in the following four pair wise currencies being $I(0)$ meaning they are cointegrating. 
 
 
 
@@ -33,17 +33,15 @@ From this figure it is clear form the ACF that a trend is present in the data, b
 \end{tabular}
 \end{center}
 \pause
-\noindent The four cases will be abbreviated, SOL\&ETH, XRP\&ETH, ETH\&SOL and XRP\&SOL respectively. Next four VECM Models will be built using the above relations. First the function \textit{Varselect} is used to find the optimal lag order, the function evaluates it based on four criterions namely, Akaike Information Criterion, Hannan Quinn Criterion, Schwarz Criterion and Final prediction error. We have chosen to use AIC, since it theoretical is the best when predicting in the short term. The AIC scores for each combination have been plotted in Figure \ref{fig:AIC_plots}. The optimal lag order for a VAR model for each combination, is found by visual interpretation of the plots in Figure \ref{fig:AIC_plots}.
+\noindent The four cases will be abbreviated, SOL\&ETH, XRP\&ETH, ETH\&SOL and XRP\&SOL respectively.(jp indsat) Next one VECM Model will be build using the above relations. This is because the cases where a cointegration relation was found, but only in one direction a VECM cannot be build. For those cases an ECM could be build instead. This will however not be done since we would have to forecast the predictor for the ECM using other means than cointegration. Therefore, the only model that will considered is the SOL\&ETH or ETH\&SOL since this will give us the same VECM model only with a difference in the position of ETH and SOL. To proceed with the analysis, we need to determine the optimal lag order for the model. First the function \textit{Varselect} is used to find the optimal lag order, the function evaluates it based on four criterions namely, Akaike Information Criterion, Hannan Quinn Criterion, Schwarz Criterion and Final prediction error. We have chosen to use AIC, since it theoretical is the best when predicting in the short term. The AIC scores for the SOL\&ETH have been plotted in Figure \ref{fig:AIC_plots}. The optimal lag order for a VAR model for SOL\&ETH, is found by visual interpretation of the plot in Figure \ref{fig:AIC_plots}.
 \begin{figure}[H]
   \centering
   \subfloat[][Solana \& Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/AIC_Lag_for_SE.pdf}}\quad
-  \subfloat[][Ripple \& Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/AIC_Lag_for_RE.pdf}}\\
-  \subfloat[][Ethereum \& Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/AIC_Lag_for_ES.pdf}}\quad
-  \subfloat[][Ripple \& Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/AIC_Lag_for_RS.pdf}}
-  \caption{AIC values for all combinations}
+  
+  \caption{AIC values for SOL\&ETH}
   \label{fig:AIC_plots}
 \end{figure}
-\noindent The lag order is chosen to be $VAR(6)$, $VAR(10)$, $VAR(6)$ and $VAR(6)$ respectively for each case. With the lag order determined. We can now build the VECM, where the lag order is simply one less than the $VAR$ counterpart.
+\noindent The lag order is chosen to be $VAR(7)$. With the lag order determined. We can now build the VECM, where the lag order is simply one less than the $VAR$ counterpart.
 
 \noindent The VECM is specified as follows, represented as a system of equations:\\
 
@@ -52,75 +50,44 @@ From this figure it is clear form the ACF that a trend is present in the data, b
 \end{center}
 $\text{Cointegrating Equation:} \quad  \beta = 1, \quad -0.03250492 \cdot \text{Ethereum} \\
 \text{Equations:}$
-\begin{align*} \quad
+
+\begin{align*}
 \Delta \text{Solana}_t &= 
-\underset{(0.0039)}{-0.0073} \cdot \text{ECT}_{t-1} + 
-\underset{(0.1414)}{0.0599} + 
-\underset{(0.0346)}{0.0438} \cdot \Delta \text{Solana}_{t-1} \\
-&\quad + \underset{(0.0016)}{-0.0026} \cdot \Delta \text{Ethereum}_{t-1} + 
-\underset{(0.0348)}{-0.0151} \cdot \Delta \text{Solana}_{t-2} \\
+\underset{(0.0039)}{-0.0066} \cdot \text{ECT}_{t-1} + 
+\underset{(0.1414)}{0.0657} + 
+\underset{(0.0348)}{0.0413} \cdot \Delta \text{Solana}_{t-1} \\
+&\quad + \underset{(0.0016)}{-0.0024} \cdot \Delta \text{Ethereum}_{t-1} + 
+\underset{(0.0348)}{-0.0166} \cdot \Delta \text{Solana}_{t-2} \\
 &\quad + \underset{(0.0016)}{0.0017} \cdot \Delta \text{Ethereum}_{t-2} + 
-\underset{(0.0349)}{0.0405} \cdot \Delta \text{Solana}_{t-3} \\
-&\quad + \underset{(0.0016)}{0.0021} \cdot \Delta \text{Ethereum}_{t-3} + 
-\underset{(0.0350)^{**}}{0.0962} \cdot \Delta \text{Solana}_{t-4} \\
-&\quad + \underset{(0.0016)}{-0.0003} \cdot \Delta \text{Ethereum}_{t-4} + 
-\underset{(0.0350)^{**}}{-0.0961} \cdot \Delta \text{Solana}_{t-5} \\
-&\quad + \underset{(0.0016)}{-0.0009} \cdot \Delta \text{Ethereum}_{t-5} + \epsilon_{\text{Solana},t}
+\underset{(0.0350)}{0.0403} \cdot \Delta \text{Solana}_{t-3} \\
+&\quad + \underset{(0.0016)}{0.0019} \cdot \Delta \text{Ethereum}_{t-3} + 
+\underset{(0.0349)^{**}}{0.0958} \cdot \Delta \text{Solana}_{t-4} \\
+&\quad + \underset{(0.0017)}{-0.0005} \cdot \Delta \text{Ethereum}_{t-4} + 
+\underset{(0.0351)^{**}}{-0.0941} \cdot \Delta \text{Solana}_{t-5} \\
+&\quad + \underset{(0.0016)}{-0.0009} \cdot \Delta \text{Ethereum}_{t-5} + 
+\underset{(0.0352)}{-0.0497} \cdot \Delta \text{Solana}_{t-6} \\
+&\quad + \underset{(0.0016)^*}{0.0040} \cdot \Delta \text{Ethereum}_{t-6} + \epsilon_{\text{Solana},t}.
 \end{align*}
+
 \begin{align*}
- \quad
 \Delta \text{Ethereum}_t &= 
-\underset{(0.0828)}{-0.0516} \cdot \text{ECT}_{t-1} + 
-\underset{(3.0230)}{2.2248} + 
-\underset{(0.7403)^*}{-1.6153} \cdot \Delta \text{Solana}_{t-1} \\
-&\quad + \underset{(0.0348)}{-0.0309} \cdot \Delta \text{Ethereum}_{t-1} + 
-\underset{(0.7432)^*}{-1.6794} \cdot \Delta \text{Solana}_{t-2} \\
-&\quad + \underset{(0.0348)}{0.0566} \cdot \Delta \text{Ethereum}_{t-2} + 
-\underset{(0.7460)}{-0.8543} \cdot \Delta \text{Solana}_{t-3} \\
-&\quad + \underset{(0.0350)^*}{0.0829} \cdot \Delta \text{Ethereum}_{t-3} + 
-\underset{(0.7476)^*}{1.8980} \cdot \Delta \text{Solana}_{t-4} \\
-&\quad + \underset{(0.0353)}{-0.0107} \cdot \Delta \text{Ethereum}_{t-4} + 
-\underset{(0.7478)}{0.4330} \cdot \Delta \text{Solana}_{t-5} \\
-&\quad + \underset{(0.0350)^*}{-0.0711} \cdot \Delta \text{Ethereum}_{t-5} + \epsilon_{\text{Ethereum},t}
+\underset{(0.0830)}{-0.0373} \cdot \text{ECT}_{t-1} + 
+\underset{(3.0208)}{2.2306} + 
+\underset{(0.7446)^*}{-1.5949} \cdot \Delta \text{Solana}_{t-1} \\
+&\quad + \underset{(0.0349)}{-0.0267} \cdot \Delta \text{Ethereum}_{t-1} + 
+\underset{(0.7433)^*}{-1.7485} \cdot \Delta \text{Solana}_{t-2} \\
+&\quad + \underset{(0.0348)}{0.0573} \cdot \Delta \text{Ethereum}_{t-2} + 
+\underset{(0.7471)}{-0.9073} \cdot \Delta \text{Solana}_{t-3} \\
+&\quad + \underset{(0.0349)^*}{0.0800} \cdot \Delta \text{Ethereum}_{t-3} + 
+\underset{(0.7467)^*}{1.8720} \cdot \Delta \text{Solana}_{t-4} \\
+&\quad + \underset{(0.0353)}{-0.0123} \cdot \Delta \text{Ethereum}_{t-4} + 
+\underset{(0.7490)}{0.4281} \cdot \Delta \text{Solana}_{t-5} \\
+&\quad + \underset{(0.0352).}{-0.0668} \cdot \Delta \text{Ethereum}_{t-5} + 
+\underset{(0.7512)}{-0.5645} \cdot \Delta \text{Solana}_{t-6} \\
+&\quad + \underset{(0.0350)^*}{0.0886} \cdot \Delta \text{Ethereum}_{t-6} + \epsilon_{\text{Ethereum},t}.
 \end{align*}
 
-%
-\begin{center}
-    \textbf{XRP \& ETH}
-\end{center}
-$\text{Cointegrating Equation:} \quad  \beta = 1, \quad -0.000267678 \cdot \text{Ethereum} \\
-\text{Equations:} $
-\begin{align*}
- \quad
-\Delta \text{Ripple}_t &= 
-\underset{(0.0068)}{-0.0130} \cdot \text{ECT}_{t-1} + 
-\underset{(0.0013)}{0.0002} + 
-\underset{(0.0350)}{-0.0452} \cdot \Delta \text{Ripple}_{t-1} \\
-&\quad + \underset{(1.5 \times 10^{-5})}{-2.1 \times 10^{-5}} \cdot \Delta \text{Ethereum}_{t-1} + 
-\underset{(0.0351)}{-0.0009} \cdot \Delta \text{Ripple}_{t-2} \\
-&\quad + \underset{(1.5 \times 10^{-5})}{5.2 \times 10^{-6}} \cdot \Delta \text{Ethereum}_{t-2} + 
-\underset{(0.0350)}{0.0348} \cdot \Delta \text{Ripple}_{t-3} \\
-&\quad + \underset{(1.5 \times 10^{-5})}{-1.1 \times 10^{-6}} \cdot \Delta \text{Ethereum}_{t-3} + 
-\underset{(0.0352)}{0.0069} \cdot \Delta \text{Ripple}_{t-4} \\
-&\quad + \underset{(1.5 \times 10^{-5})^{*}}{3.9 \times 10^{-5}} \cdot \Delta \text{Ethereum}_{t-4} + \epsilon_{\text{Ripple},t}
-\end{align*}
-\begin{align*}
-\quad
-\Delta \text{Ethereum}_t &= 
-\underset{(15.7856)}{21.8381} \cdot \text{ECT}_{t-1} + 
-\underset{(2.9293)}{1.9563} + 
-\underset{(81.1699)^{**}}{-236.2089} \cdot \Delta \text{Ripple}_{t-1} \\
-&\quad + \underset{(0.0349)}{-0.0100} \cdot \Delta \text{Ethereum}_{t-1} + 
-\underset{(81.4008)}{-76.8518} \cdot \Delta \text{Ripple}_{t-2} \\
-&\quad + \underset{(0.0348)}{0.0226} \cdot \Delta \text{Ethereum}_{t-2} + 
-\underset{(81.3764)}{131.9577} \cdot \Delta \text{Ripple}_{t-3} \\
-&\quad + \underset{(0.0348)}{0.0125} \cdot \Delta \text{Ethereum}_{t-3} + 
-\underset{(81.6781)^{*}}{-207.0333} \cdot \Delta \text{Ripple}_{t-4} \\
-&\quad + \underset{(0.0353)^{**}}{0.0918} \cdot \Delta \text{Ethereum}_{t-4} + \epsilon_{\text{Ethereum},t}
-\end{align*}
-
-
-%
+\begin{comment}
 \begin{center}
    \textbf{ETH \& SOL}
 \end{center}
@@ -158,46 +125,7 @@ $\text{Cointegrating Equation:} \quad  \beta = 1, \quad -25.22835 \cdot \text{So
 \underset{(0.0016)}{-0.0010} \cdot \Delta \text{Ethereum}_{t-5} \\
 &\quad + \underset{(0.0350)^{**}}{-0.0954} \cdot \Delta \text{Solana}_{t-5} + \epsilon_{\text{Solana},t}
 \end{align*}
-
-
-%
-\begin{center}
-    \textbf{XRP \& SOL}
-\end{center}
-$\text{Cointegrating Equation:} \quad  \beta = 1, \quad -0.006285195 \cdot \text{Solana}\\
-\text{Equations:} $
-\begin{align*}
- \quad
-\Delta \text{Ripple}_t &= 
-\underset{(0.0039)}{-0.0015} \cdot \text{ECT}_{t-1} + 
-\underset{(0.0015)}{0.0004} + 
-\underset{(0.0301)^*}{-0.0661} \cdot \Delta \text{Ripple}_{t-1} \\
-&\quad + \underset{(0.0003)}{-0.0003} \cdot \Delta \text{Solana}_{t-1} + 
-\underset{(0.0302)}{0.0163} \cdot \Delta \text{Ripple}_{t-2} \\
-&\quad + \underset{(0.0003)}{-0.0003} \cdot \Delta \text{Solana}_{t-2} + 
-\underset{(0.0302)}{0.0307} \cdot \Delta \text{Ripple}_{t-3} \\
-&\quad + \underset{(0.0003)}{-0.0001} \cdot \Delta \text{Solana}_{t-3} + 
-\underset{(0.0302)}{0.0386} \cdot \Delta \text{Ripple}_{t-4} \\
-&\quad + \underset{(0.0003)}{0.0003} \cdot \Delta \text{Solana}_{t-4} + 
-\underset{(0.0301)}{-0.0262} \cdot \Delta \text{Ripple}_{t-5} \\
-&\quad + \underset{(0.0003)}{-0.0002} \cdot \Delta \text{Solana}_{t-5} + \epsilon_{\text{Ripple},t}
-\end{align*}
-\begin{align*}
- \quad
-\Delta \text{Solana}_t &= 
-\underset{(0.4185)^*}{0.8644} \cdot \text{ECT}_{t-1} + 
-\underset{(0.1643)}{-0.0566} + 
-\underset{(3.2581).}{-5.4031} \cdot \Delta \text{Ripple}_{t-1} \\
-&\quad + \underset{(0.0298)}{0.0270} \cdot \Delta \text{Solana}_{t-1} + 
-\underset{(3.2626)}{2.7956} \cdot \Delta \text{Ripple}_{t-2} \\
-&\quad + \underset{(0.0297)}{-0.0038} \cdot \Delta \text{Solana}_{t-2} + 
-\underset{(3.2643)}{2.5712} \cdot \Delta \text{Ripple}_{t-3} \\
-&\quad + \underset{(0.0297).}{0.0543} \cdot \Delta \text{Solana}_{t-3} + 
-\underset{(3.2634)}{-3.1369} \cdot \Delta \text{Ripple}_{t-4} \\
-&\quad + \underset{(0.0299)^{**}}{0.0975} \cdot \Delta \text{Solana}_{t-4} + 
-\underset{(3.2541)}{2.7547} \cdot \Delta \text{Ripple}_{t-5} \\
-&\quad + \underset{(0.0300)^{***}}{-0.1220} \cdot \Delta \text{Solana}_{t-5} + \epsilon_{\text{Solana},t}
-\end{align*}
+\end{comment}
 
 
 
@@ -269,14 +197,14 @@ Ripple $t-7$  & $1.248777 \cdot 10^6$  & $6121.3729$   \\ \hline
 
 
 \section{Forecast}
-To evaluate models ability to correctly forecast, we first look at a plot of a single 20-day-ahead prediction, where the prediction in blue are plotted against the true values in red and the $95\%$ confidence interval which is the shaded area. The black line is the actual values before just before forecasting. Secondly an 5-day-ahead forecast has been made iteratively, with each iteration adding another day to the training data set until the entire validation data set has been predicted upon. These predictions will be evaluated using the three different means mean absolute value (MAE), root mean square error(RMSE) and mean absolute percentage error(MAPE). The MAE is straight forward and measure the error value, while in the RMSE more weight is given to outliers. These two are a great combination, as a large difference between these two will indicate large outliers. The MAPE is used because it intuitively gives a great understanding of the errors. The formulas for calculation is given below:
+To evaluate models ability to correctly forecast, we first look at a plot of a single 20-day-ahead prediction, where the prediction in blue are plotted against the true values in red and the $95\%$ confidence interval which is the shaded area. The black line is the actual values before forecasting. Secondly an 5-day-ahead forecast has been made iteratively, with each iteration adding another day to the training data set until the entire validation data set has been predicted upon. These predictions will be evaluated using the three different means mean absolute value (MAE), root mean square error(RMSE) and mean absolute percentage error(MAPE). The MAE is straight forward and measure the error value, while in the RMSE more weight is given to outliers. These two are a great combination, as a large difference between these two will indicate large outliers. The MAPE is used because it intuitively gives a great understanding of the errors. The formulas for calculation is given below:
 \begin{align*}
-    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|, \quad \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}, \quad \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100.
+    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|, \quad \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}, \quad \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right|\cdot 100.
 \end{align*}
 \noindent Where $y_i$ is the actual value and $\hat{y}_i$ is the predicted value and is the number of observation.
 
 \subsection{Engel Granger}
-First the 20-day-ahead predictions plot will be looked at. These are however not very representable of the actual accuracy of the models, since it is just a single prediction. It does however give an insight if the model is able to capture the movements of the actual data.\\
+First the 20-day-ahead predictions plot will be looked at. These are however not very representable of the actual accuracy of the models, since it is just a single prediction. It does however give an insight into whether the model is able to capture the movements of the actual data.\\
 \begin{center}
     \textbf{SOL \& ETH}
 \end{center}
@@ -284,17 +212,10 @@ First the 20-day-ahead predictions plot will be looked at. These are however not
   \centering
   \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Solana_Ethereum.pdf}}\quad
   \subfloat[][Ethereum]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ethereum_from_Solana_Ethereum.pdf}}
-  \label{}
+  \caption{20-day-ahead prediction plot}
+  \label{fig:SOL_ETH_20_DAY_plot}
 \end{figure}
-\begin{center}
-    \textbf{XRP \& ETH}
-\end{center}
-\begin{figure}[H]
-  \centering
-  \subfloat[][Ripple]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ripple_from_Ripple_Ethereum.pdf}}\quad
-  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ethereum_from_Ripple_Ethereum.pdf}}
-  \label{}
-\end{figure}
+\begin{comment}
 \begin{center}
     \textbf{ETH \& SOL}
 \end{center}
@@ -305,16 +226,10 @@ First the 20-day-ahead predictions plot will be looked at. These are however not
   \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Ethereum_Solana.pdf}}
   \label{}
 \end{figure}
-\begin{center}
-    \textbf{XRP \& SOL}
-\end{center}
-\begin{figure}[H]
-  \centering
-  \subfloat[][Ripple]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Ripple_from_Ripple_Solana.pdf}}\quad
-  \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Ripple_Solana.pdf}}
-  \label{}
-\end{figure}
-\noindent For most of the plots above it can be seen that some of the first half of the predictions seems to be somewhat accurate and for others quite a bit off. This were to be expected, due to crypto currencies high volatility. Furthermore the models seem to only capture the price movement at start of the period. Some of the plots do capture the direction in which the price moves, but without any nuances as the predictions seem to move in a straight line after a certain point. this is because it reverts to the long term equilibrium. It is quite positive that all the actual values lies within the $95\%$ confidence interval. It can be seen that the plots for the models of combination SOL \& ETH and ETH \& SOL looks identical which is to be expected since cointegration is not directionally. Below tables with the models level of predictability is stated:
+
+\end{comment}
+
+\noindent For the two plots above it can be seen that on the first half of the predictions seems to be somewhat accurate for ETH and for SOL it is quite a bit off. This was to be expected, due to cryptocurrencies high volatility. Furthermore the model seem to only capture the price movement at the start of the period. ETH plot do seem to capture the direction in which the price moves, but without any nuances as the predictions seem to move in a straight line after a certain point. this is because it reverts to the long term equilibrium. It is quite positive that for both graphs the actual values lies within the $95\%$ confidence interval. Below tables with the model's level of predictability is stated:
 
 \begin{table}[H]
 \centering
@@ -336,30 +251,9 @@ Solana        & 19.85790 & 17.85844 & 19.18544 & 19.77437 & 19.62114 \\
 Ethereum      & 30.54404 & 29.21761 & 30.93889 & 31.95720 & 32.08274 \\
 \bottomrule
 \end{tabular}
+\label{table:SOL_ETH_MAE_RMSE_MAPE}
 \end{table}
-
-\begin{table}[H]
-\centering
-\caption{Performance Metrics for Ripple and Ethereum}
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Metric} & \textbf{One-Day} & \textbf{Two-Day} & \textbf{Three-Day} & \textbf{Four-Day} & \textbf{Five-Day} \\
-\midrule
-\textbf{MAE} & & & & & \\
-Ripple        & 0.0448 & 0.0448 & 0.0473 & 0.0485 & 0.0503 \\
-Ethereum      & 793.30 & 779.80 & 828.00 & 815.01 & 807.59 \\
-\midrule
-\textbf{RMSE} & & & & & \\
-Ripple        & 0.0532 & 0.0523 & 0.0598 & 0.0617 & 0.0646 \\
-Ethereum      & 936.56 & 922.12 & 965.61 & 951.38 & 943.21 \\
-\midrule
-\textbf{MAPE} & & & & & \\
-Ripple        & 8.65 & 8.54 & 9.40 & 9.67 & 10.07 \\
-Ethereum      & 29.92 & 29.51 & 31.27 & 30.87 & 30.69 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
+\begin{comment}
 \begin{table}[H]
 \centering
 \caption{Performance Metrics for Ethereum and Solana}
@@ -381,29 +275,11 @@ Solana        & 19.82  & 17.78  & 19.07  & 19.64  & 19.47  \\
 \bottomrule
 \end{tabular}
 \end{table}
+From the table it stand out the prediction for Ripple in both the models in which it is represented. the two models are able to predict with an accuracy of less than $10\%$ in almost all cases.
+\end{comment}
 
-\begin{table}[H]
-\centering
-\caption{Performance Metrics for Ripple and Solana}
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Metric} & \textbf{One-Day} & \textbf{Two-Day} & \textbf{Three-Day} & \textbf{Four-Day} & \textbf{Five-Day} \\
-\midrule
-\textbf{MAE} & & & & & \\
-Ripple        & 0.0451 & 0.0457 & 0.0453 & 0.0451 & 0.0450 \\
-Solana        & 27.899 & 25.054 & 25.509 & 25.270 & 24.989 \\
-\midrule
-\textbf{RMSE} & & & & & \\
-Ripple        & 0.0525 & 0.0533 & 0.0527 & 0.0525 & 0.0524 \\
-Solana        & 31.035 & 28.167 & 28.550 & 28.267 & 27.901 \\
-\midrule
-\textbf{MAPE} & & & & & \\
-Ripple        & 8.4753 & 8.5102 & 8.4825 & 8.4810 & 8.5048 \\
-Solana        & 19.711 & 17.741 & 18.062 & 17.901 & 17.711 \\
-\bottomrule
-\end{tabular}
-\end{table}
-\noindent From the tables it stand out the prediction for Ripple in both the models in which it is represented. the two models are able to predict with an accuracy of less than $10\%$ in almost all cases. An interesting observation is that in som cases the MAPE is smaller for 5-day-ahead compared to the 1-day-ahead prediction. In the XRP \& SOL model, the MAE for Ripple remains somewhat constant for all five prediction. This is also the case for Ethereum's MAE in the XRP \& ETH model. It is left to conclude that the model XRP \& SOL is somewhat accurate and it is by for the one which makes the most accurate prediction for its respective crypto currencies.
+\noindent  
+The MAPE is off by $19\%$ and $30\%$ for the one-day-ahead predictions respectively. Furthermore the prediction accuracy do not seem to deteriorate significantly over five days and an interesting observation is that all three mean errors for SOL are smaller for five-day-ahead compared to the one-day-ahead prediction. The relatively low MAPE for solana indicates it is somewhat descend, and therefore could be used for decision making. The ETH model is more unreliable when predicting than when predicting for SOL.
 \pause
 
 \subsection{Johansen}
@@ -446,12 +322,13 @@ Solana    &   3.6096 &    4.4267 &    6.0703 &    7.8966 &    6.8306 \\
 Ripple    &   2.0972 &    5.1196 &    8.8016 &    8.0928 &   10.1982 \\
 \bottomrule
 \end{tabular}
+\label{fig:johansen_RMSE_MAE_MAPE}
 \end{table}
-\noindent In the table it can be seen that the MAE gets larger, the longer into the future we predict, this is to be expected, due to the high volatility of crypto currencies. The MAPE especially for ond-day-ahead is quint low across the board with bitcoin standing out as the best, with an prediction error of $0.72\%$ and reaching an error at five-day-ahead prediction of $4.66\%$. Just a single prediction namely five-day-ahead for Ripple is larger than $10\%$.\\
+\noindent In the table it can be seen that the MAE gets larger, the longer into the future we predict, this is to be expected, due to the high volatility of cryptocurrencies. The MAPE especially for ond-day-ahead is quint low across the board with bitcoin standing out as the best, with an prediction error of $0.72\%$ and reaching an error at five-day-ahead prediction of $4.66\%$. Just a single prediction namely five-day-ahead for Ripple is larger than $10\%$.\\
 
 
 \noindent \textbf{Comparison of Engel Granger and Johansen}\\
 
 \noindent First looking at the plots, the predictions looks better for the Johansen model. Both Engel Granger and Johansen plots seems to behave similar, as they capture some movement at the start, and then moves in a straight line, this is expected and it is caused by the error correction.
-Secondly looking the prediction errors, here it becomes very clear that the prediction accuracy is significantly better for the model build by Johansen compared to the models build by Engel Granger. The MAPE for Johansen on only have a single day-ahead prediction which is off by more than $10\%$ and most day-ahead predictions with a deviation from the true value with less than $5\%$. Compared to the Engel Granger, which do not have a single prediction which is off by less than $8\%$.\\
-It is therefore concluded that the Engel Granger model is somewhat accurate while the Johansen model is quite accurate. Furthermore we conclude that the Johansen model is the best at forecasting.
+Secondly looking the prediction errors. Here it becomes very clear that the prediction accuracy is significantly better for the model build by Johansen compared to the model build by Engel Granger. The MAPE for Johansen only have a single day-ahead prediction which is off by more than $10\%$ and most day-ahead predictions with a deviation from the true value with less than $5\%$. Compared to the Engel Granger, which do not have a single prediction which is off by less than $17\%$. This means the Johansen's worst prediction is significantly better the the Engel Granger's best prediction.\\
+It is concluded that the Engel Granger model is somewhat accurate while the Johansen model is quite accurate. Furthermore, we conclude that the Johansen model is the by far the best at forecasting.
