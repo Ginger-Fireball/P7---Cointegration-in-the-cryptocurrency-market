@@ -20,7 +20,7 @@ for (i in 1:4) {
       legend.box.just = "right",
       legend.margin = margin(6, 6, 6, 6),
       #legend.key.height = unit(2, 'cm'),
-      legend.text = element_text(size=10)
+      legend.text = element_text(size=15)
     )
   # Print to pdf device
   print(p)

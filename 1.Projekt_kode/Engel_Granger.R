@@ -104,7 +104,7 @@ for (i in 1:4){
 print(crypto_pairs)
 
 rm(crypto_pairs)
-rm(lag_selection)
+#rm(lag_selection)
 #------------------------------- Functions used -------------------------------#
 
 
@@ -121,9 +121,29 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
   Training_coins <- cbind(ts_Training_coin[,coin1], ts_Training_coin[,coin2])
   coins_select <- VARselect(Training_coins, lag.max = 10, type = "const")
   pdf(paste0("Billeder/AIC_Lag_for",as.character(coin1),"_",as.character(coin2),".pdf"))
-  plot(coins_select$criteria[1,]) 
-  legend("topright", legend = paste("Value:",coins_select$selection[1] ), col = "blue", pch = 19, bty = "n")
+  pic<-ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
+              y = plot_Aic_lag[,1] ) +
+    geom_point(aes(y = plot_Aic_lag[,1], colour = "AIC"),size = 2) +
+    labs(x = "Lags", y = "AIC score",colour ="AIC Score") +
+    scale_color_manual(
+      values = c("AIC" = "red" ),
+      labels = as.character("AIC Scores"),
+      name = NULL
+    ) +
+    theme_minimal()+ 
+    theme( legend.background = element_rect(fill = "grey",linetype = "solid",colour ="grey"),
+           legend.position = c(.95, .95),
+           legend.justification = c("right", "top"),
+           legend.box.just = "right",
+           legend.margin = margin(6, 6, 6, 6),
+           #legend.key.height = unit(2, 'cm'),
+           legend.text = element_text(size=10)
+    ) 
+  print(pic)
   dev.off()
+  
+  
+  
   
   # VECM model is build, lag = aic(value) - 1
   vecm_coins <- VECM(Training_coins, r=1, estim = c("2OLS"), lag = ((as.numeric(coins_select$selection[1])-1)))
@@ -201,36 +221,67 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
   
   p2<-ggplot() +
     # Plot historical data (1st geom_line)
-    geom_line(data = history_with_coin1, aes(x = Period, y = actual_Coin1), color = "black") +  # Historical actual data
+    geom_line(data = history_with_coin1, aes(x = Period, y = actual_Coin1, colour = "past")) +  # Historical actual data
     # Plot forecasted data (2nd geom_line)
-    geom_line(data = result_with_coin1, aes(x = Period, y = Coin1_Forecast), color = "blue") +  # Forecasted values
+    geom_line(data = result_with_coin1, aes(x = Period, y = Coin1_Forecast, colour = "predi")) +  # Forecasted values
     # Plot actual values after Period = 0 (3rd geom_line)
-    geom_line(data = result_with_coin1, aes(x = Period, y = actual_Coin1), color = "red") +  # Actual after forecasted period
+    geom_line(data = result_with_coin1, aes(x = Period, y = actual_Coin1, colour = "actu")) +  # Actual after forecasted period
     # Confidence intervals for forecasted data
     geom_ribbon(data = result_with_coin1, aes(x = Period, ymin = Lower_Coin1, ymax = Upper_Coin1), fill = "blue", alpha = 0.2) + 
     # Labels and theme
     labs(title = paste0("Forecast for ", coin1, " with Confidence Intervals"),
-         x = "Period", y = "Forecasted Value") +
+         x = "Period", y = "Price in USD") +
     theme_minimal() +
-    theme(plot.title = element_text(hjust = 0.5))
+    
+    scale_color_manual(
+      values = c("past" = "black","predi"="blue","actu"="red" ),
+      labels = as.character(c("Past Values","Predicted Values","Actual Values")),
+      name = NULL
+    ) +
+    theme( 
+      plot.title = element_text(hjust = 0.5),
+      legend.background = element_rect(fill = "grey",linetype = "solid",colour ="grey"),
+      legend.position = c(.05, .95),
+      legend.justification = c("left", "top"),
+      legend.box.just = "right",
+      legend.margin = margin(6, 6, 6, 6),
+      #legend.key.height = unit(2, 'cm'),
+      legend.text = element_text(size=10)
+    )  
   print(p2)
   dev.off()
+  #######################
   
   pdf(paste0("Billeder/20_day_ahed_",as.character(coin2),"_from_",as.character(coin1),"_",as.character(coin2),".pdf"))
   p3<-ggplot() +
     # Plot historical data (1st geom_line)
-    geom_line(data = history_with_coin2, aes(x = Period, y = actual_Coin2), color = "black") +  # Historical actual data
+    geom_line(data = history_with_coin2, aes(x = Period, y = actual_Coin2, colour = "past")) +  # Historical actual data
     # Plot forecasted data (2nd geom_line)
-    geom_line(data = result_with_coin2, aes(x = Period, y = Coin2_Forecast), color = "blue") +  # Forecasted values
+    geom_line(data = result_with_coin2, aes(x = Period, y = Coin2_Forecast, colour = "predi")) +  # Forecasted values
     # Plot actual values after Period = 0 (3rd geom_line)
-    geom_line(data = result_with_coin2, aes(x = Period, y = actual_Coin2), color = "red") +  # Actual after forecasted period
+    geom_line(data = result_with_coin2, aes(x = Period, y = actual_Coin2, colour = "actu")) +  # Actual after forecasted period
     # Confidence intervals for forecasted data
     geom_ribbon(data = result_with_coin2, aes(x = Period, ymin = Lower_Coin2, ymax = Upper_Coin2), fill = "blue", alpha = 0.2) + 
     # Labels and theme
     labs(title = paste0("Forecast for ", coin2, " with Confidence Intervals"),
-         x = "Period", y = "Forecasted Value") +
+         x = "Period", y = "Price in USD") +
     theme_minimal() +
-    theme(plot.title = element_text(hjust = 0.5))
+    
+    scale_color_manual(
+      values = c("past" = "black","predi"="blue","actu"="red" ),
+      labels = as.character(c("Past Values","Predicted Values","Actual Values")),
+      name = NULL
+    ) +
+  theme( 
+         plot.title = element_text(hjust = 0.5),
+         legend.background = element_rect(fill = "grey",linetype = "solid",colour ="grey"),
+         legend.position = c(.05, .95),
+         legend.justification = c("left", "top"),
+         legend.box.just = "right",
+         legend.margin = margin(6, 6, 6, 6),
+         #legend.key.height = unit(2, 'cm'),
+         legend.text = element_text(size=10)
+  ) 
   print(p3)
   dev.off()
 }
@@ -353,26 +404,26 @@ Prediction_Error <- function(predict_choice){
 
 
 #### Model building Solana ~ Ethereum ------------------------------------------
-R_S <- c("Ripple", "Solana")
+S_E <- c("Ripple", "Solana")
 day_ahead_plot(Training_all,Validation_all,"Solana","Ethereum")
 Prediction_Error(S_E)
 
 
 
 #### Model building Ripple ~ Ethereum ------------------------------------------
-R_S <- c("Ripple","Ethereum")
-day_ahead_plot(Training_all,Validation_all,"Ripple","Ethereum")
-Prediction_Error(R_E)
+#R_E <- c("Ripple","Ethereum")
+#day_ahead_plot(Training_all,Validation_all,"Ripple","Ethereum")
+#Prediction_Error(R_E)
 
 #### Model building Ethereum ~ Solana ------------------------------------------
-R_S <- c("Ethereum","Solana")
-day_ahead_plot(Training_all,Validation_all,"Ethereum","Solana")
-Prediction_Error(E_S)
+#E_S <- c("Ethereum","Solana")
+#day_ahead_plot(Training_all,Validation_all,"Ethereum","Solana")
+#Prediction_Error(E_S)
 
 #### Model building Ripple ~ Solana --------------------------------------------
-R_S <- c("Ripple", "Solana") 
-day_ahead_plot(Training_all,Validation_all,"Ripple", "Solana")
-Prediction_Error(R_S)
+#R_S <- c("Ripple", "Solana") 
+#day_ahead_plot(Training_all,Validation_all,"Ripple", "Solana")
+#Prediction_Error(R_S)
 
 
 
