@@ -1,12 +1,11 @@
 \chapter{Data Analysis}\label{chap:dataanlysis}
-This project will investigate if there exists a cointegrating relation between the four cryptocurrencies namely, Bitcoin, Ethereum, Solana and Ripple. In this chapter a short introduction to data will be made and afterwards the data will be examined. This will be done with the use of visual interpretation of plots aswell as quantitativ tests.
+This project will investigate if there exists a cointegrating relation between the four cryptocurrencies, namely Bitcoin (BTC), Ethereum (ETH), Solana (SOL), and Ripple (XRP). In this chapter a short introduction to data will be made and afterwards the data will be examined. This will be done with the use of visual interpretation of plots as well as statistical tests.
 
 \section{Data Introduction}
-The data that has been used can be found at yahoo  [ref].\\
-The data which has been chosen for this project, consists of opening prices, the daily lowest prices, the daily highest price and the closing prices all in USD. The chosen period is from 10th of December 2020 to 10th October 2024. These four has been chosen on the basis, they are the largest coins measured on market capitalization, and the fact that none of them are so called stable coins, which is a coin pegged to a FIAT currency. The data from these Crypto currency's have been cleaned to only contain closing prices. It has then been check for NA values, of which there are none present. The data is then split into two parts a training data set, which consist of the first $90\%$ of the data, and a validation data set, which consist of the last $10\%$. The training set is used for fitting different models. Furthermore model validation will be performed upon this data set. The validation set has been used to investigate the forecasting ability and accuracy of the models.\\
-We will now precede with checking the training data
+The data, that has been used, can be found at yahoo finance \cite{Yahoo_Finance}. The data for this project consists of opening prices, the daily lowest prices, the daily highest price, and the closing prices all in USD. The chosen period is from 10th of December 2020 to 10th October 2024. These cryptocurrencies have been chosen on the basis, that they are the largest coins measured on market capitalization, and the fact that none of them are so called stable coins, which is a coin pegged to a FIAT currency. The data for these cryptocurrencies have been made to only include closing prices. It has then been checked for NA values, of which there are none. The data is then split into two parts: a training set, which consists of the first $90\%$ of the data, and a validation set, which consists of the last $10\%$. The training set is used for fitting different models. Furthermore, model validation will be performed upon this data set. The validation set has been used to investigate the forecasting ability and accuracy of the models.\\
+We will now precede with checking the training data.
 \section{Leveled graph}
-The four crypto currencies' closing prices in levels have been plotted below.
+The four cryptocurrencies' closing prices in USD are plotted below.
 \begin{figure}[H]
   \centering
   \subfloat[][Bitcoin]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Bitcoin.pdf}}\quad
@@ -16,69 +15,82 @@ The four crypto currencies' closing prices in levels have been plotted below.
   \caption{Closing Prices in the Training Data}
   \label{graph_in _levels}
 \end{figure}
-Initially the four plots above exhibit a somewhat shared movement with a lot of similarities one of which is an explosive movement around day 1000 for BIT, ETH and SOL with these after reaching a peak all also having a steep decrease. These joint movements emphasizes the theory of having some sort of cointegrating movements. If cointegration is present according to either the Johansen and or the Engle Granger then it is advantageous to incorporate this in the forecasting model.\\
+\noindent Initially the four plots above exhibit a somewhat shared movement with a lot of similarities, one of which is an explosive movement after day 1000 for BTC, ETH, and SOL. After reaching a peak a steep decline is followed. These joint movements emphasizes the theory of having some sort of cointegration movements. If cointegration is present according to either the Johansen or the Engle Granger then it is advantageous to incorporate this in the forecasting model.\\
 Before checking for cointegration, there will be performed model validation.
 
 
 \section{Model Validation}
-For cointegration relations to exist, each time series must be $I(1)$. Thus each series has been differenced using the R function \textit{diff}. On this new data three graphs for each of the time series has been made. 
+For cointegration relations to exist, each time series must be $I(d)$. Thus each series has been differenced using the R function \textit{diff}. For each of the differenced time series three graphs has been made.
 \begin{figure}[H]
   \centering
-  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Bitcoin.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ethereum.pdf}}\\
-  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ripple.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Solana.pdf}}
-  \caption{(a) Bitcoin, (b) Ethereum, (c) Ripple, (d) Solana }
+  \subfloat[][Bitcoin]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Bitcoin.pdf}}\quad
+  \subfloat[][Ethereum]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ethereum.pdf}}\\
+  \subfloat[][Solana]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Solana.pdf}}\quad
+  \subfloat[][Ripple]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Ripple.pdf}}
+  \caption{Differenced data plots}
 \end{figure}
-\noindent The first of the three graphs in the top left is a histogram, from which it can be inferred that the data is normally distributed with mean zero. The Second plot is an ACF plot indicating stationary data. In the last plot, the data seems to fluctuate evenly around zero, once again indicating stationary data.
-Since Both the graphs and the test indicates stationary data. It can be concluded that all four time series are each individually $I(1)$.\\
+\noindent The first of the three graphs in the top left is a histogram, from which it can be inferred that the data is evenly distributed around zero. The plot in the top right corner is an ACF plot, indicating stationary data. In the last plot, the data seems to fluctuate evenly around zero, even though there is clear volatility clusters. 
+Since the graphs indicates stationary data, it can be concluded that all four time series are $I(1)$.\\
 
-\noindent Next the residuals of the optimal $VAR$ model will be examined. First the R function \textit{VARselect} will be used on the differenced data, which gives the optimal lag order based on four different criteria namely AIC, HQ, BIC and FPE. Here the AIC has been chosen, and it is computed with
+\noindent Next the residuals of the optimal \textit{VAR} model will be examined. First the R function \textit{VARselect} will be used on the differenced data, which gives the optimal lag order based on four different criteria namely AIC, HQ, BIC, and FPE. 
+Here, the AIC is chosen since the AIC and BIC is preferred when forecasting. There are incentives for choosing both an AIC or BIC, the BIC is preferred for large sample sizes, which is the case in this instance, but in hindsight the BIC generally chooses a less complicated model since it penalizes extra parameters more than the AIC. This in unison with the fact that the BIC is often advantageous when the true model is present. This can not be assumed, which leads us to believe the AIC is more efficient. This is because the price of cryptocurrencies is also influenced by external factors not included in the model \cite{AICorBIC}. The AIC is computed as:
 \begin{equation*}
     AIC=2k-2ln(L)
 \end{equation*}
-The maximum lag is chosen to be $10$. The Selected lag is then $9$.\textbf{AFLÆS AIC plot, tjek den siger det samme}\\
+Where $k$ is the number of parameters and $L$ is the likelihood function.
+The maximum lag is chosen to be $10$ since there is no desire to over complicate a model with an excessive amount of lags. The AIC score for one through ten is plotted below where the ninth lag corresponds to the lowest value. The lag chosen is five since the difference between the two is minimal and as mentioned before, fewer lags are preferred.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{1.Projekt_kode/Billeder/AIC_diffed_VAR.pdf}
-    \caption{AIC values lag 1 though 10}
+    \includegraphics[width=0.5\linewidth]{1.Projekt_kode/Billeder/Crypto_lags.pdf}
+    \caption{AIC Values lag 1 though 10}
     \label{fig:enter-label}
 \end{figure}
-By the use of the R function $VAR$ with the lag order specified to $9$ a $VAR(9)$ model is produced the coefficient can be found in \textbf{APPENDIX}. Next the R command \textit{checkresiduals} have been applied to the residuals of each currencies. It produce both the following plots and the Ljung-Box test. The Ljung-Box test is a statistical tool used in order to analyze if the errors exploit an uncorrelated pattern. It has the test statistic 
+\noindent The R function \textit{VAR} is used, with the lag order specified to five, thus a \textit{VAR}$(5)$ model is produced, the coefficients can be found in Appendix \ref{app:Var_estimations}. Next the R command \textit{checkresiduals} is applied to the residuals of each currency. It produces both the plots in Figure \ref{fig:plot_over_residuals} and the Ljung-Box test. The Ljung-Box test is a statistical tool used in order to analyze if the errors exhibit an uncorrelated pattern. It has the test statistic 
 \begin{align*}
-    Q=T(T-2)\sum^H_{h=1}\frac{r^2_{h}}{n-h}
+    Q=T(T-2)\sum^H_{h=1}\frac{\hat{r}^2_{h}}{T-h}
 \end{align*}
-with $r$ being the accumulated sample autocorrelations, T the number of observations and H being chosen arbitrary as the maximum amount of allowed lags. This statistic is compared against the $\chi^2$ distribution and reject the null hypothesis, which is assuming the model does not exhibit a lag of fit, when
+with $r$ being the sample auto-correlations for standardized residuals, T the number of observations, and H being chosen arbitrary as the maximum amount of allowed lags. This statistic is compared against the $\chi^2$-distribution and rejects the null hypothesis,  assuming the model does not exhibit a lack of fit, when
 \begin{align*}
-    Q>\chi^2_{1-\alpha,H}.
+    Q>\chi^2_{1-\alpha,H-p-q}.
 \end{align*}
-
-\textbf{ANALYSE AF PLOTS}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Cryptocurrency} & $\b{\chi^2}$ & \textbf{Degrees of Freedom} & \textbf{p-value} \\
+\hline
+BTC & 0.11156 & 5 & 0.9998 \\
+ETH & 0.99379 & 5 & 0.9631 \\
+XRP & 0.58619 & 5 & 0.9886 \\
+SOL & 0.099654 & 5 & 0.9998 \\
+\hline
+\end{tabular}
+\caption{Ljung-Box Test Results for cryptocurrency Residuals}
+\label{tab:ljung_box}
+\end{table}
+\noindent The high p-values result in no rejection of the null hypothesis. Thus, indicating no significant autocorrelation at lag five. This means the residual do not exhibit significant dependence or autocorrelation up to lag five, which suggests that the models have captured the autocorrelation.
 \begin{figure}[H]
   \centering
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_BTC.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_ETH.pdf}}\\
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_SOL.pdf}}\quad
-  \subfloat[][]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_XRP.pdf}}
+  \subfloat[][Bitcoin]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_BTC.pdf}}\quad
+  \subfloat[][Ethereum]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_ETH.pdf}}\\
+  \subfloat[][Solana]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_SOL.pdf}}\quad
+  \subfloat[][Ripple]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/plot_grid_ResidualsResiduals_XRP.pdf}}
   \caption{(a) Bitcoin, (b) Ethereum, (c) Ripple, (d) Solana }
+  \label{fig:plot_over_residuals}
 \end{figure}
+\noindent The histograms looks to be somewhat normally distributed with mean zero, although there are many observation in the center. This can also be emphasized in the residual plots, where it seem to oscillates around zero with some volatility clustering.
+The ACF indicates stationary residuals and there is no incentive of assuming a MA process is present.
 
 
-\textbf{Before examining whether cointegration is present it is nescessary to have the optimal amount of lags in our $VAR$ model which is done using the function $VARselect$ which provides four different tests; the AIC, HQ, BIC and FPE. Here the AIC is chosen since the AIC and BIC is preferred when forecasting. There are incentives for choosing both an AIC or BIC, the BIC is sometimes preferred for large sample sizes which is the case in this instance but in hindsight the BIC generally chooses a less complicated model since it penalizes extra parameters more than the AIC. This in unison with the fact that the BIC is often advantageous when the true model is present which we can not assume leads us to believe the AIC is more efficient since the price of cryptovalutas is also influenced by external factors not included in the model \cite{AICorBIC}.}
+\pause
 
-
-
-
-\newpage
-\subsection{QQ-plots}
-
-Looking at the quintile quintile plots also called QQ-plots it must be checked that the data is normally distributed and valued if there is an existence of heavy tails.
+\noindent Looking at the QQ-plots the desired tendency would be residuals following the red line since it would indicate normality in residuals. 
 \begin{figure}[H]
   \centering
   \subfloat[][Bitcoin]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Bitcoin_Residuals_plot.pdf}}\quad
   \subfloat[][Ethereum]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Ethereum_Residuals_plot.pdf}}\\
   \subfloat[][Ripple]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Ripple_Residuals_plot.pdf}}\quad
   \subfloat[][Solana]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Solana_Residuals_plot.pdf}}
-  \caption{(a) Bitcoin, (b) Ethereum, (c) Ripple, (d) Solana }
+  \caption{QQ-plots}
 \end{figure}
-Looking at the QQ-plots it clear to see that all the differenced data is symmetric in their respective QQ-plots but all have heavy tails meaning that they have more extreme values than a normal distribution, this can also be seen earlier in the histogram. This is something to consider when evaluating the model, but for now the data is still considered normally distributed.
+\noindent The normality assumption is although questioned since the plots indicates heavy tales meaning that they have more extreme values than a normal distribution. This bias can also be seen earlier in the histogram. Thus the normality assumption is not necessarily fulfilled. The conclusion from the residuals plot above are supported by the R function \textit{arch.test} and \textit{normality.test}, both of which rejects the null hypothesis  and thus there is indication of heteroscedasticity in the residuals and no indication of normality. Even though this is the case it is, in order to continue the application, it will be assumed that the residuals are normal in unison with there being no heteroscedasticity in the residuals.

@@ -1,21 +1,21 @@
-\chapter{Co-integration tests}
-This section is based on \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} and \cite{Engle_grang_test}.\\\\
-\noindent As explained in Chapter \ref{chap:Coint} when a linear combination of two non-stationary variables has a stationary long run equilibrium there also exists a cointegration vector $\b{\beta}$. During this section different ways of estimating the cointegration vector, $\b{\beta}$, will be introduced. One of these was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
+\chapter{Co-integration tests}\label{chap:coint tests}
+This section is based on \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} and \cite{Engle_grang_test}.\\
+\noindent As explained in Chapter \ref{chap:Coint} when a linear combination of two non-stationary variables has a stationary long run equilibrium there exist a cointegration vector $\b{\beta}$. During this section different ways of estimating the cointegration vector, $\b{\beta}$, will be introduced. One of these was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
 \section{Engle and Granger test}
-Engle and Granger formulated a two-step estimation technique and in this project the variables of interest are $I(1)$ and therefore this is only considered, even though sufficient theory of the general issue of $I(d)$ does exist. \\\\ 
-Firstly each time series is examined to ensure they are $I(1)$. Next we use the $I(1)$ variables e.g. $x_{1,t},x_{2,t},\ldots,x_{k,t}$ which construct the vector $\b{x}_t$ with $k$ entries. Now each time series is estimated in a regression where the other time series are regressors here shown for $x_{1,t}$:
+Engle and Granger formulated a two-step estimation technique, and in this project, the variables of interest are $I(1)$ and therefore this is only considered, even though sufficient theory of the general issue regarding $I(d)$ time series does exist. \\\\ 
+First, each time series is examined to make sure that they are $I(1)$. Next, we use the $I(1)$ variables, e.g., $x_{1,t},x_{2,t},\ldots,x_{k,t}$, which construct the vector $\b{x}_t$ with $k$ entries. Each time series is then estimated in a regression where the other time series are regressors, as shown for $x_{1,t}$:
 \begin{align*}
     x_{1,t}=\mu+z_{1,t}+\sum^k_{j=2}\beta_j x_{j,t}
 \end{align*}
-Here $z_{1,t}$ is the residual term from the regression. It varies from $\b{\varepsilon}$ in Chapter \ref{chap:Coint} and the vector with the coefficients is given as $\b{\hat{\beta}}=[-\hat{\beta}_1,\ldots-\hat{\beta}_k]^\top$ and we know from Definition \ref{Def:Co-integrated of order d,b} that $z_t=\b{\beta}^\top \b{x}_t$ and therefore $\b{\hat{\beta}}$ is then obtained by using OLS. This leaves us with
+Here $z_{1,t}$ is the residual term from the regression. The vector with the coefficients is given as $\b{\hat{\beta}}=[-\hat{\beta}_1,\ldots-\hat{\beta}_k]^\top$, and we know from Definition \ref{Def:Co-integrated of order d,b} that $z_t=\b{\beta}^\top \b{x}_t$, meaning $\b{\hat{\beta}}$ is obtained by using OLS. This leaves us with the time series
 \begin{align}\label{eq:z hat_t}
 \hat{z}_t=\hat{\b{\beta}}^\top \b{x}_t=-\hat{\beta}_{1}x_{1,t}-\hat{\beta}_{2}x_{2,t}-\cdots-\hat{\beta}_{k}x_{k,t}.
 \end{align}
-After obtaining $\hat{z}_t$ from \eqref{eq:z hat_t} it is necessary to verify whether $\hat{z}_t$ is $I(1)$. This can be done using the Dickey Fuller or Augmented Dickey Fuller test, but since $\hat{z}_t$ is an estimate, other critical values are needed which are found in \cite{ENGLE1987143}. A hypothesis test is then constructed:
+After obtaining $\hat{z}_t$ from \eqref{eq:z hat_t}, it is necessary to verify whether $\hat{z}_t$ is $I(1)$. This can be done using the Dickey Fuller or Augmented Dickey Fuller test, but since $\hat{z}_t$ is an estimate, other critical values are needed which, can be found in \cite{ENGLE1987143}. A hypothesis test is then constructed:
 \begin{itemize}
 \centering
     \item[$\b{H_0}$] : No cointegration. Hence $\hat{z}_t$ is non-stationary and is therefore $I(1)$.
-    \item [$\b{H_1}$] : If the null-hypothesis is rejected then $x_1,x_2,\ldots x_k$  are cointegrated.
+    \item [$\b{H_1}$] : If the null-hypothesis is rejected, then $x_1,x_2,\ldots x_k$ are cointegrated.
 \end{itemize}
 When the null hypothesis has been rejected then it is possible to proceed to the next step.\\\\
 In the second step we restrict the problem to a bivariate case. Considering the two $I(1)$ variables $x_{1,t}$ and $x_{2,t}$ we construct an error correction model for each as follows:
@@ -33,18 +33,9 @@ In the second step we restrict the problem to a bivariate case. Considering the 
 In the above $\hat{z}$ is the error obtained from the regression in \eqref{eq:z hat_t} and $\b{\varepsilon}$ is the white noise process. In \eqref{eq:ECM_eng_gra.a} it is seen how changes in $x_{1,t}$ is explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long run equilibrium $\hat{z}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and it should always be negative or else there would be no long run equilibrium but instead the system would diverge.\\\\
 Looking at the equations in \eqref{eq:ECM_eng_gra} then there must be at least one direction which is Granger causal which in short means that at least one of the variables is able to be used when forecasting the other.
 
-\begin{comment}
-    
-\section{Johansen test}
-As in the section  above, where we introduced the procedure of the Engle-Granger test and how to use it for co-integration testing, this section is also regards a co-integration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise co-integration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), with $K$ time series where the error terms $\b{\b{\varepsilon}_t}$ are i.i.d normally distributed hence $\b{\b{\varepsilon}}\sim N_K(\b{0},\Sigma$. In general this approach desires to reduce information content from $T$ observations down to a lower dimension of $r$ which means there is $r$ co-integrating vectors. We construct $2K$ auxiliary regressions using OLS. The first $K$ regressions regresses $\Delta \b{x}_t$ with the lagged differences of $\b{y}_t$ as regressors. The residuals obtained from this regression is gathered in the matrix $R_{0,t}$. The other set of auxillery regressions regresses $\b{x}_{t-p}$ using the same regressors as before (lagged differences of $\b{x}_t$) and the residuals are collected in $R_{1,t}$. Next we construct a product moment matrix $\hat{S}_{i,j}$:
-\begin{align}\label{eq:prod_moment_mat}
-   \hat{S}_{i,j}=\frac{1}{T}\sum_{t=1}^\top R_{0,t}R_{1,t}^\top\;\;\;\; i,j=0,1.
-\end{align}
-Johansen has then shown that the likelihood-ratio test statistic of the null hypothesis \ref{tab:Various_Hypotheses}
-\end{comment}
 \section{Johansen test}\label{sect:johansen test}
 This section is based on \cite{Johansen_test}.\\
-As in the section above, where we introduced the procedure of the Engle-Granger test and how to use it for cointegration testing, this section also regards a cointegration test. The Johansen test differs from the Engle-Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only pairwise cointegration relationships. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
+As in the section above, where we introduced the procedure of the Engle Granger test and how to use it in cointegration testing, this section also regards a cointegration test. The Johansen test differs from the Engle Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only a pairwise cointegration relations. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
 \begin{align}\label{eq:var_p_johansen}
 \b{x}_t=\Pi_1\b{x}_{t-1}+\cdots+\Pi_p\b{x}_{t-p}+\b{\varepsilon}_t
 \end{align}
@@ -54,16 +45,11 @@ and we define the matrix polynomial as
 \end{align*}
 We are interested in the events where: 
 \begin{itemize}
-    \item The roots lie at $z=1$ since this will lead to nonstationarity.
+    \item The roots lie at $z=1$ since this will lead to non-stationarity.
     \item The variables we consider are $I(1)$ such that $\Delta \b{x}_t$ is stationary.
-    \item The impact matrix $\Pi$ expressed in \eqref{eq:VECM_1} ($\Pi=I-\Pi_1-\cdots-\Pi_p$) has rank $r<k$.
+    \item The impact matrix $\Pi$ expressed ($\Pi=I-\Pi_1-\cdots-\Pi_p$) has rank $r<k$.
 \end{itemize}  
-We know from earlier that if the variables are cointegrated there exists a suitable $k\times r$ matrix, $\beta$, where $\beta^\top \b{x}_t$ is stationary.\\\\
-
-
-
-
-
+We know from earlier that if the variables are cointegrated there exists a suitable $k\times r$ matrix, $\beta$, where $\beta^\top \b{x}_t$ is stationary.\\
 
 \noindent It is possible to reparameterise the equation \eqref{eq:var_p_johansen} such that $\Delta \b{x}_t$ can be expressed by coefficients with no constraints:
 \begin{align}\label{eq:Pi_enters_explicit}
@@ -74,23 +60,23 @@ where
     \Gamma_i=-I+\Pi_1+\cdots+\Pi_i,\;\;\;\; i=1,\ldots,p
 \end{align*}
 where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and the parameters $\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^\top$ is not considered anymore. By doing so the impact matrix is the coefficients of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
-\noindent The maximisation of the first $p-1$ $\Gamma$ parameters is made with OLS regression of $\Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}$ which is done by isolating in \eqref{eq:Pi_enters_explicit}:
+\noindent The maximization of the $p-1$ first $\Gamma$ parameters is made with OLS regression of $\Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}$ which is done by isolating in \eqref{eq:Pi_enters_explicit}:
 \begin{align}
-    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p}\b{x}_{t-p}+\b{\varepsilon}_t\\
-    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+(-\Pi \b{x}_{t-p})+\b{\varepsilon}_t\\
-    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+(-\alpha\beta^\top \b{x}_{t-p})+\b{\varepsilon}_t\\
-    \Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\b{\varepsilon}_t
+    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\Gamma_{p}\b{x}_{t-p}+\b{\varepsilon}_t\\
+    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+ \Gamma_{p-1}\Delta \b{x}_{t-p+1}+(-\Pi \b{x}_{t-p})+\b{\varepsilon}_t\\
+    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+ \Gamma_{p-1}\Delta \b{x}_{t-p+1}+(-\alpha\beta^\top \b{x}_{t-p})+\b{\varepsilon}_t\\
+    \Delta \b{x}_t +\alpha\beta^\top \b{x}_{t-p}=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\b{\varepsilon}_t
 \end{align}
 Two matrices are afterwards constructed with residuals where $R_{0,t}$ contains the residuals from regressing $\Delta \b{x}_t$ with the lagged differences and next $R_{1,t}$ contains the residuals obtained from regressing $\b{x}_{t-p}$ on the lagged differences.\\
-The next step is to construct the product moment matrices using $R_{0,t}$ and $R_{1,t}$ and letting $T$ being the number of observation then
+The next step is to construct the product moment matrices using $R_{0,t}$ and $R_{1,t}$ and letting $T$ being the number of observations then
 \begin{align}\label{eq:prod_mom_mat}
 \hat{S}_{i,j}=T^{-1}\sum_{t=1}^
 T R_{i,t}R_{j,t}\;\;\;\; i,j=0,1,
 \end{align}
-this will help us in proving the next theorem.
+will help us in proving the next theorem.
 \begin{thm}{\phantom}\\
-    The $r$ eigenvectors which corresponds to the $r$ greatest eigenvalues of $\hat{S}_{i,j}$ (obtained in \eqref{eq:prod_mom_mat}) is the same as the maximum likelihood estimator spanned by the matrix $\beta$.\\
-    Furthermore the likelihood ratio test statistic for hypothesis two ($H_2:\Pi=\alpha\beta^{\top}$) is given as 
+    The $r$ eigenvectors which corresponds to the $r$ greatest eigenvalues of $\hat{S}_{i,j}$ (obtained from the matrix $\hat{S}_{i,j}$ in \eqref{eq:prod_mom_mat}) is the same as the maximum likelihood estimator spanned by the matrix $\beta$.\\
+    Furthermore the likelihood ratio test statistic for hypothesis $H_2:\Pi=\alpha\beta^{\top}$ is given as 
     \begin{align}\label{eq:lrmax_coint_r}
         -2ln\mathcal{Q}(H(r)|H(k))=-T\sum_{i=r+1}^k ln(1-\hat{\lambda}_i)
     \end{align}
@@ -103,12 +89,12 @@ this will help us in proving the next theorem.
     \end{align*}
 \end{thm}
 \begin{bevis}
-    Using $R_{0,t}$ and $R_{1,t}$ then a concentrated likelihood function can be written:
+    Using $R_{0,t}$ and $R_{1,t}$ then a partial maximised likelihood function can proportionally be written as:
     \begin{align}\label{eq:concentrated_likelihood}
         L(\alpha,\beta,\Sigma)=|\Sigma|^{-T/2}\cdot exp\left(-1/2\sum_{t=1}^T\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\Sigma^{-1}\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\right)
     \end{align}
     The reasoning behind \eqref{eq:concentrated_likelihood}, being constructed as above, is a result of the residuals in an OLS being normally distributed.\\\\
- Fixing $\beta$ allows for a maximisation of $\alpha$ and $\Sigma$ by a regular regression of $R_{0,t}$ on $-\beta^\top R_{1,t}$ (this is obtained by isolating $R_{0,t}$ in the parenthesis' in \eqref{eq:concentrated_likelihood}). Maximising these two parameters with respect to $\beta$ gives the following results
+ Fixing $\beta$ allows for a maximization of $\alpha$ and $\Sigma$ by a regular regression of $R_{0,t}$ on $-\beta^\top R_{1,t}$ (this is obtained by isolating $R_{0,t}$ in the parenthesis' in \eqref{eq:concentrated_likelihood}). Maximizing these two parameters with respect to $\beta$ gives the following results
  \begin{align}\label{eq:max_alphaandsigma}
      \hat{\alpha}(\beta)=-\hat{S}_{0,1}\beta(\beta^\top \hat{S}_{1,1}\beta)^{-1}\\
      \hat{\Sigma}(\beta)=\hat{S}_{0,0}-\hat{S}_{0,1}\beta\left(\beta^\top \hat{S}_{1,1}\beta\right)^{-1}\beta^\top \hat{S}_{1,0}
@@ -130,24 +116,24 @@ this will help us in proving the next theorem.
  \end{align*}
  This leaves the expression:
  \begin{align}\label{eq:minimize_prob}
-     \frac{|\hat{S}_{0,0}||\beta^{\top}\hat{S}_{1,1}\beta-\beta^{\top}\underline{\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}}\beta|}
+     \frac{|\hat{S}_{0,0}||\beta^{\top}\hat{S}_{1,1}\beta-\beta^{\top}\b{\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}}\beta|}
      {|\beta^{\top} \hat{S}_{1,1}\beta|}
  \end{align}
- Looking at the underlined part of \eqref{eq:minimize_prob} then we find the $p$ eigenvalues to this matrix labelled $\hat{\lambda}_1,\ldots\hat{\lambda}_p$ by constructing $p$ equations of the form
+ Looking at the bold part of \eqref{eq:minimize_prob} then we find the $p$ eigenvalues to this matrix labelled $\hat{\lambda}_1,\ldots\hat{\lambda}_p$ by constructing $p$ equations of the form
  \begin{align}\label{eq:eigenvector constr}
      |\lambda \hat{S}_{1,1}-\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}|=0
  \end{align}
 and let $D$ be the diagonal matrix containing these eigenvalues along with the matrix $E$ which contains the corresponding eigenvectors. Using $D$ and $E$ then it is possible to rewrite \eqref{eq:eigenvector constr} as
 \begin{align*}
-    \hat{S}_{1,1}ED=\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}E
+\hat{S}_{1,1}ED=\hat{S}_{1,0}\hat{S}^{-1}_{0,0}\hat{S}_{0,1}E
 \end{align*}
-where $E$ is normalised in such a way that $E^\top\hat{S}_{1,1}E=I$.\\
+where $E$ is normalized in such a way that $E^\top\hat{S}_{1,1}E=I$.\\
 We choose $\beta$ such that $\beta=E\Psi$ where $\Psi$ is an $p\times r$ matrix and this results in \eqref{eq:minimize_prob} being written as
 \begin{align*}
     |\Psi^\top\Psi-\Psi^\top D\Psi|/|\Psi^\top\Psi|
 \end{align*}
 and this minimization can be done by letting $\beta$ being the first $r$ columns of $E$. Furthermore then the optimal choices for $\beta$ can be found by solving $\beta=\hat{\beta}\rho$ where $\rho$ is an $r\times r$ matrix with full rank.
-Going back to \eqref{eq:max_alphaandsigma} then, since the eigenvectors are normalised in the way that $\hat{\beta}^\top \hat{S}_{1,1}\hat{\beta}=I$ then the estimates are given as:
+Going back to \eqref{eq:max_alphaandsigma} then, since the eigenvectors are normalized in the way that $\hat{\beta}^\top \hat{S}_{1,1}\hat{\beta}=I$ then the estimates are given as:
 
 \begin{align*}
     \hat{\alpha}=&-\hat{S}_{0,1}\hat{\beta}(\hat{\beta}^\top \hat{S}_{1,1}\hat{\beta})^{-1}=-\hat{S}_{0,1}\hat{\beta}\\

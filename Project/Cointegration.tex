@@ -1,43 +1,45 @@
 \chapter{Cointegration}\label{chap:Coint}
-In this chapter \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R}, \cite{Cointegration_intro} and \cite{co-Integration_and_error_correction} has been used. 
+In this chapter \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R}, \cite{Cointegration_intro}, and \cite{co-Integration_and_error_correction} have been used. 
 \pause
-In short co-integration is a concept which describes the correlation of two or more time series when dealing with a long term time schedule. Cointegration tests are used to identify if two or more non-stationary time series have a long-term equilibrium relationship, meaning there exists a linear combination which is stationary.
+Concisely, cointegration is a concept which describes the correlation of two or more time series. Cointegration tests are used to identify if two or more non-stationary time series have a long-term equilibrium relation, meaning there exists a linear combination that is stationary.
 \newline
-\noindent In order to introduce cointegration we first consider the concept of spurious regression.
+\noindent In order to define cointegration, we first consider the concept of spurious regression.
 
 
 
 \section{Spurious Regression}
-In economic theory, trends are often encountered. If the trend is purely deterministic, then, in classic linear regression, it can either be removed before performing the regression or included in the model. It does not matter which of the solutions are used the inference will be the same. However, this is not the case with difference-stationary data. The error terms are in this case often highly correlated. The $t$ and $F$ statistics are ineffective when dealing with difference-stationary data since the null hypothesis, which typically states that there are no relationships, is rejected far too often for a given critical value. This regression is called spurious regression or nonsense regression and it is called such since it finds a relation between two phenomena that are not related. It is characterized by having a high $R^2$ value (close to $1$). This is initially due to the endogenous variable containing a stochastic trend and also that total variation is calculated as
+In economic theory, trends are often encountered. If the trend is purely deterministic, then, in classic linear regression, it can either be removed before performing the regression or included in the model. It does not matter which of the solutions is used; the inference will be the same. However, this is not the case with non-stationary data. The error terms are often highly correlated in such case. The $t$ and $F$ statistics are ineffective when dealing with non-stationary data since the null hypothesis, which typically states that there are no relation, is rejected far too often for a given critical value. This regression is called spurious regression or nonsense regression and it is called such since it finds a relation between two phenomena that are not related. It is characterized by having a high $R^2$ value (close to $1$). This is initially due to the endogenous variable containing a stochastic trend and also that total variation is calculated as
 
 %The $t$ and $F$ statistics can be biased or inflated, leading to the frequent rejection of the null hypothesis for a given critical value.
 
 \begin{equation*}
     \sum_{t=1}^T(y_t-\Bar{y}),
 \end{equation*}
-where $\Bar{y}$ is the sample mean of the observations up until $y_t$ and $T$ is the length of the time series. This is an issue since it is incorrectly assumed, that the series has a fixed mean, thus the unadjusted goodness of fit measure 
-\begin{equation*}
+where $\Bar{y}$ is the sample mean of the observations up until $y_t$ and $T$ is the length of the time series. This is an issue since it is incorrectly assumed that the series has a fixed mean in unison with the unadjusted goodness of fit measure given as
+\begin{equation}
+\label{goodness_of_fit_eq}
     R^2=1-\frac{\sum_{t=1}^T\hat{\varepsilon}^2_t}{\sum_{t=1}^T(y_t-\Bar{y_t})^2},
-\end{equation*}
-where $\hat{\varepsilon_t}$ denotes the residual at time $t$, tends to 1 as the denominator grows, which is caused by the impact of extreme observations on either side of the sample mean $\Bar{y}$ and therefore spurious regressions occurs. \bigskip \\
-\noindent Granger and Newbold suggested as a rule of thumb \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} eller \cite{Spurious_Regressions_in_Econonmetrics_1974}: Caution should be taken if the goodness of fit measure is larger than the Durbin-Watson statistic, which is given as
+\end{equation}
+where $\hat{\varepsilon_t}$ denotes the residual at time $t$, tends to 1 as the denominator grows, which is caused by the impact of extreme observations on either side of the sample mean $\Bar{y}$ and therefore spurious regression occurs. \bigskip \\
+
+\noindent Granger and Newbold suggested as a rule of thumb (see\cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} or \cite{Spurious_Regressions_in_Econonmetrics_1974}) tha caution should be taken if the goodness of fit measure \ref{goodness_of_fit_eq} is larger than the Durbin-Watson statistic, which is given as
 \begin{equation*}
     DW=\frac{\sum_{t=2}^T(\hat{\varepsilon}_t-\hat{\varepsilon}_{t-1})^2}{\sum_{t=1}^T\hat{\varepsilon}_t}.
 \end{equation*}
-In theory, the spurious regression problem could be prevented by taking the difference. This does however create two new problems. The first one is the fact that differencing can reduce the positive residual autocorrelation, which could lead to false inferences about the coefficients. The second problem is that economic theories are often expressed in levels as they focus on the long-run relationships between variables. Hence being forced to use regression methods, with differenced data could be a problem when testing the validity of economic theories. Other ways of transforming the non-stationary data to stationary have been shown to be successful, e.g. a logarithmic transformation.
-This leads to another approach when dealing with trending variables, namely cointegration, with its definition thereof stated below.
+In theory, the spurious regression problem could be prevented by taking the difference. However, this creates two new problems. The first is the fact that differencing can reduce the positive residual autocorrelation, which could lead to false inferences about the coefficients. The second problem is that economic theories are often expressed in levels as they focus on the long-run relationships between variables. Hence, being forced to use regression methods, with differenced data could be a problem when testing the validity of economic theories. Other ways of transforming the non-stationary data to stationary have been shown to be successful, e.g. a logarithmic transformation.
+The project at hand proceeds with another approach when dealing with trending variables, namely cointegration, with its definition stated below.
 
 \begin{defi}{Cointegrated of order (d,b)}
     The components of the vector $\b{x}_t$ is said to be co-integrated of order $d$, $b$ if:
     \begin{itemize}
         \item All components of $\b{x}_t$ are $I(d)$.
-        \item There exists a non-zero vector $\b{\beta}$ such that $z_t=\b{\beta}^\top \b{x}_t\sim I(d-b)$ where $b>0$.
+        \item There exists a non-zero vector $\b{\beta}$ such that $z_t=\b{\beta}^\top \b{x}_t\sim I(d-b)$, $b>0$.
     \end{itemize}
-    When the above is fulfilled we denote it as $\b{x}_t\sim CI(d,b)$ and $\b{\beta}$ is called the co-integrating vector.
+    When the above conditions are fulfilled, we denote $\b{x}_t\sim CI(d,b)$ and $\b{\beta}$ is called the cointegration vector.
     \label{Def:Co-integrated of order d,b}
 \end{defi}
  
-\noindent With this definition, it is possible to detect stable long-run relationships between the non-stationary time series. When two time series are cointegrated then it is possible to find a linear combination of all entries in $\b{x}_t$ such that $\b{z}_t$ is a stationary series. Therefore the combination of two individually non-stationary $(\b{z}_t)$ time series is stationary.
+\noindent With this definition, it is possible to detect stable long-run relationships between the non-stationary time series. When two time series are cointegrated, it is possible to find a linear combination of all entries in $\b{x}_t$ such that $\b{z}_t$ is a stationary series. Therefore, the combination of two individual non-stationary time series is stationary.
  
 
 %Definition from \cite{co-Integration_and_error_correction}
@@ -51,7 +53,7 @@ This example is taken from \cite{Spurious_example}.\\
         \item Viewership of "The Big Bang Theory"
         \item Google searches for "How to make a baby"
     \end{enumerate}
-  The two time series gives an $R^2$ value of $0.965$, indicating an excellent goodness-of-fit. This high value suggests that the model captures a relationship between the variables, making it an acceptable representation of the data. In reality this is of-course nonsense, meaning it is spurious regression.
+  The two time series give an $R^2$ value of $0.965$, indicating an excellent goodness-of-fit. This high value suggests that the model captures a relationship between the variables, making it an acceptable representation of the data. In reality, this is of course nonsense, meaning it is spurious regression.
 \end{ekse}
 \noindent This example clearly shows the need for Definition \ref{Def:Co-integrated of order d,b}, since the $R^2$ value is unreliable in situations like these.
 \begin{comment}
@@ -67,67 +69,67 @@ The error correction model is a tool used when
 \end{comment}
 
 \section{System of Cointegrated Variables}
-This section regards the topic multivariate cointegration. The p-dimensional vector autoregressive model VAR$(p)$ $\b{x}_t$ is given as
+This section covers the topic of multivariate cointegration. The $p$-dimensional vector autoregressive model VAR$(p)$, $\b{x}_t$, is given as
 \begin{equation}
-    \boldsymbol{x}_t=\Pi_1 \b{x}_{t-1} + \dots + \Pi_p \b{x}_{t-p} + \b{\mu} + \Phi \boldsymbol{d}_t +\boldsymbol{\varepsilon}_t \phantomsection \:\:\: \text{ for } \:\:\: t=1,\dots,T.
+    \boldsymbol{x}_t=\Pi_1 \b{x}_{t-1} + \dots + \Pi_p \b{x}_{t-p} + \b{\mu} + \Phi \boldsymbol{d}_t +\boldsymbol{\varepsilon}_t \phantomsection \:\:\: \text{ for } \:\:\: t=1,\dots,T,
     \label{eq:p-dimensional_Var_model}
 \end{equation}
-where $\boldsymbol{x}_t \in \R^{k\times 1}$ is a vector of the time series at time $t$. The matrices $\Pi_i\in \R^{k\times k}$ are the coefficients of the lagged endogenous variables, $\boldsymbol{\mu} \in \R^{k\times 1}$ is a vector of constants and $\boldsymbol{d}_t \in \R^{k\times 1}$ are the deterministic terms, with $\Phi \in \R^{k\times k}$ being the corresponding coefficient matrix, the error term is assumed i.i.d $\b{\varepsilon}_t \sim N(\b{0},\Sigma)$. The vector error correction model (VECM) for $\b{x}_t$ can be derived from \eqref{eq:p-dimensional_Var_model} and is given below
+where $\boldsymbol{x}_t \in \R^{k\times 1}$ is a vector of the time series at time $t$. The matrices $\Pi_i\in \R^{k\times k}$ are the coefficients of the lagged endogenous variables, $\boldsymbol{\mu} \in \R^{k\times 1}$ is a vector of constants, and $\boldsymbol{d}_t \in \R^{k\times 1}$ is the deterministic term, with $\Phi \in \R^{k\times k}$ being the corresponding coefficient matrix. The error term is assumed i.i.d $\b{\varepsilon}_t \sim N(\b{0},\Sigma)$. The vector error correction model (VECM) for $\b{x}_t$ can be derived from \eqref{eq:p-dimensional_Var_model} and is given below
 % \begin{equation}
 %     \Delta \boldsymbol{x}_t=\Gamma_1 \Delta \b{x}_{t-1} + \dots + \Gamma_{t-p} \Delta \b{x}_{t-p+1} + \Pi \b{x}_{t-p} + \b{\mu} + \boldsymbol{\Phi} \b{D}_t + \boldsymbol{\varepsilon}_t,
 %     \label{eq:VECM_1}
 % \end{equation}
 \begin{equation}
-    \Delta \boldsymbol{x}_t = \Pi \boldsymbol{x}_{t-p} + \sum_{i=1}^{p-1}\Gamma_i\Delta \boldsymbol{x}_{t-i} + \b{\mu} + \Phi \b{d}_t + \boldsymbol{\varepsilon}_t
+    \Delta \boldsymbol{x}_t = \Pi \boldsymbol{x}_{t-p} + \sum_{i=1}^{p-1}\Gamma_i\Delta \boldsymbol{x}_{t-i} + \b{\mu} + \Phi \b{d}_t + \boldsymbol{\varepsilon}_t,
     \label{eq:VECM_1}
 \end{equation}
 where $\Pi=-(I-\Pi_1-\dots-\Pi_p)$ and 
-$\Gamma_i=-(I-\Pi_{1}-\dots-\Pi_i) \text{ for } i=1,\dots,p-1$, which contains the cumulative long-run impacts. It can be seen that the levels of the components in $\b{x}_t$ enters with lag $t-p$, it is more common that the lag enters with $t-1$.\\
-Since it is assumed that each component in $\boldsymbol{x}_t$ is at most $I(1)$ the left side is stationary. For the right side to be stationary the error correction term $\Pi\boldsymbol{x}_{t-p}$ must also be stationary.
+$\Gamma_i=-(I-\Pi_{1}-\dots-\Pi_i) \text{ for } i=1,\dots,p-1$, which contains the cumulative long-run impacts.\\
+Since it is assumed that each component in $\boldsymbol{x}_t$ is at most $I(1)$, the left-hand side is stationary. For the right-hand side to be stationary, the error correction term $\Pi\boldsymbol{x}_{t-p}$ must therefore also be stationary.
 We examine the three possibilities for $\Pi$ below.
 \begin{enumerate}
-    \item If $\text{rank}(\Pi)=k$, then $\Pi$ has full rank, this means that all elements of $\b{x}_t$ is stationary i.e. $I(0)$.
-    \item If $\text{rank}(\Pi)=0$, then $\Pi=\textbf{0}$ i.e. $\Pi$ is the null matrix, therefore no cointegration is present, hence the VECM \eqref{eq:VECM_1} is reduced to a standard VAR model.
-    \item If $0<\text{rank}(\Pi)=r<k$, then there exist $r$ cointegrating vectors meaning the system has $r$ linear stationary combinations of the non-stationary variables in $\b{x}_t$.
+    \item If $\text{rank}(\Pi)=k$, then $\Pi$ has full rank, this means that all elements of $\b{x}_t$ are stationary, i.e., $I(0)$.
+    \item If $\text{rank}(\Pi)=0$, $\Pi$ is the null matrix, therefore no cointegration is present, and hence the VECM \eqref{eq:VECM_1} is reduced to a standard VAR model.
+    \item If $0<\text{rank}(\Pi)=r<k$, then there exist $r$ cointegration vectors, which means the system has $r$ linear stationary combinations of the non-stationary variables in $\b{x}_t$.
 \end{enumerate}
-In the first two cases there are no cointegration and therefore no use for the VECM. The third and last case is interesting since cointegration is present and therefore $r$ cointegrating relations exists with $0<r<k$ meaning $\Pi$ is neither the null matrix nor is it full rank. Therefore there exist two matrices $\alpha$ and $\beta$ both in $\R^{k\times r}$, such that $\Pi=\alpha \beta^\top$. Where $\alpha$ is the adjustment coefficient matrix, which determines the speed of the adjustments to long-run equilibrium. The matrix $\beta$ contains the cointegrating vectors, which are the $r$ linearly independent rows and the linear combination $\alpha\beta^\top \b{x}_t$ is stationary. This system can be modelled by the VECM \eqref{eq:VECM_1} and using $\Pi=\alpha\beta^\top$ it can be written as
+In the first two cases, there is no cointegration and therefore no use for the VECM. The third and last case is interesting since cointegration is present and therefore $r$ cointegrating relations exist with $0<r<k$, meaning $\Pi$ is neither the null matrix nor is it full rank. Therefore there exist two matrices $\alpha$ and $\beta$ both in $\R^{k\times r}$, such that $\Pi=\alpha \beta^\top$. Here, $\alpha$ is the adjustment coefficient matrix, which determines the speed of the adjustments towards a long-run equilibrium. The matrix $\beta$ contains the cointegration vectors, which are the $r$ linearly independent rows, and the linear combination $\beta^\top \b{x}_t$ is stationary. This system can be modeled by the VECM \eqref{eq:VECM_1}, and using $\Pi=\alpha\beta^\top$ it can be written as
 
 \begin{equation}
 \Delta \boldsymbol{x}_t = \alpha\beta^\top \boldsymbol{x}_{t-p} + \sum_{i=1}^{p-1}\Gamma_i\Delta \boldsymbol{x}_{t-i} + \b{\mu} + \Phi \b{d}_t + \boldsymbol{\varepsilon}_t.
     \label{eq:VECM_2}
 \end{equation}
-\section{Granger Representation}
 
-\noindent The Granger representation theorem links cointegration and the VECM, as it states that if a set of variables are cointegrated, then a VECM exist.\\
+\section{Granger Representation}
+The Granger Representation Theorem links cointegration and the VECM, as it states that if a set of variables are cointegrated, then a VECM exists.\\
 %
 \noindent 
-Before introducing the Granger representation theorem the characteristic matrix polynomial $\Pi(z)$ is given as
+Before introducing the Granger Representation Theorem, the characteristic matrix polynomial $\Pi(z)$ is given as
 \begin{equation*}
-    \Pi(z)=(1-z)I_{k\times k}-\Pi z-(1-z)\sum_{i=1}^{p-1}\Gamma_i z^i
+    \Pi(z)=(1-z)I_{k\times k}-\Pi z-(1-z)\sum_{i=1}^{p-1}\Gamma_i z^i,
 \end{equation*}
-\noindent with determinant $\text{det}(\Pi(z)) $ of maximum degree $kp$. Let $\rho^{-1}_i$ be the roots of $\text{det}(\Pi(z)) = 0$. Then $\text{det}(\Pi(z)) = \Pi^{kp}_{i=1}(1-z \rho_i)$ and the inverse matrix is given by 
+\noindent with $\text{det}(\Pi(z))$ not exceeding $kp$ degrees. Let $\rho^{-1}_i$ be the roots of $\text{det}(\Pi(z)) = 0$. Then $\text{det}(\Pi(z)) = \Pi^{kp}_{i=1}(1-z \rho_i)$ and the inverse matrix is given by 
 \begin{equation*}
     C(z)=\Pi^{-1}(z)=\frac{\text{adj}(\Pi(z))}{\text{det}(\Pi(z))}, \phantom{asd} z\neq \rho^{-1}_i.
 \end{equation*}
 
 \begin{thm}{\hfill}
-    \noindent If $\rho_i<1$, the coefficients of $\Pi^{-1}(z)=C(z)=\sum_{i=0}^\infty C_i\b{z}^i$, will be exponentially decreasing. Let $\boldsymbol{z}_t=\sum_{i=0}^\infty C_i\b{\varepsilon}_{t-i}$ and $\boldsymbol{\mu}_t=\sum_{i=0}^\infty C_i\Phi \boldsymbol{d}_{t-i}$, then the initial values of $\boldsymbol{x}_t$ can be given a distribution such that $\boldsymbol{x}_t - \mathbb{E}[\b{x}_t]$ is stationary. The moving average representation of $\b{x}_t$ is 
+    \noindent If $\rho_i<1$, the coefficients of $\Pi^{-1}(z)=C(z)=\sum_{i=0}^\infty C_i\b{z}^i$ will be exponentially decreasing. Let $\boldsymbol{z}_t=\sum_{i=0}^\infty C_i\b{\varepsilon}_{t-i}$ and $\boldsymbol{\mu}_t=\sum_{i=0}^\infty C_i\Phi \boldsymbol{d}_{t-i}$, then the initial values of $\boldsymbol{x}_t$ can be given a distribution such that $\boldsymbol{x}_t - \mathbb{E}[\b{x}_t]$ is stationary. The moving average representation of $\b{x}_t$ is 
     \begin{equation}
         \boldsymbol{x}_t=\sum_{i=0}^\infty C_i(\b{\varepsilon}_{t-i}+\Phi \boldsymbol{d}_{t-i})=\b{z}_t + \b{\mu}_t.
         \label{eq:moving_average_representation}
     \end{equation}
 \end{thm}
-\noindent The proof of this theorem has been left out but can be found on page 14 in \cite{Likelihood-based-inference-book}.\\
+\noindent The proof of this theorem has been omitted, but can be found on page 14 in \cite{Likelihood-based-inference-book}.\\
 \noindent The process \eqref{eq:moving_average_representation} is a linear process and is used to define integration and cointegration.
 \begin{defi}{\hfill}
     We say that the process $\b{x}_t$ is integrated of order $1$, $I(1)$, if $\Delta \boldsymbol{x}_t$ is a linear process, with 
     \begin{equation*}
         C(1) = \sum^\infty_{i=0} C_i \neq 0.
     \end{equation*}
-    If there is a vector $\b{\beta}_i \neq \b{0}$ so that $\b{\beta}_i^\top \b{x}_t$ is stationary, then $\boldsymbol{x}_t$ is cointegrated with cointegrating vector $\b{\beta}_i$. The number of linearly independent cointegrating vectors is the cointegrating rank.
+    If there is a vector $\b{\beta}_i \neq \b{0}$ such that $\b{\beta}_i^\top \b{x}_t$ is stationary, then $\boldsymbol{x}_t$ is cointegrated with the cointegration vector $\b{\beta}_i$. The number of linearly independent cointegration vectors is the cointegrating rank.
 \end{defi}
 
-\noindent If the characteristic polynomial $\Pi(z)$ has a unit root, then $\Pi(1)=-\Pi$ is singular and has rank $r$, this gives us a non stationary process. 
+\noindent If the characteristic polynomial $\Pi(z)$ has a unit root, then $\Pi(1)=-\Pi$ is singular and has rank $r$, which gives us a non-stationary process. 
 
 % Then the matrix $\b{\beta'} \in \R^{r \times p }$ matrix denotes the r linearly independent rows of $\Pi$ and let this gives us a non stationary process.
 % Then the $\b{\alpha}\in \R^{r \times p}$ matrix contain the coefficients that express each row of $-\Pi$ as a combination of vectors $\b{\beta'}$ this means that $\Pi=\b{ \alpha\beta'}$ from this and  \eqref{eq:VECM_1} we can write
@@ -135,35 +137,35 @@ Before introducing the Granger representation theorem the characteristic matrix 
 % \Delta \boldsymbol{x}_t = \alpha\beta^\top \boldsymbol{x}_{t-p} + \sum_{i=1}^{p-1}\Gamma_i\Delta \boldsymbol{x}_{t-i} + \b{\mu} + \boldsymbol{\Phi} \b{d}_t + \boldsymbol{\varepsilon}_t.
 % \end{equation*}
 \noindent
-We define $\Gamma=I-\sum_{i=1}^{k-1}\Gamma_i$, which is used to construct the following condition.
+We define $\Gamma=I-\sum_{i=1}^{p-1}\Gamma_i$, which is used to construct the following condition.
 
 \begin{condition}\phantom{}\\
-    This condition assumes that $\text{det}(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and also that $\text{det}(\alpha^\top_{\perp}\Gamma \beta_{\perp})\neq0$, with $\alpha_{\perp}$ being the orthogonal complement of $\alpha$, this is the same as saying $\text{det}(\Pi(z))=0$ has rank $p-r$.
+    This condition assumes that $\text{det}(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and also that $\text{det}(\alpha^\top_{\perp}\Gamma \beta_{\perp})\neq0$, with $\alpha_{\perp}$ being the orthogonal complement of $\alpha$, this is the same as saying $\text{det}(\Pi(z))=0$ has rank $k-r$.
     \label{condition_granger}
 \end{condition}
 
 % \begin{enumerate} \label{condition_granger}
 %     \item condition says we assume that $det(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and assmue also that $det(\b{\alpha}'_{\perp}\Gamma\b{\beta}_{\perp})\neq0$ this is the same as saying $det(\Pi(z))=0$ have rank $p-r$
 % \end{enumerate}
-\noindent When the condition above is fulfilled then there are no solutions with seasonal- or explosive roots, in unison with the fact that solutions of order two or higher are avoided. The Granger Representation Theorem can now be formulated.
+\noindent When the condition above is fulfilled then there are no solutions with seasonal or explosive roots and neither are there no solutions of order two or higher. The Granger Representation Theorem will now be formulated.
 \begin{thm}{The Granger Representation Theorem}
-    If $\Pi(z)$ has a unit root and Condition \ref{condition_granger} is satisfied then
+    If $\Pi(z)$ has a unit root and Condition \ref{condition_granger} is satisfied, then
     \begin{equation}\label{Granger_representation_eq_1}
         (1-z)\Pi^{-1}(z)=C(z)=\sum^{\infty}_{i=0}C_iz^i=C(1)+(1-z)C^\ast(z)
     \end{equation}
     is convergent for $|z|\leq1+\delta
     $ for some $\delta>0$,
     \begin{equation*}
-C^{\ast}(z)=\frac{C(z)-C(1)}{1-z}\text{ for }z\neq 1\;\;\;\;\;\;\;\text{and}\;\;\;\;\;\;\;C=C(1)=\beta_\perp(\alpha'_{\perp}\Gamma\beta_{\perp})^{-1}\alpha'_{\perp}.
+C^{\ast}(z)=\frac{C(z)-C(1)}{1-z}\text{ for }z\neq 1\;\;\;\;\;\;\;\text{and}\;\;\;\;\;\;\;C=C(1)=\beta_\perp(\alpha^\top_{\perp}\Gamma\beta_{\perp})^{-1}\alpha^\top_{\perp}.
     \end{equation*}
 The process $\b{x}_t$ has the moving average representation
 \begin{equation}\label{granger_representation_eq_3}
     \b{x}_t=C\sum_{i=1}^{t}(\b{\varepsilon}_{i}+\Phi d_i)+\sum_{i=0}^{\infty}C_{i}^\ast(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}
 \end{equation}
-where $\b{a}$ depends on the initial values, such that $\b{\beta}^\top\b{a}=0$. It follows that $\b{x}_t$ is a cointegrated $I(1)$ process with r cointegrating vectors $\b{\beta}$ and $p-r$ shared stochastic trends $\b{\alpha}^\top_{\perp}\sum_{i=1}^{t}\b{\varepsilon}_i$.
+where $\b{a}$ depends on the initial values, such that $\beta^\top\b{a}=0$. It follows that $\b{x}_t$ is a cointegrated $I(1)$ process with $r$ cointegration vectors $\beta$ and $k-r$ shared stochastic trends $\alpha^\top_{\perp}\sum_{i=1}^{t}\b{\varepsilon}_i$.
 \end{thm}
 \begin{bema}
-    The result from\eqref{Granger_representation_eq_1} rests on the observation that the singularity of $\Pi(z)$ for $z=1$ implies that $\Pi(z)^{-1}$ has a pole at $z=1$. Condition \ref{condition_granger} ensures that the pole is of order one.
+    The result from \eqref{Granger_representation_eq_1} rests on the observation that the singularity of $\Pi(z)$ for $z=1$ implies that $\Pi(z)^{-1}$ has a pole at $z=1$. Condition \ref{condition_granger} ensures that the pole is of order one.
 \end{bema}
 \noindent The entire proof can be found in \cite{co-Integration_and_error_correction}. We will instead focus on proving the MA representation \eqref{granger_representation_eq_3}.
 \begin{bevis}
@@ -200,7 +202,7 @@ where $\b{a}$ depends on the initial values, such that $\b{\beta}^\top\b{a}=0$. 
 Here \eqref{eq:moving_average_representation} can be used to write the infinite MA representation of $\b{z}_t+\b{\mu}_t$:
 %Using the definition for $\b{z}_t$ and $\b{\mu}_t$ the infinite MA representation can be inserted
 \begin{align}
-    \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\sum_{i=0}^{\infty}C_i(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}.
+    \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\sum_{i=0}^{\infty}C^\ast_i(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}
 \end{align} 
 We choose the distribution of $\b{x}_0$ such that $\b{\beta}^{\top}\b{x}_0=\b{\beta}^\top(\b{z}_0+\b{\mu}_0)$, and here $\b{\beta}^\top \b{a}=0$. It is seen that $\b{x}_t$ is $I(1)$, $\b{\beta}^\top \b{x}_t=\b{\beta}^{\top}\b{z}_t+\b{\beta}^\top \b{\mu}_t$, such that $\b{\beta}^\top \b{x}_t$ is stationary around its mean $\mathbb{E}[\b{\beta}^{\top} \b{x}_t]=\b{\beta}^{\top} \b{\mu}_t$, and that $\Delta \b{x}_t$ is stationary around its mean $\mathbb{E}(\Delta \b{x}_t) =C\b{\Phi} \b{d}_t +\Delta\b{\mu}_t$. This concludes the proof.
 
@@ -225,12 +227,12 @@ Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_
     \caption{Hypotheses}
     \label{tab:Various_Hypotheses}
 \end{table}
-\noindent As earlier mentioned, if the process is non-stationary then there is an absence of a linear trend. The augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
+\noindent As previously mentioned, if the process is non-stationary, there is an absence of a linear trend and the augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
 \pause
 
-The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there is $r$ or fewer cointegrating relations. 
+\noindent The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there are $r$ or fewer cointegrating relations. 
  \newline
- The process makes it possible to conduct inferences about the number of cointegrating relations $r$ through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one, in the number of cointegrating vectors, improves the model, hence testing if $H_2(r)$ is in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
+ The process makes it possible to conduct inferences about the number of cointegrating relations through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one in the number of cointegration vectors improves the model, hence testing if $H_2(r)$ lies in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
 %The models $H(r)$ form nested sequence
 \begin{equation*}
     H(0) \subset \dots \subset H(r) \subset \dots \subset H(k),
