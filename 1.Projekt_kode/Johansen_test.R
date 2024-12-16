@@ -70,13 +70,30 @@ for (i in 1:4){
   # Plot Price Predictions
   pdf(paste0("Billeder/20_day_ahead_",as.character(crypto_now[i]),"_from_johanson.pdf"))
   
-  p <- (ggplot() +
-    geom_line(data = historical_data, aes(x = Time, y = actual_data), color = "black") +
-    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Price), color = "blue") +
-    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Actual_prices), color = "red") +
+  p <- ggplot() +
+    geom_line(data = historical_data, aes(x = Time, y = actual_data, color = "past")) +
+    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Price, color = "predi")) +
+    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Actual_prices, color = "actu")) +
     geom_ribbon(data = Johan_forecasts_df, aes(x = Time, ymin = Pricein_Lower, ymax = Pricein_Upper), fill = "blue", alpha = 0.2) +
     labs(title = paste("20-Day", as.character(NameCryptos[i]), "Forecast"), x = "Days Ahead", y = "Value") +
-    theme_minimal())
+    theme_minimal()+
+  
+  
+  scale_color_manual(
+    values = c("past" = "black","predi"="blue","actu"="red" ),
+    labels = as.character(c("Past Values","Predicted Values","Actual Values")),
+    name = NULL
+  ) +
+    theme( 
+      plot.title = element_text(hjust = 0.5),
+      legend.background = element_rect(fill = "grey",linetype = "solid",colour ="grey"),
+      legend.position = c(.05, .95),
+      legend.justification = c("left", "top"),
+      legend.box.just = "right",
+      legend.margin = margin(6, 6, 6, 6),
+      #legend.key.height = unit(2, 'cm'),
+      legend.text = element_text(size=10)
+    ) 
   plot(p)
   dev.off()
   rm(p)
