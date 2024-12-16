@@ -17,8 +17,8 @@ After obtaining $\hat{z}_t$ from \eqref{eq:z hat_t}, it is necessary to verify w
     \item[$\b{H_0}$] : No cointegration. Hence $\hat{z}_t$ is non-stationary and is therefore $I(1)$.
     \item [$\b{H_1}$] : If the null-hypothesis is rejected, then $x_1,x_2,\ldots x_k$ are cointegrated.
 \end{itemize}
-When the null hypothesis has been rejected then it is possible to proceed to the next step.\\\\
-In the second step we restrict the problem to a bivariate case. Considering the two $I(1)$ variables $x_{1,t}$ and $x_{2,t}$ we construct an error correction model for each as follows:
+When the null hypothesis has been rejected, then it is possible to proceed to the next step.\\\\
+In the second step, we restrict the problem to a bivariate case. Considering the two $I(1)$ variables $x_{1,t}$ and $x_{2,t}$, we construct an error correction model for each as follows:
 % \begin{align}
 %     \Delta x_{1,t}=&\psi_0+\gamma_1\hat{z}_{t-1}+\sum^K_{i=1}\psi_{1,i}\Delta x_{1,t-i}+\sum^L_{i=1}\psi_{2,i}\Delta x_{2,t-i}+\b{\varepsilon}_{1,t} \label{eq:3.2a}\\
 %     \Delta x_{2,t}=&\xi_0+\gamma_2\hat{z}_{t-1}+\sum^K_{i=1}\xi_{1,i}\Delta x_{2,t-i}+\sum^L_{i=1}\xi_{2,i}\Delta x_{1,t-i}+\b{\varepsilon}_{2,t} \label{eq:3.2b}.
@@ -30,7 +30,7 @@ In the second step we restrict the problem to a bivariate case. Considering the 
     \Delta x_{2,t} &= \xi_0 + \gamma_2 \hat{z}_{t-1} + \sum^K_{i=1} \xi_{1,i} \Delta x_{2,t-i} + \sum^L_{i=1} \xi_{2,i} \Delta x_{1,t-i} + \boldsymbol{\varepsilon}_{2,t}. \label{eq:ECM_eng_gra.b}
 \end{align}
 \end{subequations}
-In the above $\hat{z}$ is the error obtained from the regression in \eqref{eq:z hat_t} and $\b{\varepsilon}$ is the white noise process. In \eqref{eq:ECM_eng_gra.a} it is seen how changes in $x_{1,t}$ is explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long run equilibrium $\hat{z}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and it should always be negative or else there would be no long run equilibrium but instead the system would diverge.\\\\
+In the above, $\hat{z}$ is the error obtained from the regression in \eqref{eq:z hat_t} and $\b{\varepsilon}$ is the white noise process. In \eqref{eq:ECM_eng_gra.a}, it is seen how changes in $x_{1,t}$ are explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long run equilibrium $\hat{z}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and it should always be negative or else there would be no long run equilibrium but instead the system would diverge.\\\\
 Looking at the equations in \eqref{eq:ECM_eng_gra} then there must be at least one direction which is Granger causal which in short means that at least one of the variables is able to be used when forecasting the other.
 
 \section{Johansen test}\label{sect:johansen test}
