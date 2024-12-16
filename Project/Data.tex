@@ -6,15 +6,15 @@ The data, that has been used, can be found at yahoo finance \cite{Yahoo_Finance}
 We will now precede with checking the training data.
 \section{Leveled graph}
 The four cryptocurrencies' closing prices in USD are plotted below.
-% \begin{figure}[H]
-%   \centering
-%   \subfloat[][Bitcoin]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Bitcoin.pdf}}\quad
-%   \subfloat[][Ethereum]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ethereum.pdf}}\\
-%   \subfloat[][Solana]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Solana.pdf}}\quad
-%   \subfloat[][Ripple]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ripple.pdf}}
-%   \caption{Closing Prices in the Training Data}
-%   \label{graph_in _levels}
-% \end{figure}
+ \begin{figure}[H]
+   \centering
+   \subfloat[][Bitcoin]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Bitcoin.pdf}}\quad
+   \subfloat[][Ethereum]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ethereum.pdf}}\\
+   \subfloat[][Solana]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Solana.pdf}}\quad
+   \subfloat[][Ripple]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/Crypto_in_levels_Ripple.pdf}}
+   \caption{Closing Prices in the Training Data}
+   \label{graph_in _levels}
+ \end{figure}
 \noindent Initially the four plots above exhibit a somewhat shared movement with a lot of similarities, one of which is an explosive movement after day 1000 for BTC, ETH, and SOL. After reaching a peak a steep decline is followed. These joint movements emphasizes the theory of having some sort of cointegration movements. If cointegration is present according to either the Johansen or the Engle Granger then it is advantageous to incorporate this in the forecasting model.\\
 Before checking for cointegration, there will be performed model validation.
 
@@ -93,4 +93,4 @@ The ACF indicates stationary residuals and there is no incentive of assuming a M
   \subfloat[][Solana]{\includegraphics[width=.35\textwidth]{1.Projekt_kode/Billeder/QQ-Plot_of_Solana_Residuals_plot.pdf}}
   \caption{QQ-plots}
 \end{figure}
-\noindent The normality assumption is questioned since the plots indicates heavy tales meaning that they have more extreme values than a normal distribution. This bias can also be seen earlier in the histogram. Thus the normality assumption is not necessarily fulfilled. The conclusion from the residuals plot above are supported by the R function \textit{arch.test} and \textit{normality.test}, both of which rejects the null hypothesis  and thus there is indication of heteroscedasticity in the residuals and no indication of normality. Even though this is the case it is, in order to continue the application, it will be assumed that the residuals are normal in unison with there being no heteroscedasticity in the residuals.
+\noindent The normality assumption is questioned since the plots indicates heavy tales, meaning that they have more extreme values than a normal distribution. This bias can also be seen earlier in the histogram. Thus, the normality assumption is not necessarily fulfilled. The conclusion from the residuals plot above are supported by the R function \textit{arch.test} and \textit{normality.test}, both of which rejects the null hypothesis and thus there is indication of heteroscedasticity in the residuals and no indication of normality. Even though this is the case, in order to continue the application, it will be assumed that the residuals are normal in unison with there being no heteroscedasticity in the residuals.

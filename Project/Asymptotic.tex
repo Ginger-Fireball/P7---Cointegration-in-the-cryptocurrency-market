@@ -1,5 +1,5 @@
 \section{Asymptotic Properties}
-This chapter is based on \cite{Statistica_analysis_of_cointegrating_vectors} and \cite{Modelling_of_cointegration_in_the_vector_autoregressive_model}. The chapter will describe the asymptotic theory of test statistics and estimators which were introduced in Section \ref{sect:johansen test}.\\
+This chapter is based on \cite{Statistica_analysis_of_cointegrating_vectors} and \cite{Modelling_of_cointegration_in_the_vector_autoregressive_model}. The chapter will describe the asymptotic theory of test statistics and estimators introduced in Section \ref{sect:johansen test}.\\
 
 \noindent We briefly describe the following two tests and their connection. The first test, which tests for cointegration rank determines the number of cointegration relations, while the test for restriction on $\beta$ focuses on the specific structure of these relations. Together, they form a comprehensive framework for cointegration analysis. Before investigating the two tests Brownian motion is defined, which is used in both tests.\\
 
@@ -17,14 +17,14 @@ for all $t>0$, while $v_0$ is the restriction to $\mathscr{B}(\R^d)$ of the Dira
 \end{equation*}
 
 \begin{defi}\phantom{}\\
-    Let $(\Omega, \mathscr{F}, \mathbb{P})$ be probability space and $d\in \N$. Then a stochastic process $B=(B_t)_{t\geq0}$ on $(\Omega, \mathscr{F}, \mathbb{P})$ with target space $(\R^d,\mathscr{B}(\R^d))$ and parameter set $[0,\infty)$ is called a d-dimensional standard Brownian motion if and only if it has the following four properties:
+    Let $(\Omega, \mathscr{F}, \mathbb{P})$ be the probability space and $d\in \N$. Then a stochastic process $B=(B_t)_{t\geq0}$ on $(\Omega, \mathscr{F}, \mathbb{P})$ with target space $(\R^d,\mathscr{B}(\R^d))$ and parameter set $[0,\infty)$ is called a d-dimensional standard Brownian motion if and only if it has the following four properties:
     
 
 \begin{enumerate}
-     \item All its paths $B_\bullet(\omega)$, $\omega\in\Omega$ are continuous.
+     \item All its paths $B_\bullet(\omega)$, $\omega\in\Omega$, are continuous.
      \item $\mathbb{P}(\{B_0=0\})=1$ or equivalently $\mathbb{P}\circ B_0^{-1}=v_0$.
      \item $B$ has independent and stationary increments.        
-     \item  For all, $t > s \geq 0 $, the distribution of $B_t-B_s$ is a d-dimensional centered Gaussian distribution with covariance matrix $(t-s) \mathbbm{1}_d$ or, in symbols 
+     \item  For all, $t > s \geq 0 $, the distribution of $B_t-B_s$ is a $d$-dimensional centered Gaussian distribution with covariance matrix $(t-s) \mathbbm{1}_d$ or, in symbols, 
      \begin{equation*}
          \mathbb{P}\circ (B_t-B_s)^{-1}=v_{t-s}.
      \end{equation*}
@@ -33,14 +33,14 @@ for all $t>0$, while $v_0$ is the restriction to $\mathscr{B}(\R^d)$ of the Dira
 
 
 \subsection{Test for cointegration rank}
-When testing for cointegration rank neither the estimator nor the test statistics are standard, meaning the estimators are not asymptotically Gaussian and the test statistics are generally not asymptotic $\chi^2$. In the theorem below the asymptotic distribution of the likelihood ratio test statistic is given.
+When testing for cointegration rank, neither the estimator nor the test statistics are standard, meaning the estimators are not asymptotically Gaussian and the test statistics are generally not asymptotic $\chi^2$. In the theorem below the asymptotic distribution of the likelihood ratio test statistic is given.
 
 \begin{thm}\phantom\\
-    Under the model with $\Phi=0$ and $r$ cointegration relations the likelihood ratio statistic \eqref{eq:lrmax_coint_r} satisfies
+    Under the model with $\Phi=0$ and $r$ cointegration relations, the likelihood ratio statistic \eqref{eq:lrmax_coint_r} satisfies
     \begin{equation*}
         -2 \text{ln}\mathcal{Q} \big( H(r)|H(k) \big) \overset{d}{\rightarrow} \left\{ \int_0^1 (dB)B^{\top} \left[\int_0^1 BB^\top du \right]^{-1} \int_0^1 B(dB)^\top \right\},
     \end{equation*}
-    where the process $B$ is an $(k-r)$ dimensional Brownian motion with covariance matrix equal to $I.$
+    where the process $B$ is a $(k-r)$ dimensional Brownian motion with covariance matrix equal to $I.$
     \label{thm:asymptotic_distribution}
 \end{thm}
 \noindent The limit distribution does not depend on the parameters $\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma$, but purely on the number of common trends.
