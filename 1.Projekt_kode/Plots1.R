@@ -6,19 +6,27 @@ for (i in 1:4) {
   # Create the plot
   p <- ggplot(Training_all, aes(x = 1:nrow(Training_all), y = Training_all[, i])) +
     geom_line(aes(colour = as.character(NameCryptos[i]))) +
-    labs(x = "Days", y = "Price in Levels") +
+    labs(x = "Days", y = "Price in USD") +
     scale_color_manual(
       values = c("Bitcoin" = "red", "Ethereum" = "darkgoldenrod1", "Solana" = "blue", "Ripple" = "green"),
       labels = as.character(NameCryptos[i]),
       name = NULL
     ) +
-    theme(legend.position = "bottom")
+    theme_minimal()+
+    theme( legend.background = element_rect(fill = "grey",linetype = "solid",colour ="grey"),
+           #legend.box.background = element_rect(color= NA),
+      legend.position = c(.1, .95),
+      legend.justification = c("right", "top"),
+      legend.box.just = "right",
+      legend.margin = margin(6, 6, 6, 6),
+      #legend.key.height = unit(2, 'cm'),
+      legend.text = element_text(size=10)
+    )
   # Print to pdf device
   print(p)
   # Close pdf device
   dev.off()
 }
-
 
 
 #to check if they are stationary  with Argmented dickifuller test
@@ -93,10 +101,22 @@ pdf("Billeder/Crypto_lags.pdf")
 
 pic<-ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
             y = plot_Aic_lag[,1] ) +
-  geom_point(aes(y = plot_Aic_lag[,1], colour = "darkred"),size = 2) +
-  labs(x = "Lags", y = "AIC score") + 
+  geom_point(aes(y = plot_Aic_lag[,1], colour = "AIC"),size = 2) +
+  labs(x = "Lags", y = "AIC score",colour ="AIC Score") +
+  scale_color_manual(
+    values = c("AIC" = "red" ),
+    labels = as.character("AIC Scores"),
+    name = NULL
+  ) +
   theme_minimal()+ 
-  theme(legend.position = "none") 
+  theme( legend.background = element_rect(fill = "grey",linetype = "solid",colour ="grey"),
+    legend.position = c(.95, .95),
+    legend.justification = c("right", "top"),
+    legend.box.just = "right",
+    legend.margin = margin(6, 6, 6, 6),
+    #legend.key.height = unit(2, 'cm'),
+    legend.text = element_text(size=10)
+  ) 
 print(pic)
 dev.off()
 VAR_lag9 <- VAR(diff(ts_Training_all), p = as.numeric(lag_selection$selection[1]))
@@ -106,7 +126,7 @@ Residuals_BTC <- residuals(VAR_lag9$varresult$Bitcoin)
 Residuals_ETH <- residuals(VAR_lag9$varresult$Ethereum)
 Residuals_XRP <- residuals(VAR_lag9$varresult$Ripple)
 Residuals_SOL <- residuals(VAR_lag9$varresult$Solana)
-Name_Residuals_Cryptos<-c("Residuals_BTC","Residuals_ETH","Residuals_XRP","Residuals_SOL")
+Name_Residuals_Cryptos<-c("Residuals_BTC","Residuals_ETH","Residuals_SOL","Residuals_XRP")
 
 
   
@@ -116,10 +136,10 @@ Box.test(Residuals_ETH, lag = 9, type = "Ljung-Box")
 Box.test(Residuals_XRP, lag = 9, type = "Ljung-Box")
 Box.test(Residuals_SOL, lag = 9, type = "Ljung-Box")
 
-i<-"Residuals_BTC"
+#i<-"Residuals_BTC"
 for (i in Name_Residuals_Cryptos){
   # Making the residuals
-  df<-as.data.frame(get("Residuals_BTC"))
+  df<-as.data.frame(get(i))
   colnames(df)<-i
   # plotting and saving them as pdf's:
   
@@ -183,30 +203,49 @@ normality.test(VAR_lag9)
 
 # QQ-plot---------------------
 # Create the QQ-plot
-pdf(paste0("Billeder/QQ-Plot_of_Bitcoin_Residuals_plot.pdf"))
-qqnorm((Residuals_BTC - mean(Residuals_BTC)) / sqrt(var(Residuals_BTC)), main = "QQ-Plot of Bitcoin Residuals")
-qqline((Residuals_BTC - mean(Residuals_BTC)) / sqrt(var(Residuals_BTC)), col = "red", lwd = 2)
+j<-1
+for (i in Name_Residuals_Cryptos){
+  # Making the residuals
+  df<-as.data.frame(get(i))
+  colnames(df)<-i
+
+# Standardizing the residuals
+standardized_residuals <- (df[,1] - mean(df[,1])) / sqrt(var(df[,1]))
+
+# Creating a data frame for ggplot
+data <- data.frame(Residuals = standardized_residuals)
+
+# Generating the QQ plot
+pdf(paste0("Billeder/QQ-Plot_of_",NameCryptos[j],"_Residuals_plot.pdf"))
+p<-ggplot(data, aes(sample = Residuals)) +
+  ggtitle(paste0("QQ-Plot of ",NameCryptos[j]," Residuals")) +
+  geom_qq(aes(colour = "QQ-sample")) +
+  geom_qq_line(aes(colour = "QQ-theo")) + 
+  theme_minimal() +
+  
+  scale_color_manual(
+    values = c("QQ-sample" = "black","QQ-theo"="red" ),
+    labels = as.character(c("Sample Quantiles","theoretical Quantiles")),
+    name = NULL
+  ) +
+  
+  
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles") +
+  
+  
+  
+  theme( legend.background = element_rect(fill = "grey",linetype = "solid",colour ="grey"),
+         legend.position = c(.05, .95),
+         legend.justification = c("left", "top"),
+         legend.box.just = "right",
+         legend.margin = margin(6, 6, 6, 6),
+         #legend.key.height = unit(2, 'cm'),
+         legend.text = element_text(size=10)
+  ) 
+print(p)
 dev.off()
-
-
-pdf(paste0("Billeder/QQ-Plot_of_Ethereum_Residuals_plot.pdf"))
-qqnorm((Residuals_ETH - mean(Residuals_ETH)) / sqrt(var(Residuals_ETH)), main = "QQ-Plot of Ethereum Residuals")
-qqline((Residuals_ETH - mean(Residuals_ETH)) / sqrt(var(Residuals_ETH)), col = "red", lwd = 2)
-dev.off()
-
-
-pdf(paste0("Billeder/QQ-Plot_of_Ripple_Residuals_plot.pdf"))
-qqnorm((Residuals_XRP - mean(Residuals_XRP)) / sqrt(var(Residuals_XRP)), main = "QQ-Plot of Ripple Residuals")
-qqline((Residuals_XRP - mean(Residuals_XRP)) / sqrt(var(Residuals_XRP)), col = "red", lwd = 2)
-dev.off()
-
-
-pdf(paste0("Billeder/QQ-Plot_of_Solana_Residuals_plot.pdf"))
-qqnorm((Residuals_SOL - mean(Residuals_SOL)) / sqrt(var(Residuals_SOL)), main = "QQ-Plot of Solana Residuals")
-qqline((Residuals_SOL - mean(Residuals_SOL)) / sqrt(var(Residuals_SOL)), col = "red", lwd = 2)
-dev.off()
-
-
+j<-j+1
+}
 
 
 #deleting nonessential global Variables------------
@@ -222,7 +261,7 @@ rm(p1)
 rm(p2)
 rm(p3)
 rm(i)
-
+rm(j)
 #bliver ikke brugt 
 # Plotting prices in percentage all in one graf (changes from the day before to today)
 #ggplot(Training_all_pro, aes(x = 1:nrow(Training_all_pro), y = Training_all_pro)) +
