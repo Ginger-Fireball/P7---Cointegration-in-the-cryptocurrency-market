@@ -92,7 +92,7 @@ We examine the three possibilities for $\Pi$ below.
     \item If $\text{rank}(\Pi)=0$, $\Pi$ is the null matrix, therefore no cointegration is present, and hence the VECM \eqref{eq:VECM_1} is reduced to a standard VAR model.
     \item If $0<\text{rank}(\Pi)=r<k$, then there exist $r$ cointegration vectors, which means the system has $r$ linear stationary combinations of the non-stationary variables in $\b{x}_t$.
 \end{enumerate}
-In the first two cases, there is no cointegration and therefore no use for the VECM. The third and last case is interesting since cointegration is present and therefore $r$ cointegrating relations exist with $0<r<k$, meaning $\Pi$ is neither the null matrix nor is it full rank. Therefore there exist two matrices $\alpha$ and $\beta$ both in $\R^{k\times r}$, such that $\Pi=\alpha \beta^\top$. Here, $\alpha$ is the adjustment coefficient matrix, which determines the speed of the adjustments towards a long-run equilibrium. The matrix $\beta$ contains the cointegration vectors, which are the $r$ linearly independent rows, and the linear combination $\beta^\top \b{x}_t$ is stationary. This system can be modeled by the VECM \eqref{eq:VECM_1}, and using $\Pi=\alpha\beta^\top$ it can be written as
+In the first two cases, there is no cointegration and therefore no use for the VECM. The third and last case is interesting since cointegration is present and therefore $r$ cointegration relations exist with $0<r<k$, meaning $\Pi$ is neither the null matrix nor is it full rank. Therefore there exist two matrices $\alpha$ and $\beta$ both in $\R^{k\times r}$, such that $\Pi=\alpha \beta^\top$. Here, $\alpha$ is the adjustment coefficient matrix, which determines the speed of the adjustments towards a long-run equilibrium. The matrix $\beta$ contains the cointegration vectors, which are the $r$ linearly independent rows, and the linear combination $\beta^\top \b{x}_t$ is stationary. This system can be modeled by the VECM \eqref{eq:VECM_1}, and using $\Pi=\alpha\beta^\top$ it can be written as
 
 \begin{equation}
 \Delta \boldsymbol{x}_t = \alpha\beta^\top \boldsymbol{x}_{t-p} + \sum_{i=1}^{p-1}\Gamma_i\Delta \boldsymbol{x}_{t-i} + \b{\mu} + \Phi \b{d}_t + \boldsymbol{\varepsilon}_t.
@@ -126,7 +126,7 @@ Before introducing the Granger Representation Theorem, the characteristic matrix
     \begin{equation*}
         C(1) = \sum^\infty_{i=0} C_i \neq 0.
     \end{equation*}
-    If there is a vector $\b{\beta}_i \neq \b{0}$ such that $\b{\beta}_i^\top \b{x}_t$ is stationary, then $\boldsymbol{x}_t$ is cointegrated with the cointegration vector $\b{\beta}_i$. The number of linearly independent cointegration vectors is the cointegrating rank.
+    If there is a vector $\b{\beta}_i \neq \b{0}$ such that $\b{\beta}_i^\top \b{x}_t$ is stationary, then $\boldsymbol{x}_t$ is cointegrated with the cointegration vector $\b{\beta}_i$. The number of linearly independent cointegration vectors is the cointegration rank.
 \end{defi}
 
 \noindent If the characteristic polynomial $\Pi(z)$ has a unit root, then $\Pi(1)=-\Pi$ is singular and has rank $r$, which gives us a non-stationary process. 
@@ -215,7 +215,7 @@ We choose the distribution of $\b{x}_0$ such that $\b{\beta}^{\top}\b{x}_0=\b{\b
 \section{Classification of the Various Hypotheses}\label{subsec:classification_of_various_hypot}
 In this section \cite{MAXIMUM_LIKELIHOOD_ESTIMATION_AND_INFERENCE_ON_COINTEGRATION_—_WITH_APPLICATIONS_TO_THE_DEMAND_FOR_MONEY} has been used.\\
 %Kilde:  https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1468-0084.1990.mp52002003.x
-Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_model}. The various hypotheses that are given in Table \ref{tab:Various_Hypotheses} are related to the existence of cointegrating relations combined with linear restrictions.
+Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_model}. The various hypotheses that are given in Table \ref{tab:Various_Hypotheses} are related to the existence of cointegration relations combined with linear restrictions.
 \begin{table}[H]
     \centering
     \begin{tabular}{l}
@@ -230,14 +230,14 @@ Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_
 \noindent As previously mentioned, if the process is non-stationary, there is an absence of a linear trend and the augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
 \pause
 
-\noindent The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there are $r$ or fewer cointegrating relations. 
+\noindent The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there are $r$ or fewer cointegration relations. 
  \newline
- The process makes it possible to conduct inferences about the number of cointegrating relations through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one in the number of cointegration vectors improves the model, hence testing if $H_2(r)$ lies in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
+ The process makes it possible to conduct inferences about the number of cointegration relations through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one in the number of cointegration vectors improves the model, hence testing if $H_2(r)$ lies in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
 %The models $H(r)$ form nested sequence
 \begin{equation*}
     H(0) \subset \dots \subset H(r) \subset \dots \subset H(k),
 \end{equation*}
-where the processes $H(r)$ contains the processes with cointegration equal to or less than $r$. The formulation above allows for the derivation of the likelihood ratio test for hypothesis $H(r)$ in $H(k)$. These tests can then be applied to check if prior knowledge of the number of cointegrating relations is consistent with the data or to construct an estimator of the cointegrating rank.
+where the processes $H(r)$ contains the processes with cointegration equal to or less than $r$. The formulation above allows for the derivation of the likelihood ratio test for hypothesis $H(r)$ in $H(k)$. These tests can then be applied to check if prior knowledge of the number of cointegration relations is consistent with the data or to construct an estimator of the cointegration rank.
 
 
 
