@@ -75,7 +75,7 @@ for (i in 1:4){
     geom_line(data = Johan_forecasts_df, aes(x = Time, y = Price, color = "Predicted Values")) +
     geom_line(data = Johan_forecasts_df, aes(x = Time, y = Actual_prices, color = "Actual Values")) +
     geom_ribbon(data = Johan_forecasts_df, aes(x = Time, ymin = Pricein_Lower, ymax = Pricein_Upper), fill = "blue", alpha = 0.2) +
-    labs(title = paste("20-Day", as.character(NameCryptos[i]), "Forecast"), x = "Days Ahead", y = "Value") +
+    labs(title = paste("20-Day", as.character(NameCryptos[i]), "Forecast"), x = "Days Ahead", y = "Price in USD") +
     theme_minimal()+
   
   
