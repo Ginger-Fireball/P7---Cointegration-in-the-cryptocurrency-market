@@ -1,6 +1,6 @@
-\chapter{Co-integration tests}\label{chap:coint tests}
+\chapter{Cointegration tests}\label{chap:coint tests}
 This section is based on \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} and \cite{Engle_grang_test}.\\
-\noindent As explained in Chapter \ref{chap:Coint} when a linear combination of two non-stationary variables has a stationary long run equilibrium there exist a cointegration vector $\b{\beta}$. During this section different ways of estimating the cointegration vector, $\b{\beta}$, will be introduced. One of these was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
+\noindent As explained in Chapter \ref{chap:Coint} when a linear combination of two non-stationary variables has a stationary long-run equilibrium there exists a cointegration vector $\b{\beta}$. During this section different ways of estimating the cointegration vector, $\b{\beta}$, will be introduced. One of these was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
 \section{Engle and Granger test}
 Engle and Granger formulated a two-step estimation technique, and in this project, the variables of interest are $I(1)$ and therefore this is only considered, even though sufficient theory of the general issue regarding $I(d)$ time series does exist. \\\\ 
 First, each time series is examined to make sure that they are $I(1)$. Next, we use the $I(1)$ variables, e.g., $x_{1,t},x_{2,t},\ldots,x_{k,t}$, which construct the vector $\b{x}_t$ with $k$ entries. Each time series is then estimated in a regression where the other time series are regressors, as shown for $x_{1,t}$:
@@ -51,7 +51,7 @@ We are interested in the cases where:
 \end{itemize}  
 We know from earlier that if the variables are cointegrated there exists a suitable $k\times r$ matrix, $\beta$, such that $\beta^\top \b{x}_t$ is stationary.\\
 
-\noindent It is possible to reparameterize the equation \eqref{eq:var_p_johansen} such that $\Delta \b{x}_t$ can be expressed by coefficients with no constraints:
+\noindent It is possible to reparameterize \eqref{eq:var_p_johansen} such that $\Delta \b{x}_t$ can be expressed by coefficients with no constraints:
 \begin{align}\label{eq:Pi_enters_explicit}
     \Delta \b{x}_t=\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\Gamma_{p}\b{x}_{t-p}+\boldsymbol{\varepsilon}_t
 \end{align}
@@ -59,24 +59,24 @@ where
 \begin{align*}
     \Gamma_i=-I+\Pi_1+\cdots+\Pi_i,\;\;\;\; i=1,\ldots,p
 \end{align*}
-where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and the parameters $\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^\top$ is no longer considered. By doing so the impact matrix is the coefficients of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
+where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and the parameters $\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non-linear restriction on $\Pi=\alpha\beta^\top$ is no longer considered. By doing so the impact matrix is the coefficients of the lagged levels in a non-linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
 \noindent The maximization of the first $p-1$ $\Gamma$ parameters is done with OLS regression of $\Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}$ which is achieved by isolating in \eqref{eq:Pi_enters_explicit}:
-\begin{align}
-    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\Gamma_{p}\b{x}_{t-p}+\b{\varepsilon}_t\\
-    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+ \Gamma_{p-1}\Delta \b{x}_{t-p+1}+(-\Pi \b{x}_{t-p})+\b{\varepsilon}_t\\
-    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+ \Gamma_{p-1}\Delta \b{x}_{t-p+1}+(-\alpha\beta^\top \b{x}_{t-p})+\b{\varepsilon}_t\\
+\begin{align*}
+    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\Gamma_{p}\b{x}_{t-p}+\b{\varepsilon}_t \\
+    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+ \Gamma_{p-1}\Delta \b{x}_{t-p+1}+(-\Pi \b{x}_{t-p})+\b{\varepsilon}_t  \\
+    \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+ \Gamma_{p-1}\Delta \b{x}_{t-p+1}+(-\alpha\beta^\top \b{x}_{t-p})+\b{\varepsilon}_t \\
     \Delta \b{x}_t +\alpha\beta^\top \b{x}_{t-p}=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\b{\varepsilon}_t
-\end{align}
-Two matrices are afterwards constructed with residuals where $R_{0,t}$ contains the residuals from regressing $\Delta \b{x}_t$ with the lagged differences and next $R_{1,t}$ contains the residuals obtained from regressing $\b{x}_{t-p}$ on the lagged differences.\\
-The next step is to construct the product moment matrices using $R_{0,t}$ and $R_{1,t}$ and letting $T$ being the number of observations then
+\end{align*}
+Two matrices are afterwards constructed with residuals, where $R_{0,t}$ contains the residuals from regressing $\Delta \b{x}_t$ with the lagged differences and next $R_{1,t}$ contains the residuals obtained from regressing $\b{x}_{t-p}$ on the lagged differences.\\
+The next step is to construct the product moment matrices using $R_{0,t}$ and $R_{1,t}$ and letting $T$ being the number of observations. Then,
 \begin{align}\label{eq:prod_mom_mat}
 \hat{S}_{i,j}=T^{-1}\sum_{t=1}^
-T R_{i,t}R_{j,t}\;\;\;\; i,j=0,1,
+T R_{i,t}R_{j,t}\;\;\;\; i,j=0,1
 \end{align}
 will help us in proving the next theorem.
 \begin{thm}{\phantom}\\
     The $r$ eigenvectors which corresponds to the $r$ greatest eigenvalues of $\hat{S}_{i,j}$ (obtained from the matrix $\hat{S}_{i,j}$ in \eqref{eq:prod_mom_mat}) is the same as the maximum likelihood estimator spanned by the matrix $\beta$.\\
-    Furthermore the likelihood ratio test statistic for hypothesis $H_2:\Pi=\alpha\beta^{\top}$ is given as 
+    Furthermore, the likelihood ratio test statistic for hypothesis $H_2:\Pi=\alpha\beta^{\top}$ is given as 
     \begin{align}\label{eq:lrmax_coint_r}
         -2ln\mathcal{Q}(H(r)|H(k))=-T\sum_{i=r+1}^k ln(1-\hat{\lambda}_i)
     \end{align}
@@ -89,15 +89,15 @@ will help us in proving the next theorem.
     \end{align*}
 \end{thm}
 \begin{bevis}
-    Using $R_{0,t}$ and $R_{1,t}$ then a partial maximised likelihood function can proportionally be written as:
+    Using $R_{0,t}$ and $R_{1,t}$ then a partial maximized likelihood function can proportionally be written as
     \begin{align}\label{eq:concentrated_likelihood}
-        L(\alpha,\beta,\Sigma)=|\Sigma|^{-T/2}\cdot exp\left(-1/2\sum_{t=1}^T\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\Sigma^{-1}\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\right)
+        L(\alpha,\beta,\Sigma)=|\Sigma|^{-T/2}\cdot exp\left(-1/2\sum_{t=1}^T\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\Sigma^{-1}\left(R_{0,t}+\alpha\beta^{\top} R_{1,t}\right)\right).
     \end{align}
     The reasoning behind \eqref{eq:concentrated_likelihood}, being constructed as above, is a result of the residuals in an OLS being normally distributed.\\\\
- Fixing $\beta$ allows for a maximization of $\alpha$ and $\Sigma$ by a regular regression of $R_{0,t}$ on $-\beta^\top R_{1,t}$ (this is obtained by isolating $R_{0,t}$ in the parenthesis' in \eqref{eq:concentrated_likelihood}). Maximizing these two parameters with respect to $\beta$ gives the following results
+ Fixing $\beta$ allows for a maximization of $\alpha$ and $\Sigma$ by a regular regression of $R_{0,t}$ on $-\beta^\top R_{1,t}$ (this is obtained by isolating $R_{0,t}$ in the parentheses in \eqref{eq:concentrated_likelihood}). Maximizing these two parameters with respect to $\beta$ gives the following results
  \begin{align}\label{eq:max_alphaandsigma}
-     \hat{\alpha}(\beta)=-\hat{S}_{0,1}\beta(\beta^\top \hat{S}_{1,1}\beta)^{-1}\\
-     \hat{\Sigma}(\beta)=\hat{S}_{0,0}-\hat{S}_{0,1}\beta\left(\beta^\top \hat{S}_{1,1}\beta\right)^{-1}\beta^\top \hat{S}_{1,0}
+     \hat{\alpha}(\beta) &=-\hat{S}_{0,1}\beta(\beta^\top \hat{S}_{1,1}\beta)^{-1}\\
+    \hat{\Sigma}(\beta) &=\hat{S}_{0,0}-\hat{S}_{0,1}\beta\left(\beta^\top \hat{S}_{1,1}\beta\right)^{-1}\beta^\top \hat{S}_{1,0}
  \end{align}
  which is a result obtained using \eqref{eq:prod_mom_mat}. Equation \eqref{eq:concentrated_likelihood} can now, by leaving out normalization constants, be written as
  \begin{align*}
@@ -149,7 +149,7 @@ When constructing a likelihood ratio test statistic then the likelihood under th
 \begin{align*}
     \frac{\underset{\theta\in H_0}{max}L(\theta)}{\underset{\theta}{max}L(\theta)}
 \end{align*}
-and therefore, when checking if there is at max $r$ cointegrating relations the likelihood ratio test statistic will then be of the form
+and therefore, when checking if there is at max $r$ cointegration relations the likelihood ratio test statistic will then be of the form
 \begin{align}\label{eq:lr_test_stat}
 \mathcal{Q}(H(r)|H(k))^{-2/T}=\frac{|\hat{S}_{0,0}|\prod_{i=1}^r (1-\hat{\lambda_i})}{|\hat{S}_{0,0}|\prod_{i=1}^k(1-\hat{\lambda_i})}
 \end{align}
