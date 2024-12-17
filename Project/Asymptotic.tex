@@ -1,7 +1,7 @@
 \section{Asymptotic Properties}
 This chapter is based on \cite{Statistica_analysis_of_cointegrating_vectors} and \cite{Modelling_of_cointegration_in_the_vector_autoregressive_model}. The chapter will describe the asymptotic theory of test statistics and estimators introduced in Section \ref{sect:johansen test}.\\
 
-\noindent We briefly describe the following two tests and their connection. The first test, which tests for cointegration rank determines the number of cointegration relations, while the test for restriction on $\beta$ focuses on the specific structure of these relations. Together, they form a comprehensive framework for cointegration analysis. Before investigating the two tests Brownian motion is defined, which is used in both tests.\\
+\noindent We briefly describe the following two tests and their connection. The first test, which tests for cointegration rank, determines the number of cointegration relations, while the test for restriction on $\beta$ focuses on the specific structure of these relations. Together, they form a comprehensive framework for cointegration analysis. Before investigating the two tests Brownian motion is defined, which is used in both tests.\\
 
 \noindent 
 The following is based on \cite{Measure_theory_integration_theory_and_stochastic_processes}. In what follows, the Gaussian measure $v_t, t>0$, and $v_0$ are defined in Example 7.10 \cite{Measure_theory_integration_theory_and_stochastic_processes}. That is,
@@ -24,7 +24,7 @@ for all $t>0$, while $v_0$ is the restriction to $\mathscr{B}(\R^d)$ of the Dira
      \item All its paths $B_\bullet(\omega)$, $\omega\in\Omega$, are continuous.
      \item $\mathbb{P}(\{B_0=0\})=1$ or equivalently $\mathbb{P}\circ B_0^{-1}=v_0$.
      \item $B$ has independent and stationary increments.        
-     \item  For all, $t > s \geq 0 $, the distribution of $B_t-B_s$ is a $d$-dimensional centered Gaussian distribution with covariance matrix $(t-s) \mathbbm{1}_d$ or, in symbols, 
+     \item  For all, $t > s \geq 0 $, the distribution of $B_t-B_s$ is a $d$-dimensional centered Gaussian distribution, with covariance matrix $(t-s) \mathbbm{1}_d$ or, in symbols, 
      \begin{equation*}
          \mathbb{P}\circ (B_t-B_s)^{-1}=v_{t-s}.
      \end{equation*}
@@ -49,7 +49,7 @@ When testing for cointegration rank, neither the estimator nor the test statisti
 \begin{equation*}
     \int_0^t \text{Var}(BdB^\top) =\int_0^t BB^\top du \otimes I,
 \end{equation*}
-\noindent where the integral $\int_0^t BB^\top du$ is an ordinary integral of the continuous matrix-valued process $BB^\top$. Thus the limit distribution can be considered a multivariate version of the square of a martingale $\int_0^t BdB^\top$ divided by its variance process $\int_0^t BB^\top du$.\\
+\noindent where the integral $\int_0^t BB^\top du$ is an ordinary integral of the continuous matrix-valued process $BB^\top$. Thus, the limit distribution can be considered a multivariate version of the square of a martingale $\int_0^t BdB^\top$ divided by its variance process $\int_0^t BB^\top du$.\\
 When testing for ie. $r=k-1$ cointegration relations, the limit distribution with a one-dimensional Brownian motion is achieved as
 \begin{equation*}
    \frac{\left(\int_0^1 BdB^\top \right)^2}{\int_0^1 B^2du}=\frac{\left(\frac{B(1)^2-1}{2} \right)^2}{\int_0^1 B^2du},
@@ -79,9 +79,9 @@ _G-\beta_G) \overset{d}{\rightarrow} (1-\beta_G G^\top) \beta_\perp \left[ \int_
 
 \noindent The theorem states that for a given value of $B_1$ the limit distribution of $\hat{\beta}$ is simply a Gaussian with mean zero and variance given by \eqref{eq:asymptotic_Beta_2}. It follows from this result, that a simple conditioning argument will ensure that the likelihood ratio statistics for hypotheses regarding restrictions on $\beta$ are asymptotically distributed as $\chi^2$ variables.\\ 
 
-\noindent Furthermore the theorem states that if $\beta$ is estimated as identified parameters then the asymptotic variance of $\hat{\beta}$ is given as the inverse information matrix. This matrix corresponds to the Hessian of the log-likelihood function, which is utilized in its numerical maximization.\\
+\noindent Furthermore, the theorem states that if $\beta$ is estimated as identified parameters then the asymptotic variance of $\hat{\beta}$ is given as the inverse information matrix. This matrix corresponds to the Hessian of the log-likelihood function, which is utilized in its numerical maximization.\\
 
-\noindent The interpretation of the variance is different for the $I(0)$ and $I(1)$ processes. In the stationary process \eqref{eq:asymptotic_Beta_3} it is interpreted as an estimate of the asymptotic variance, whereas for the non-stationary process, it is interpreted as a consistent estimator of the asymptotic conditional variance. Despite the differences in interpretation, the basic property is the same, specifically, it is the approximate scale parameter used for normalizing the deviation $\hat{\beta} - \beta$.\\
+\noindent The interpretation of the variance is different for the $I(0)$ and $I(1)$ processes. In the stationary process \eqref{eq:asymptotic_Beta_3}, it is interpreted as an estimate of the asymptotic variance, whereas for the non-stationary process, it is interpreted as a consistent estimator of the asymptotic conditional variance. Despite the differences in interpretation, the basic property is the same, specifically, it is the approximate scale parameter used for normalizing the deviation $\hat{\beta} - \beta$.\\
 
 
 

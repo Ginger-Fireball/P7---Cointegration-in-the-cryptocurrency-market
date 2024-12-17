@@ -1,8 +1,8 @@
 \chapter{Data Analysis}\label{chap:dataanlysis}
-This project will examine whether there exists a cointegration relation between the four cryptocurrencies, namely Bitcoin (BTC), Ethereum (ETH), Solana (SOL), and Ripple (XRP). In this chapter a short introduction to data is given, and afterwards the data will be analyzed. This will be done with the use of visual interpretation of plots as well as statistical tests.
+This project will examine whether there exists a cointegration relation between the four cryptocurrencies, namely Bitcoin (BTC), Ethereum (ETH), Solana (SOL), and Ripple (XRP). In this chapter a short introduction to the data is given, and afterwards the data will be analyzed. This will be done with the use of visual interpretation of plots as well as statistical tests.
 
 \section{Data Introduction}
-The data, that has been used, can be found at Yahoo Finance \cite{Yahoo_Finance}. The data for this project consists of opening prices, the daily lowest prices, the daily highest price, and the closing prices all in USD. The chosen period is from 10th of December 2020 to 10th October 2024. These cryptocurrencies have been chosen on the basis, that they are the largest coins measured on market capitalization, and the fact that none of them are so called stable coins, which is a coin pegged to a FIAT currency. The data for these cryptocurrencies have adjusted such that only the closing prices are included. It has then been checked for NA values, of which there are none. The data is then split into two parts: a training set, which consists of the first $90\%$ of the data, and a validation set, which consists of the last $10\%$. The training set is used to train and fit various models. Furthermore, model validation will be performed upon this data set. The validation set has been used to examine the forecasting ability and accuracy of the models.\\
+The data, that has been used, can be found at Yahoo Finance \cite{Yahoo_Finance}. The data for this project consists of opening prices, the daily lowest prices, the daily highest price, and the closing prices all in USD. The chosen period is from 10'th of December 2020 to the 10'th October 2024. These cryptocurrencies have been chosen on the basis, that they are the largest coins measured on market capitalization, and the fact that none of them are stable coins, which is a coin pegged to a FIAT currency. The data for these cryptocurrencies has been adjusted, such that only the closing prices are included. It has been checked for NA values, of which there are none. The data is then divided into two parts: a training set, which consists of the first $90\%$ of the data, and a validation set, which consists of the last $10\%$. The training set is used to train and fit various models. Furthermore, model validation will be performed upon the data set. The validation set has been used to examine the forecasting ability and accuracy of the models.\\
 \section{Leveled Graph}
 The four cryptocurrencies' closing prices in USD are plotted below over the time period of the training data.
  \begin{figure}[H]
@@ -14,11 +14,11 @@ The four cryptocurrencies' closing prices in USD are plotted below over the time
    \caption{Closing Prices in the Training Data}
    \label{graph_in_levels}
  \end{figure}
-\noindent Initially the four plots in Figure \ref{graph_in_levels} exhibit a somewhat shared movement with a lot of similarities. One of these similarities is an explosive movement after day 1000 which is shared by BTC, ETH, and SOL. After reaching a peak a steep decline is followed. These joint movements emphasizes the theory of having some sort of cointegration movements.\\ 
+\noindent Initially the four plots in Figure \ref{graph_in_levels} exhibit a somewhat shared movement with a lot of similarities. One of these similarities is an explosive movement after day 1000, which is shared by BTC, ETH, and SOL. After reaching a peak a steep decline is followed. These joint movements emphasizes the intuition of having some sort of cointegration movements.\\ 
 
 
 \section{Model Validation}
-For cointegration relations to exist, each time series must be non-stationary. Therefore, each time series will now be examined, in order to confirm that they are $I(1)$. Thus, each time series has been differenced using the R function \textit{diff}, and three graphs for each differenced time series have been made.
+For cointegration relations to exist, each time series must be non-stationary. Therefore, each time series will now be examined, in order to confirm that they are $I(1)$. Thus, each time series has been differenced using the R function \textit{diff}, and three graphs for each differenced time series, have been made.
 \begin{figure}[H]
   \centering
   \subfloat[][Bitcoin]{\includegraphics[width=.4\textwidth]{1.Projekt_kode/Billeder/plot_grid_Bitcoin.pdf}}\quad
@@ -35,13 +35,13 @@ Here, the AIC is chosen since the AIC and BIC is preferred when forecasting. The
 \begin{equation*}
     AIC=2k-2ln(L)
 \end{equation*}
-Where $k$ is the number of parameters and $L$ is the likelihood function. The maximum lag is chosen to be $10$, since there is no desire to over complicate a model with an excessive amount of lags. The AIC score for one through ten is plotted below, where the ninth lag corresponds to the lowest value. The lag chosen is five, since the difference between the two is minimal, and, as mentioned before, fewer lags are preferred.
+Where $k$ is the number of parameters and $L$ is the likelihood function. The maximum lag is chosen to be ten, since there is no desire to over complicate a model with an excessive amount of lags. The AIC score for one through ten is plotted below, where the ninth lag corresponds to the lowest value. The lag chosen is five, since the difference between the two is minimal, and, as mentioned before, fewer lags are preferred.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{1.Projekt_kode/Billeder/Crypto_lags.pdf}
     \caption{AIC values lag one through ten}
 \end{figure}
-\noindent The R function \textit{VAR} is used, with the lag order specified to five, thus a \textit{VAR}$(5)$ model is produced, the coefficients can be found in Appendix \ref{app:Var_estimations}. Next the R function \textit{checkresiduals} is applied to the residuals of each currency. It produces both the plots in Figure \ref{fig:plot_over_residuals} and the Ljung-Box test. The Ljung-Box test is a statistical tool used, to analyze if the errors exhibit an uncorrelated pattern. It has the test statistic 
+\noindent The R function \textit{VAR} is used, with the lag order specified to five, thus a \textit{VAR}$(5)$ model is produced, the coefficients can be found in Appendix \ref{app:Var_estimations}. Next the R function \textit{checkresiduals} is applied to the residuals of each currency. It produces both the plots in Figure \ref{fig:plot_over_residuals} and the Ljung-Box test. The Ljung-Box test is a statistical tool used to analyze if the errors exhibit an uncorrelated pattern. It has the test statistic 
 \begin{align*}
     Q=T(T-2)\sum^H_{h=1}\frac{\hat{r}^2_{h}}{T-h}
 \end{align*}
