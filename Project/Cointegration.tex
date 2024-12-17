@@ -8,7 +8,7 @@ Concisely, cointegration is a concept which describes the correlation of two or 
 
 
 \section{Spurious Regression}
-In economic theory, trends are often encountered. If the trend is purely deterministic, then, in classic linear regression, it can either be removed before performing the regression or included in the model. It does not matter which of the solutions is used; the inference will be the same. However, this is not the case with non-stationary data. The error terms are often highly correlated in such case. The $t$ and $F$ statistics are ineffective when dealing with non-stationary data since the null hypothesis, which typically states that there are no relation, is rejected far too often for a given critical value. This regression is called spurious regression or nonsense regression and it is called such since it finds a relation between two phenomena that are not related. It is characterized by having a high $R^2$ value (close to $1$). This is initially due to the endogenous variable containing a stochastic trend and also that total variation is calculated as
+In economic theory, trends are often encountered. If the trend is purely deterministic, then, in classic linear regression, it can either be removed before performing the regression or included in the model. It does not matter which of the solutions is used; the inference will be the same. However, this is not the case with non-stationary data. The error terms are often highly correlated in such case. The $t$ and $F$ statistics are ineffective when dealing with non-stationary data since the null hypothesis, which typically states that there are no relation, is rejected far too often for a given critical value. This regression is called spurious regression or nonsense regression and it is called such since it finds a relation between two phenomena that are not related. It is characterized by having a high $R^2$ value (close to 1). This is initially due to the endogenous variable containing a stochastic trend and also that total variation is calculated as
 
 %The $t$ and $F$ statistics can be biased or inflated, leading to the frequent rejection of the null hypothesis for a given critical value.
 
@@ -20,7 +20,7 @@ where $\Bar{y}$ is the sample mean of the observations up until $y_t$ and $T$ is
 \label{goodness_of_fit_eq}
     R^2=1-\frac{\sum_{t=1}^T\hat{\varepsilon}^2_t}{\sum_{t=1}^T(y_t-\Bar{y_t})^2},
 \end{equation}
-where $\hat{\varepsilon_t}$ denotes the residual at time $t$, tends to 1 as the denominator grows, which is caused by the impact of extreme observations on either side of the sample mean $\Bar{y}$ and therefore spurious regression occurs. \bigskip \\
+where $\hat{\varepsilon_t}$ denotes the residual at time $t$, tends to one as the denominator grows, which is caused by the impact of extreme observations on either side of the sample mean $\Bar{y}$ and therefore spurious regression occurs. \bigskip \\
 
 \noindent Granger and Newbold suggested as a rule of thumb (see\cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} or \cite{Spurious_Regressions_in_Econonmetrics_1974}) tha caution should be taken if the goodness of fit measure \ref{goodness_of_fit_eq} is larger than the Durbin-Watson statistic, which is given as
 \begin{equation*}
@@ -85,7 +85,7 @@ where $\boldsymbol{x}_t \in \R^{k\times 1}$ is a vector of the time series at ti
 \end{equation}
 where $\Pi=-(I-\Pi_1-\dots-\Pi_p)$ and 
 $\Gamma_i=-(I-\Pi_{1}-\dots-\Pi_i) \text{ for } i=1,\dots,p-1$, which contains the cumulative long-run impacts.\\
-Since it is assumed that each component in $\boldsymbol{x}_t$ is at most $I(1)$, the left-hand side is stationary. For the right-hand side to be stationary, the error correction term $\Pi\boldsymbol{x}_{t-p}$ must therefore also be stationary.
+Since it is assumed, that each component in $\boldsymbol{x}_t$ is at most $I(1)$, the left-hand side is stationary. For the right-hand side to be stationary, the error correction term $\Pi\boldsymbol{x}_{t-p}$ must therefore also be stationary.
 We examine the three possibilities for $\Pi$ below.
 \begin{enumerate}
     \item If $\text{rank}(\Pi)=k$, then $\Pi$ has full rank, this means that all elements of $\b{x}_t$ are stationary, i.e., $I(0)$.
@@ -122,7 +122,7 @@ Before introducing the Granger Representation Theorem, the characteristic matrix
 \noindent The proof of this theorem has been omitted, but can be found on page 14 in \cite{Likelihood-based-inference-book}.\\
 \noindent The process \eqref{eq:moving_average_representation} is a linear process and is used to define integration and cointegration.
 \begin{defi}{\hfill}
-    We say that the process $\b{x}_t$ is integrated of order $1$, $I(1)$, if $\Delta \boldsymbol{x}_t$ is a linear process, with 
+    We say that the process $\b{x}_t$ is integrated of order one, $I(1)$, if $\Delta \boldsymbol{x}_t$ is a linear process, with 
     \begin{equation*}
         C(1) = \sum^\infty_{i=0} C_i \neq 0.
     \end{equation*}
@@ -147,7 +147,7 @@ We define $\Gamma=I-\sum_{i=1}^{p-1}\Gamma_i$, which is used to construct the fo
 % \begin{enumerate} \label{condition_granger}
 %     \item condition says we assume that $det(\Pi(z))=0$ which implies that $|z|>1$ or $z=1$ and assmue also that $det(\b{\alpha}'_{\perp}\Gamma\b{\beta}_{\perp})\neq0$ this is the same as saying $det(\Pi(z))=0$ have rank $p-r$
 % \end{enumerate}
-\noindent When the condition above is fulfilled then there are no solutions with seasonal or explosive roots and neither are there no solutions of order two or higher. The Granger Representation Theorem will now be formulated.
+\noindent When the condition above is fulfilled there are no solutions with seasonal or explosive roots and neither are there no solutions of order two or higher. The Granger Representation Theorem will now be formulated.
 \begin{thm}{The Granger Representation Theorem}
     If $\Pi(z)$ has a unit root and Condition \ref{condition_granger} is satisfied, then
     \begin{equation}\label{Granger_representation_eq_1}
@@ -165,7 +165,7 @@ The process $\b{x}_t$ has the moving average representation
 where $\b{a}$ depends on the initial values, such that $\beta^\top\b{a}=0$. It follows that $\b{x}_t$ is a cointegrated $I(1)$ process with $r$ cointegration vectors $\beta$ and $k-r$ shared stochastic trends $\alpha^\top_{\perp}\sum_{i=1}^{t}\b{\varepsilon}_i$.
 \end{thm}
 \begin{bema}
-    The result from \eqref{Granger_representation_eq_1} rests on the observation that the singularity of $\Pi(z)$ for $z=1$ implies that $\Pi(z)^{-1}$ has a pole at $z=1$. Condition \ref{condition_granger} ensures that the pole is of order one.
+    The result from \eqref{Granger_representation_eq_1}, rests on the observation that the singularity of $\Pi(z)$ for $z=1$ implies that $\Pi(z)^{-1}$ has a pole at $z=1$. Condition \ref{condition_granger} ensures that the pole is of order one.
 \end{bema}
 \noindent The entire proof can be found in \cite{co-Integration_and_error_correction}. We will instead focus on proving the MA representation \eqref{granger_representation_eq_3}.
 \begin{bevis}
@@ -196,14 +196,14 @@ where $\b{a}$ depends on the initial values, such that $\beta^\top\b{a}=0$. It f
      \b{x}_1&=\Delta \b{x}_1+\b{x}_{0}=C(1)(\b{\varepsilon}_1+\b{\Phi} \b{d}_1)+(\b{z}_1-\b{z}_{0}+\b{\mu}_1-\b{\mu}_{0})+\b{x}_{0}
     \end{align*}
     Combining the equations above a sum over $C(1)(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)$ and the telescoping sum $\b{z}_i-\b{z}_{i-1}+\b{\mu}_i-\b{\mu}_{i-1}$ is achieved. Furthermore we define $\b{a}=\b{x}_0-\b{z}_0-\b{\mu}_0$, then $\b{x}_t$ can be written as
-\begin{align}
+\begin{align*}
     \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\b{z}_t+\b{\mu}_t+\b{a}.
-\end{align}
+\end{align*}
 Here \eqref{eq:moving_average_representation} can be used to write the infinite MA representation of $\b{z}_t+\b{\mu}_t$:
 %Using the definition for $\b{z}_t$ and $\b{\mu}_t$ the infinite MA representation can be inserted
-\begin{align}
+\begin{align*}
     \b{x}_t=C\sum^{t}_{i=1}(\b{\varepsilon}_i+\b{\Phi} \b{d}_i)+\sum_{i=0}^{\infty}C^\ast_i(\b{\varepsilon}_{t-i}+\b{\Phi} \b{d}_{t-i})+\b{a}
-\end{align} 
+\end{align*} 
 We choose the distribution of $\b{x}_0$ such that $\b{\beta}^{\top}\b{x}_0=\b{\beta}^\top(\b{z}_0+\b{\mu}_0)$, and here $\b{\beta}^\top \b{a}=0$. It is seen that $\b{x}_t$ is $I(1)$, $\b{\beta}^\top \b{x}_t=\b{\beta}^{\top}\b{z}_t+\b{\beta}^\top \b{\mu}_t$, such that $\b{\beta}^\top \b{x}_t$ is stationary around its mean $\mathbb{E}[\b{\beta}^{\top} \b{x}_t]=\b{\beta}^{\top} \b{\mu}_t$, and that $\Delta \b{x}_t$ is stationary around its mean $\mathbb{E}(\Delta \b{x}_t) =C\b{\Phi} \b{d}_t +\Delta\b{\mu}_t$. This concludes the proof.
 
 \end{bevis}
@@ -215,7 +215,7 @@ We choose the distribution of $\b{x}_0$ such that $\b{\beta}^{\top}\b{x}_0=\b{\b
 \section{Classification of the Various Hypotheses}\label{subsec:classification_of_various_hypot}
 In this section \cite{MAXIMUM_LIKELIHOOD_ESTIMATION_AND_INFERENCE_ON_COINTEGRATION_—_WITH_APPLICATIONS_TO_THE_DEMAND_FOR_MONEY} has been used.\\
 %Kilde:  https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1468-0084.1990.mp52002003.x
-Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_model}. The various hypotheses that are given in Table \ref{tab:Various_Hypotheses} are related to the existence of cointegration relations combined with linear restrictions.
+Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_model}. The various hypotheses given in Table \ref{tab:Various_Hypotheses} are related to the existence of cointegration relations combined with linear restrictions.
 \begin{table}[H]
     \centering
     \begin{tabular}{l}
@@ -227,17 +227,17 @@ Consider the unrestricted hypothesis $H_1$ given in \eqref{eq:p-dimensional_Var_
     \caption{Hypotheses}
     \label{tab:Various_Hypotheses}
 \end{table}
-\noindent As previously mentioned, if the process is non-stationary, there is an absence of a linear trend and the augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, this is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known and define a linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
+\noindent As previously mentioned, if the process is non-stationary, there is an absence of a linear trend, and the augmented hypotheses are used, $H^\ast_j$ for $j=2,\dots,5$, which are augmented by $\b{\mu}=\alpha\beta^\top_0$, which is equivalent to $\alpha^\top_\perp \b{\mu}=\b{0}$. The matrices $A\in \R^{k\times m}$ and $H\in \R^{k\times s}$ are known, and define linear restrictions on the parameters $\alpha$ and $\beta$. The restrictions reduce the parameters to $\varphi \in \R^{s \times r}$ and $\psi \in \R^{m \times r}$, where $r \leq s \leq k$ and $r \leq m \leq k$.
 \pause
 
 \noindent The main hypothesis of interest in this project is $H_2$. It should be noted that for each value of $r$, there is a corresponding hypothesis $H_j(r)$ which states there are $r$ or fewer cointegration relations. 
  \newline
- The process makes it possible to conduct inferences about the number of cointegration relations through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one in the number of cointegration vectors improves the model, hence testing if $H_2(r)$ lies in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
+ The process makes it possible to conduct inferences about the number of cointegration relations through hypothesis testing. It can be tested if $H_2(r)$ lies in $H_1$ or by testing if an increase of one in the number of cointegration vectors improves the model hence testing if $H_2(r)$ lies in $H_2(r+1)$. The last approach forms a nested sequence of the models $H(r)$
 %The models $H(r)$ form nested sequence
 \begin{equation*}
     H(0) \subset \dots \subset H(r) \subset \dots \subset H(k),
 \end{equation*}
-where the processes $H(r)$ contains the processes with cointegration equal to or less than $r$. The formulation above allows for the derivation of the likelihood ratio test for hypothesis $H(r)$ in $H(k)$. These tests can then be applied to check if prior knowledge of the number of cointegration relations is consistent with the data or to construct an estimator of the cointegration rank.
+where the processes $H(r)$ contains the processes with cointegration equal to or less than $r$. The formulation above allows for the derivation of the likelihood ratio test for hypothesis $H(r)$ in $H(k)$. These tests can then be applied to check whether prior knowledge of the number of cointegration relations is consistent with the data or to construct an estimator of the cointegration rank.
 
 
 
