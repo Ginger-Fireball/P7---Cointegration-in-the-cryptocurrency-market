@@ -112,14 +112,15 @@ rm(crypto_pairs)
 
 #### Plotting 20 day ahead predictions -----------------------------------------
 day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
-  #Data_train <- Training_all
-  #Data_vali <- Validation_all
-  #coin1 <- "Solana"
-  #coin2<- "Ethereum"
+  Data_train <- Training_all
+  Data_vali <- Validation_all
+  coin1 <- "Solana"
+  coin2<- "Ethereum"
   
   ts_Training_coin<-ts(Data_train)
   Training_coins <- cbind(ts_Training_coin[,coin1], ts_Training_coin[,coin2])
   coins_select <- VARselect(Training_coins, lag.max = 10, type = "const")
+  plot_Aic_lag<-as.data.frame(t(coins_select$criteria))
   pdf(paste0("Billeder/AIC_Lag_for",as.character(coin1),"_",as.character(coin2),".pdf"))
   pic<-ggplot(plot_Aic_lag, aes(x = 1:length(plot_Aic_lag[,1])),
               y = plot_Aic_lag[,1] ) +
@@ -250,7 +251,7 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
     )  
   print(p2)
   dev.off()
-  #######################
+
   
   pdf(paste0("Billeder/20_day_ahed_",as.character(coin2),"_from_",as.character(coin1),"_",as.character(coin2),".pdf"))
   p3<-ggplot() +

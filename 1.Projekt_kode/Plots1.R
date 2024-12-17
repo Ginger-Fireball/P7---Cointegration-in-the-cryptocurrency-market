@@ -31,10 +31,10 @@ for (i in 1:4) {
 
 #to check if they are stationary  with Argmented dickifuller test
 ts_Training_all<-ts(Training_all)
-adf.test(ts_Training_all[, "Bitcoin"])
-adf.test(ts_Training_all[, "Ethereum"])
-adf.test(ts_Training_all[, "Solana"])
-adf.test(ts_Training_all[, "Ripple"])
+adf.test(diff(ts_Training_all[, "Bitcoin"]))
+adf.test(diff(ts_Training_all[, "Ethereum"]))
+adf.test(diff(ts_Training_all[, "Solana"]))
+adf.test(diff(ts_Training_all[, "Ripple"]))
 
 
 # Plotting the diff in two ways and the acf plot
@@ -249,9 +249,9 @@ j<-j+1
 
 
 #deleting nonessential global Variables------------
-rm(std_residuals)
+#rm(std_residuals)
 rm(df_ts_diffed)
-rm(tsu_residuals)
+#rm(tsu_residuals)
 rm(ts_diffed)
 #rm(lag_selection)
 #rm(plot_Aic_lag)
