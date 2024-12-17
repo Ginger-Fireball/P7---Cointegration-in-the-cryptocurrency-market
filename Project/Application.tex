@@ -148,7 +148,7 @@ To evaluate the models ability to forecast, we will first look at plots of a sin
 \end{align*}
 \noindent where $y_i$ is the actual value, $\hat{y}_i$ is the predicted value, and $T$ is the number of observation.
 
-\subsection{Engle Granger}
+\subsection{Engle Granger}\label{englegrangerforecastsection}
 First the 20-day-ahead prediction plot will be examined. These predictions are however not very representable of the actual accuracy of the model, since it is just a single 20-day-ahead prediction. It does however, give an insight into whether the model is able to capture the movements of the actual data.
 \begin{figure}[H]
   \centering
@@ -197,12 +197,11 @@ Ethereum      & 30.54404 & 29.21761 & 30.93889 & 31.95720 & 32.08274 \\
 \end{table}
 
 \noindent  
-The MAPE is off by more than $19\%$ and $30\%$ for the one-day-ahead predictions respectively. Furthermore, the prediction accuracy does not seem to deteriorate significantly over five days, and an interesting observation is that all three accuracy measures for SOL are smaller for five-day-ahead compared to the one-day-ahead prediction. The MAPE for SOL indicate that it is somewhat decent, and therefore could be used for decision making. The ETH model is more unreliable when predicting than when predicting for SOL.
+The MAPE is off by more than $19\%$ and $30\%$ for the one-day-ahead predictions respectively. Furthermore, the prediction accuracy does not seem to deteriorate significantly over five days, and an interesting observation is that all three accuracy measures for SOL are smaller for five-day-ahead compared to the one-day-ahead prediction. The MAPE for SOL indicate that it is somewhat decent. The model's predictability for ETH is more unreliable compared to SOL.
 \pause
 
 \subsection{Johansen}
-Like with Engle Granger forecast, we first inspect the 20-day-ahead prediction plots. 
-
+As in Section \ref{englegrangerforecastsection}, we first inspect the 20-day-ahead prediction plots. 
 \begin{figure}[H]
   \centering
   \subfloat[][Bitcoin]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahead_Bitcoin_from_johanson.pdf}}\quad
@@ -212,7 +211,7 @@ Like with Engle Granger forecast, we first inspect the 20-day-ahead prediction p
   \caption{20-day-ahead Predictions}
   \label{fig:20_day_Johansen}
 \end{figure}
-\noindent The plots seem to be somewhat accurate. All the actual values lie within $95\%$ confidence interval. Furthermore, the model seems to somewhat capture the directional movement in the start. Looking at Bitcoin and Ethereum the first quarter of day-ahead predictions looks to be close to the actual value. For Bitcoin the first prediction is so good that the lines overlap each other.
+\noindent The plots seem to be somewhat accurate. All the actual values lies within $95\%$ confidence interval. Furthermore, the model seems to somewhat capture the directional movement initially, especially when looking at BTC and ETH. For BTC the first prediction is so good, that the lines overlap each other.
 \begin{table}[H]
 \centering
 \begin{tabular}{lccccc}
