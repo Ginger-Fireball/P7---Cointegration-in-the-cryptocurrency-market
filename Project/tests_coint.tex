@@ -30,12 +30,12 @@ In the second step, we restrict the problem to a bivariate case. Considering the
     \Delta x_{2,t} &= \xi_0 + \gamma_2 \hat{z}_{t-1} + \sum^K_{i=1} \xi_{1,i} \Delta x_{2,t-i} + \sum^L_{i=1} \xi_{2,i} \Delta x_{1,t-i} + \boldsymbol{\varepsilon}_{2,t}. \label{eq:ECM_eng_gra.b}
 \end{align}
 \end{subequations}
-In the above, $\hat{z}$ is the error obtained from the regression in \eqref{eq:z hat_t} and $\b{\varepsilon}$ is the white noise process. In \eqref{eq:ECM_eng_gra.a}, it is seen how changes in $x_{1,t}$ are explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long run equilibrium $\hat{z}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and it should always be negative or else there would be no long run equilibrium but instead the system would diverge.\\\\
-Looking at the equations in \eqref{eq:ECM_eng_gra} then there must be at least one direction which is Granger causal which in short means that at least one of the variables is able to be used when forecasting the other.
+In the above, $\hat{z}$ is the error obtained from the regression in \eqref{eq:z hat_t} and $\b{\varepsilon}$ is the white noise process. In \eqref{eq:ECM_eng_gra.a}, it is seen how changes in $x_{1,t}$ are explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long-run equilibrium $\hat{z}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and should always be negative; otherwise, there would be no long-run equilibrium, but instead, the system would diverge.\\\\
+Looking at the equations in \eqref{eq:ECM_eng_gra}, then there must be at least one direction which is Granger causal which in short means that at least one of the variables can be used when forecasting the other.
 
 \section{Johansen test}\label{sect:johansen test}
 This section is based on \cite{Johansen_test}.\\
-As in the section above, where we introduced the procedure of the Engle Granger test and how to use it in cointegration testing, this section also regards a cointegration test. The Johansen test differs from the Engle Granger test in the sense that it is able to estimate multiple cointegrating relations and is therefore not restricted to only a pairwise cointegration relations. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$ dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
+Similar to the section above, where we introduced the procedure of the Engle Granger test and how to use it in cointegration testing, this section also covers a cointegration test. The Johansen test differs from the Engle Granger test in the sense that it is able to estimate multiple cointegration relations and is therefore not restricted to only pairwise cointegration relations. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$-dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
 \begin{align}\label{eq:var_p_johansen}
 \b{x}_t=\Pi_1\b{x}_{t-1}+\cdots+\Pi_p\b{x}_{t-p}+\b{\varepsilon}_t
 \end{align}
@@ -43,15 +43,15 @@ and we define the matrix polynomial as
 \begin{align*}
     A(z)=I-\Pi_1z-\cdots-\Pi_pz^p.
 \end{align*}
-We are interested in the events where: 
+We are interested in the cases where: 
 \begin{itemize}
-    \item The roots lie at $z=1$ since this will lead to non-stationarity.
+    \item The roots lie at $z=1$ as this will lead to non-stationarity.
     \item The variables we consider are $I(1)$ such that $\Delta \b{x}_t$ is stationary.
-    \item The impact matrix $\Pi$ expressed ($\Pi=I-\Pi_1-\cdots-\Pi_p$) has rank $r<k$.
+    \item The impact matrix $\Pi$ expressed as $\Pi=I-\Pi_1-\cdots-\Pi_p$ has rank $r<k$.
 \end{itemize}  
-We know from earlier that if the variables are cointegrated there exists a suitable $k\times r$ matrix, $\beta$, where $\beta^\top \b{x}_t$ is stationary.\\
+We know from earlier that if the variables are cointegrated there exists a suitable $k\times r$ matrix, $\beta$, such that $\beta^\top \b{x}_t$ is stationary.\\
 
-\noindent It is possible to reparameterise the equation \eqref{eq:var_p_johansen} such that $\Delta \b{x}_t$ can be expressed by coefficients with no constraints:
+\noindent It is possible to reparameterize the equation \eqref{eq:var_p_johansen} such that $\Delta \b{x}_t$ can be expressed by coefficients with no constraints:
 \begin{align}\label{eq:Pi_enters_explicit}
     \Delta \b{x}_t=\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\Gamma_{p}\b{x}_{t-p}+\boldsymbol{\varepsilon}_t
 \end{align}
@@ -59,8 +59,8 @@ where
 \begin{align*}
     \Gamma_i=-I+\Pi_1+\cdots+\Pi_i,\;\;\;\; i=1,\ldots,p
 \end{align*}
-where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and the parameters $\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^\top$ is not considered anymore. By doing so the impact matrix is the coefficients of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
-\noindent The maximization of the $p-1$ first $\Gamma$ parameters is made with OLS regression of $\Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}$ which is done by isolating in \eqref{eq:Pi_enters_explicit}:
+where the impact matrix $\Pi$ is given as $\Pi=-\Gamma_p$ and the parameters $\Gamma_1,\ldots,\Gamma_{p-1},\alpha,\beta,\Sigma$ are not restricted by constraints. This means that we are able to estimate $\Pi$ and the non linear restriction on $\Pi=\alpha\beta^\top$ is no longer considered. By doing so the impact matrix is the coefficients of the lagged levels in a non linear least squares regression of $\Delta \b{x}_t$ on the lagged differences and lagged levels.\\
+\noindent The maximization of the first $p-1$ $\Gamma$ parameters is done with OLS regression of $\Delta \b{x}_t+\alpha\beta^\top \b{x}_{t-p}$ which is achieved by isolating in \eqref{eq:Pi_enters_explicit}:
 \begin{align}
     \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+\Gamma_{p-1}\Delta \b{x}_{t-p+1}+\Gamma_{p}\b{x}_{t-p}+\b{\varepsilon}_t\\
     \Delta \b{x}_t=&\Gamma_1\Delta \b{x}_{t-1}+\cdots+ \Gamma_{p-1}\Delta \b{x}_{t-p+1}+(-\Pi \b{x}_{t-p})+\b{\varepsilon}_t\\
