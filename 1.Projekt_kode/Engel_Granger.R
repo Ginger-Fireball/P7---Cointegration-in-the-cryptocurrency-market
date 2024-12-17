@@ -144,7 +144,7 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
   
   
   
-  
+  summary(vecm_coins)
   # VECM model is build, lag = aic(value) - 1
   vecm_coins <- VECM(Training_coins, r=1, estim = c("2OLS"), lag = ((as.numeric(coins_select$selection[1])-1)))
   #summary(vecm_coins) #if needed
@@ -221,11 +221,11 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
   
   p2<-ggplot() +
     # Plot historical data (1st geom_line)
-    geom_line(data = history_with_coin1, aes(x = Period, y = actual_Coin1, colour = "past")) +  # Historical actual data
+    geom_line(data = history_with_coin1, aes(x = Period, y = actual_Coin1, colour = "Past Values")) +  # Historical actual data
     # Plot forecasted data (2nd geom_line)
-    geom_line(data = result_with_coin1, aes(x = Period, y = Coin1_Forecast, colour = "predi")) +  # Forecasted values
+    geom_line(data = result_with_coin1, aes(x = Period, y = Coin1_Forecast, colour = "Predicted Values")) +  # Forecasted values
     # Plot actual values after Period = 0 (3rd geom_line)
-    geom_line(data = result_with_coin1, aes(x = Period, y = actual_Coin1, colour = "actu")) +  # Actual after forecasted period
+    geom_line(data = result_with_coin1, aes(x = Period, y = actual_Coin1, colour = "Actual Values")) +  # Actual after forecasted period
     # Confidence intervals for forecasted data
     geom_ribbon(data = result_with_coin1, aes(x = Period, ymin = Lower_Coin1, ymax = Upper_Coin1), fill = "blue", alpha = 0.2) + 
     # Labels and theme
@@ -234,8 +234,8 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
     theme_minimal() +
     
     scale_color_manual(
-      values = c("past" = "black","predi"="blue","actu"="red" ),
-      labels = as.character(c("Past Values","Predicted Values","Actual Values")),
+      values = c("Past Values" = "black" ,"Predicted Values"="blue" , "Actual Values"="red" ),
+      breaks = c("Past Values","Predicted Values","Actual Values"),
       name = NULL
     ) +
     theme( 
@@ -255,11 +255,11 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
   pdf(paste0("Billeder/20_day_ahed_",as.character(coin2),"_from_",as.character(coin1),"_",as.character(coin2),".pdf"))
   p3<-ggplot() +
     # Plot historical data (1st geom_line)
-    geom_line(data = history_with_coin2, aes(x = Period, y = actual_Coin2, colour = "past")) +  # Historical actual data
+    geom_line(data = history_with_coin2, aes(x = Period, y = actual_Coin2, colour = "Past Values")) +  # Historical actual data
     # Plot forecasted data (2nd geom_line)
-    geom_line(data = result_with_coin2, aes(x = Period, y = Coin2_Forecast, colour = "predi")) +  # Forecasted values
+    geom_line(data = result_with_coin2, aes(x = Period, y = Coin2_Forecast, colour = "Predicted Values")) +  # Forecasted values
     # Plot actual values after Period = 0 (3rd geom_line)
-    geom_line(data = result_with_coin2, aes(x = Period, y = actual_Coin2, colour = "actu")) +  # Actual after forecasted period
+    geom_line(data = result_with_coin2, aes(x = Period, y = actual_Coin2, colour = "Actual Values")) +  # Actual after forecasted period
     # Confidence intervals for forecasted data
     geom_ribbon(data = result_with_coin2, aes(x = Period, ymin = Lower_Coin2, ymax = Upper_Coin2), fill = "blue", alpha = 0.2) + 
     # Labels and theme
@@ -268,8 +268,8 @@ day_ahead_plot <- function(Data_train,Data_vali,coin1,coin2){
     theme_minimal() +
     
     scale_color_manual(
-      values = c("past" = "black","predi"="blue","actu"="red" ),
-      labels = as.character(c("Past Values","Predicted Values","Actual Values")),
+      values = c("Past Values" = "black","Predicted Values"="blue","Actual Values"="red" ),
+      breaks = c("Past Values","Predicted Values","Actual Values"),
       name = NULL
     ) +
   theme( 
