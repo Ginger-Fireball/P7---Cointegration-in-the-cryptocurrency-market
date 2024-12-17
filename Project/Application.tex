@@ -31,112 +31,63 @@ To build the models, we first check for cointegration. This is done by making a 
   \caption{AIC values for SOL\&ETH}
   \label{fig:AIC_plots}
 \end{figure}
-\noindent The lag order is chosen to be seven. With the lag order determined, we are able to specify the VECM, where the lag order is simply one less than the VAR counterpart.
+\noindent The lag order is, from Figure \ref{fig:AIC_plots}, chosen to be seven. With the lag order determined, we are able to specify the VECM, where the lag order is $p-1$.
 
 \noindent The VECM is specified as follows, represented as a system of equations:\\
 
 \begin{center}
     \textbf{SOL \& ETH}
 \end{center}
-Here $\beta$ is given as $ \beta =[1, \quad -0.03250492 ]$ and the Cointegration Equation is given as 
-\begin{align*}
-    1\cdot Solana - 0.03250492\cdot Ethereum \approx 0
-\end{align*}
+Here $\hat{\beta}$ is computed as $\hat{\beta} =[1, \quad -0.03250492 ]^\top$
 \\
 Equations:
 
 \begin{align*}
 \Delta \text{Solana}_t &= 
-\underset{(0.0039)}{-0.0066} \cdot \text{ECT}_{t-1} + 
+\underset{(0.0039)}{(-0.0066)} \cdot \text{ECT}_{t-1} + 
 \underset{(0.1414)}{0.0657} + 
 \underset{(0.0348)}{0.0413} \cdot \Delta \text{Solana}_{t-1} \\
-&\quad + \underset{(0.0016)}{-0.0024} \cdot \Delta \text{Ethereum}_{t-1} + 
-\underset{(0.0348)}{-0.0166} \cdot \Delta \text{Solana}_{t-2} \\
+&\quad + \underset{(0.0016)}{(-0.0024)} \cdot \Delta \text{Ethereum}_{t-1} + 
+\underset{(0.0348)}{(-0.0166)} \cdot \Delta \text{Solana}_{t-2} \\
 &\quad + \underset{(0.0016)}{0.0017} \cdot \Delta \text{Ethereum}_{t-2} + 
 \underset{(0.0350)}{0.0403} \cdot \Delta \text{Solana}_{t-3} \\
 &\quad + \underset{(0.0016)}{0.0019} \cdot \Delta \text{Ethereum}_{t-3} + 
-\underset{(0.0349)^{**}}{0.0958} \cdot \Delta \text{Solana}_{t-4} \\
-&\quad + \underset{(0.0017)}{-0.0005} \cdot \Delta \text{Ethereum}_{t-4} + 
-\underset{(0.0351)^{**}}{-0.0941} \cdot \Delta \text{Solana}_{t-5} \\
-&\quad + \underset{(0.0016)}{-0.0009} \cdot \Delta \text{Ethereum}_{t-5} + 
-\underset{(0.0352)}{-0.0497} \cdot \Delta \text{Solana}_{t-6} \\
-&\quad + \underset{(0.0016)^*}{0.0040} \cdot \Delta \text{Ethereum}_{t-6}.
+\underset{(0.0349)}{0.0958} \cdot \Delta \text{Solana}_{t-4} \\
+&\quad + \underset{(0.0017)}{(-0.0005)} \cdot \Delta \text{Ethereum}_{t-4} + 
+\underset{(0.0351)}{(-0.0941)} \cdot \Delta \text{Solana}_{t-5} \\
+&\quad + \underset{(0.0016)}{(-0.0009)} \cdot \Delta \text{Ethereum}_{t-5} + 
+\underset{(0.0352)}{(-0.0497)} \cdot \Delta \text{Solana}_{t-6} \\
+&\quad + \underset{(0.0016)}{0.0040} \cdot \Delta \text{Ethereum}_{t-6}.
 \end{align*}
 
 \begin{align*}
 \Delta \text{Ethereum}_t &= 
-\underset{(0.0830)}{-0.0373} \cdot \text{ECT}_{t-1} + 
+\underset{(0.0830)}{(-0.0373)} \cdot \text{ECT}_{t-1} + 
 \underset{(3.0208)}{2.2306} + 
-\underset{(0.7446)^*}{-1.5949} \cdot \Delta \text{Solana}_{t-1} \\
-&\quad + \underset{(0.0349)}{-0.0267} \cdot \Delta \text{Ethereum}_{t-1} + 
-\underset{(0.7433)^*}{-1.7485} \cdot \Delta \text{Solana}_{t-2} \\
+\underset{(0.7446)}{(-1.5949)} \cdot \Delta \text{Solana}_{t-1} \\
+&\quad + \underset{(0.0349)}{(-0.0267)} \cdot \Delta \text{Ethereum}_{t-1} + 
+\underset{(0.7433)}{(-1.7485)} \cdot \Delta \text{Solana}_{t-2} \\
 &\quad + \underset{(0.0348)}{0.0573} \cdot \Delta \text{Ethereum}_{t-2} + 
-\underset{(0.7471)}{-0.9073} \cdot \Delta \text{Solana}_{t-3} \\
-&\quad + \underset{(0.0349)^*}{0.0800} \cdot \Delta \text{Ethereum}_{t-3} + 
-\underset{(0.7467)^*}{1.8720} \cdot \Delta \text{Solana}_{t-4} \\
-&\quad + \underset{(0.0353)}{-0.0123} \cdot \Delta \text{Ethereum}_{t-4} + 
+\underset{(0.7471)}{(-0.9073)} \cdot \Delta \text{Solana}_{t-3} \\
+&\quad + \underset{(0.0349)}{0.0800} \cdot \Delta \text{Ethereum}_{t-3} + 
+\underset{(0.7467)}{1.8720} \cdot \Delta \text{Solana}_{t-4} \\
+&\quad + \underset{(0.0353)}{(-0.0123)} \cdot \Delta \text{Ethereum}_{t-4} + 
 \underset{(0.7490)}{0.4281} \cdot \Delta \text{Solana}_{t-5} \\
-&\quad + \underset{(0.0352).}{-0.0668} \cdot \Delta \text{Ethereum}_{t-5} + 
-\underset{(0.7512)}{-0.5645} \cdot \Delta \text{Solana}_{t-6} \\
-&\quad + \underset{(0.0350)^*}{0.0886} \cdot \Delta \text{Ethereum}_{t-6}.
+&\quad + \underset{(0.0352)}{(-0.0668)} \cdot \Delta \text{Ethereum}_{t-5} + 
+\underset{(0.7512)}{(-0.5645)} \cdot \Delta \text{Solana}_{t-6} \\
+&\quad + \underset{(0.0350)}{0.0886} \cdot \Delta \text{Ethereum}_{t-6}.
 \end{align*}
-
-\begin{comment}
-\begin{center}
-   \textbf{ETH \& SOL}
-\end{center}
-$\text{Cointegrating Equation:} \quad  \beta = 1, \quad -25.22835 \cdot \text{Solana} \\
-\text{Equations:} $
-\begin{align*}
- \quad
-\Delta \text{Ethereum}_t &= 
-\underset{(0.0037)}{0.0011} \cdot \text{ECT}_{t-1} + 
-\underset{(3.7672)}{1.9951} + 
-\underset{(0.0348)}{-0.0304} \cdot \Delta \text{Ethereum}_{t-1} \\
-&\quad + \underset{(0.7403)^*}{-1.6282} \cdot \Delta \text{Solana}_{t-1} + 
-\underset{(0.0349)}{0.0570} \cdot \Delta \text{Ethereum}_{t-2} \\
-&\quad + \underset{(0.7434)^*}{-1.6930} \cdot \Delta \text{Solana}_{t-2} + 
-\underset{(0.0350)^*}{0.0835} \cdot \Delta \text{Ethereum}_{t-3} \\
-&\quad + \underset{(0.7462)}{-0.8698} \cdot \Delta \text{Solana}_{t-3} + 
-\underset{(0.0353)}{-0.0101} \cdot \Delta \text{Ethereum}_{t-4} \\
-&\quad + \underset{(0.7478)^*}{1.8819} \cdot \Delta \text{Solana}_{t-4} + 
-\underset{(0.0350)^*}{-0.0703} \cdot \Delta \text{Ethereum}_{t-5} \\
-&\quad + \underset{(0.7480)}{0.4150} \cdot \Delta \text{Solana}_{t-5} + \epsilon_{\text{Ethereum},t}
-\end{align*}
-\begin{align*}
- \quad
-\Delta \text{Solana}_t &= 
-\underset{(0.0002)^*}{0.0004} \cdot \text{ECT}_{t-1} + 
-\underset{(0.1761)}{-0.1083} + 
-\underset{(0.0016).}{-0.0027} \cdot \Delta \text{Ethereum}_{t-1} \\
-&\quad + \underset{(0.0346)}{0.0443} \cdot \Delta \text{Solana}_{t-1} + 
-\underset{(0.0016)}{0.0016} \cdot \Delta \text{Ethereum}_{t-2} \\
-&\quad + \underset{(0.0348)}{-0.0146} \cdot \Delta \text{Solana}_{t-2} + 
-\underset{(0.0016)}{0.0020} \cdot \Delta \text{Ethereum}_{t-3} \\
-&\quad + \underset{(0.0349)}{0.0411} \cdot \Delta \text{Solana}_{t-3} + 
-\underset{(0.0017)}{-0.0004} \cdot \Delta \text{Ethereum}_{t-4} \\
-&\quad + \underset{(0.0350)^{**}}{0.0969} \cdot \Delta \text{Solana}_{t-4} + 
-\underset{(0.0016)}{-0.0010} \cdot \Delta \text{Ethereum}_{t-5} \\
-&\quad + \underset{(0.0350)^{**}}{-0.0954} \cdot \Delta \text{Solana}_{t-5} + \epsilon_{\text{Solana},t}
-\end{align*}
-\end{comment}
-
-
-
-
-
-
 
 \section{Johansen Model Building}
-One of the advantages using the Johansen test, is its ability to detect cointegration among multiple time series at a time. This means that we are not only able to look at pairwise integrated series. We will throughout this section use both the trace test statistic, explained in Section \cite{Johansen_test}, and the maximum eigenvalue test (which briefly will be described below). \\\\
-The overall difference between the two tests, is that the trace test has $H_0$ stating there are at max $r$ cointegration relations versus $H_1$ stating the presence of more than $r$ cointegration relations and has the statistic described in Section \cite{Johansen_test} \eqref{eq:lrmax_coint_r} where the maximum eigenvalue test has $H_0$ stating the presence of $r$ cointegration relations whereas $H_1$ indicates the presence of $r+1$ cointegration relations and has the test statistic $-Tln(1-\hat{\lambda}_{r_0+1})$ meaning it tests each eigenvalue's influence individually.\\
-Generally there is little to no difference between the results achieved through the two tests. The trace test is more likely to dismiss $H_0$ even though it might be true hence having higher probability of type 1 errors. At the same time the trace test is more efficient in finding cointegration relations when they do exist and is more advantageous when multiple cointegration relations exists. Since both tests are beneficial in different scenarios it is preferable to perform both to see whether they comply with each other, and if not, examine further why this could be the case \citep{johansentestdifferences}.\\\\
-After using the AIC then in the two-day-ahead prediction six lags gives the lowest AIC score meaning a VAR$(6)$ is the most efficient model whereas in the "ikke twodayahead" it is in the most instances preferable to use a VAR$(6)$-VAR$(7)$ model according to the AIC.
+One of the advantages, when using the Johansen test is its ability to detect cointegration among multiple time series at a time. This means that we are not restricted to analyzing pairwise integrated series. We will throughout this section use both the trace test statistic, explained in Section \cite{Johansen_test}, and the maximum eigenvalue test (which briefly will be described below). \\
+The overall difference between the two tests is, that the trace test has $H_0$ stating, that there are at max $r$ cointegration relations, versus $H_1$ stating the presence of more than $r$ cointegration relations, and has the statistic given in \eqref{eq:lrmax_coint_r}. The maximum eigenvalue test has $H_0$ stating the presence of $r$ cointegration relations, whereas $H_1$ indicates the presence of $r+1$ cointegration relations, and has the statistic $-Tln(1-\hat{\lambda}_{r_0+1})$, meaning it tests each eigenvalue's influence individually.\\\\
+Generally, there is little to no difference between the results achieved through the two tests. The trace test is more likely to dismiss $H_0$ even though it might be true, hence having higher probability of type 1 errors. At the same time, the trace test is more efficient in finding cointegration relations when they do exist and is more advantageous when multiple cointegration relations exist. Since both tests are beneficial in different scenarios, it is preferable to perform both to see whether they comply with each other, and if not, examine further why this could be the case \citep{johansentestdifferences}.
 
 
-\subsection{Trace test}\label{subsec:johansen_trace}
-Using Johansen's trace test with a 5\% critical value is compared to the corresponding critical values for $r=0,\;r\leq1,\;r\leq 2,\;r\leq3$.
-The results are computed using the R function \textit{ca.jo} and the results are shown below.
+
+\subsection{Trace Test}\label{subsec:johansen_trace}
+Using Johansen's trace test, a 5\% critical value is compared to the test statistic for $r=0,\;r\leq1,\;r\leq 2,\;r\leq3$.
+The results are computed using the R function \textit{ca.jo} and shown below.
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|}
@@ -150,10 +101,10 @@ $r = 0$    & 83.51 & 48.28 \\ \hline
 \caption{Test statistics for Johansen trace test at 5\% significant level}
 \label{tab:traceresults}
 \end{table}
-In Table \ref{tab:traceresults} it is seen that the test statistic for $r=0$ and $r\leq1$ are greater than the critical values. The corresponding null hypotheses are therefore rejected, and the hypothesis for $r\leq2$ cannot be rejected, since the test statistic is smaller than the critical value. This indicates the presence of two cointegration relations.
+\noindent In Table \ref{tab:traceresults} it is seen that the test statistic for $r=0$ and $r\leq1$ are greater than the critical values. The corresponding null hypotheses are therefore rejected, and the hypothesis for $r\leq2$ cannot be rejected, since the test statistic is smaller than the critical value. This indicates the presence of two cointegration relations.
 
 \subsection{Maximum Eigenvalue Test}
-The maximum eigenvalue test is also used in order to see whether the two tests comply with each other. Once again the R function \textit{ca.jo} is used to compute the results and can be seen in Table \ref{tab:maximal_eigenvalue} where the setup is the same as above.
+The maximum eigenvalue test is also used in order to see whether the two tests comply with each other. Once again the R function \textit{ca.jo} is used to compute the results and can be seen in Table \ref{tab:maximal_eigenvalue} where the setup is the same as for the trace test.
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|}
@@ -164,44 +115,41 @@ $r \leq 2$ & 13.53 & 14.90 \\ \hline
 $r \leq 1$ & 28.33 & 21.07 \\ \hline
 $r = 0$    & 41.32 & 27.14 \\ \hline
 \end{tabular}
-\caption{5\% $ca.jo$ results for the Johansen Maximun Eigenvalue test}
+\caption{Test statistics for Johansen maximum eigenvalue test at 5\% significant level}
 \label{tab:maximal_eigenvalue}
 \end{table}
-\noindent Just as concluded in Section \ref{subsec:johansen_trace} the maximum eigenvalue test also indicates two cointegration relations, and there are therefore no issues regarding contradictions in the tests.
+\noindent Just as concluded in Section \ref{subsec:johansen_trace}, the maximum eigenvalue test also indicates two cointegration relations, and there are therefore no issues regarding contradictions in the tests.
 
 \subsection{Model Choice}
-After both the trace test and the maximum eigenvalue test suggests the presence of two cointegration relations the next step is to apply the achieved conclusions in forecasting. The R function \textit{ca.jo} indicates that of the four eigenvalues only the two greatest, 0.0324140 and 0.0223421, are significant enough to indicate a cointegration relation.\\
-Next the R function \textit{cajorls} is used to fit a VECM with two cointegration relation. The error correction terms, hence the two $\beta$ vectors are given as seen in the table below:\\
+After both the trace test and the maximum eigenvalue test suggest the presence of two cointegration relations, the next step is to apply the achieved conclusions in forecasting. The R function \textit{ca.jo} indicates that of the four eigenvalues only the two greatest, 0.0324140 and 0.0223421, are significant enough to indicate a cointegration relation.\\
+Next, the R function \textit{cajorls} is used to fit a VECM with two cointegration relations. The error correction terms, hence the two $\beta$ vectors, are given in the table below:\\
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{Cryptocurrency} & $\hat{\b{\beta}}_1$ & $\hat{\b{\beta}}_2$ \\ \hline
- $\text{Bitcoin}_{t-7}$  & $1.000000$  & $0.0000$      \\ \hline
+ $\text{Bitcoin}_{t-7}$  & $1.00$  & $0.00$      \\ \hline
  $\text{Ethereum}_{t-7}$  & $-5.684342 \cdot 10^{-14}$ & $1.0000$    \\\hline
  $\text{Solana}_{t-7}$  & $-2.218088 \cdot 10^3$ & $-22.5305$    \\ \hline
  $\text{Ripple}_{t-7}$  & $1.248777 \cdot 10^6$  & $6121.3729$   \\ \hline
 \end{tabular}
-\caption{Cointegration Relation}
+\caption{Johansen cointegration relations}
 \label{tab:ect_coefficients}
 \end{table}
 
-\noindent Next the VECM will be transformed into a VAR model, using the R function \textit{vec2var}, which will be used to forecast in the following section.
+\noindent Next, the VECM will be transformed into a VAR model, using the R function \textit{vec2var}, which will be used to forecast in the following section.
 
 
 
 \section{Forecast}
-To evaluate models ability to correctly forecast, we will first look at plots of a single 20-day-ahead prediction, where the prediction are plotted against the true values. Secondly, a 5-day-ahead forecast is made iteratively, with each iteration adding another day to the training data set until the entire validation data set is predicted. These predictions are evaluated using the three different accuracy measures absolute value (MAE), root mean square error(RMSE), and mean absolute percentage error(MAPE). The MAE is straight forward and measures the error value, while in the RMSE more weight is given to outliers. The MAPE is used because it intuitively gives a great understanding of the errors. The formulas for calculation is given below:
+To evaluate the models ability to forecast, we will first look at plots of a single 20-day-ahead prediction, where the predictions are plotted against the true values. Secondly, a five-day-ahead forecast, is made iteratively, with each iteration adding another day to the training set until the entire validation set is predicted. These predictions are evaluated using the three different accuracy measures, mean absolute value (MAE), root mean square error (RMSE), and mean absolute percentage error (MAPE). The MAE is straight forward, the RMSE gives more weight to outliers, and the MAPE is used because it intuitively gives a great understanding of the errors. The formulas for calculation is given below:
 \begin{align*}
-    \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|, \quad \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}, \quad \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right|\cdot 100,
+    \text{MAE} = \frac{1}{T} \sum_{i=1}^{T} |y_i - \hat{y}_i|, \quad \text{RMSE} = \sqrt{\frac{1}{T} \sum_{i=1}^{T} (y_i - \hat{y}_i)^2}, \quad \text{MAPE} = \frac{1}{T} \sum_{i=1}^{T} \left| \frac{y_i - \hat{y}_i}{y_i} \right|\cdot 100,
 \end{align*}
-\noindent where $y_i$ is the actual value, $\hat{y}_i$ is the predicted value, and $n$ is the number of observation.
+\noindent where $y_i$ is the actual value, $\hat{y}_i$ is the predicted value, and $T$ is the number of observation.
 
 \subsection{Engle Granger}
-First the 20-day-ahead prediction plot will be looked at. These predictions are however not very representable of the actual accuracy of the model, since it is just a single 20-day-ahead prediction. It does however give an insight into whether the model is able to capture the movements of the actual data.\\
-\begin{center}
-    \textbf{SOL \& ETH}
-\end{center}
+First the 20-day-ahead prediction plot will be examined. These predictions are however not very representable of the actual accuracy of the model, since it is just a single 20-day-ahead prediction. It does however, give an insight into whether the model is able to capture the movements of the actual data.
 \begin{figure}[H]
   \centering
   \subfloat[][Solana]{\includegraphics[width=.45\textwidth]{1.Projekt_kode/Billeder/20_day_ahed_Solana_from_Solana_Ethereum.pdf}}\quad
@@ -223,7 +171,7 @@ First the 20-day-ahead prediction plot will be looked at. These predictions are 
 
 \end{comment}
 
-\noindent In Figure \ref{fig:SOL_ETH_20_DAY_plot}, the blue line is the predicted prices, the red line the actual prices, the black line is the acutal price before the first prediction, and the shaded area is $95\%$ confidence interval. It can be seen that on the first couple day-ahead predictions seems to be somewhat accurate for ETH and for SOL it is quite a bit off. This was to be expected, due to cryptocurrencies' high volatility. Furthermore, the model seems to only capture the price movement at the start of the period. ETH plot do seem to capture the direction in which the price moves, but without any nuances as the predictions seem to move in a straight line after a certain point. This is because it reverts to the long term equilibrium. It is quite positive that for both graphs the actual values lies within the $95\%$ confidence interval. Below tables with the model's level of predictability is stated:
+\noindent In Figure \ref{fig:SOL_ETH_20_DAY_plot}, the blue line is the predicted prices, the red line is the actual prices, the black line is the actual price before the first prediction, and the shaded area is the $95\%$ confidence interval. The predictions for both SOL and ETH seem to be quite inaccurate. This was to be expected due to cryptocurrencies' high volatility. The predictions for the ETH prices are not catastrophic up until around the 12-days-ahead prediction, where the decrease in price is not caught. Even though this is the case, one could argue that the results are only somewhat accurate since the predictions are close to constant and the actual price fluctuates around this prediction. The reasoning behind the flat predictions could revolve in the model moving towards the long-run equilibrium. It is however positive, that for both graphs the actual values lies within the $95\%$ confidence interval. Below, a table with the model's accuracy measures are stated:
 
 \begin{table}[H]
 \centering
@@ -239,7 +187,7 @@ Ethereum      & 811.18274 & 771.61202 & 818.57316 & 845.9166 & 847.10831 \\
 Solana        & 31.24737 & 28.33555 & 30.14608 & 30.94042 & 30.63449 \\
 Ethereum      & 953.08236 & 914.34242 & 956.88827 & 979.86588 & 979.72258 \\
 \midrule
-\textbf{MAPE} & & & & & \\
+\textbf{MAPE(\%)} & & & & & \\
 Solana        & 19.85790 & 17.85844 & 19.18544 & 19.77437 & 19.62114 \\
 Ethereum      & 30.54404 & 29.21761 & 30.93889 & 31.95720 & 32.08274 \\
 \bottomrule
@@ -247,33 +195,9 @@ Ethereum      & 30.54404 & 29.21761 & 30.93889 & 31.95720 & 32.08274 \\
 \caption{Performance Metrics for Solana and Ethereum}
 \label{table:SOL_ETH_MAE_RMSE_MAPE}
 \end{table}
-\begin{comment}
-\begin{table}[H]
-\centering
-\caption{Performance Metrics for Ethereum and Solana}
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Metric} & \textbf{One-Day} & \textbf{Two-Day} & \textbf{Three-Day} & \textbf{Four-Day} & \textbf{Five-Day} \\
-\midrule
-\textbf{MAE} & & & & & \\
-Ethereum      & 813.35 & 775.77 & 825.34 & 855.57 & 859.12 \\
-Solana        & 28.06  & 25.11  & 26.96  & 27.77  & 27.52  \\
-\midrule
-\textbf{RMSE} & & & & & \\
-Ethereum      & 955.04 & 918.29 & 963.20 & 988.58 & 990.43 \\
-Solana        & 31.19  & 28.23  & 29.98  & 30.75  & 30.42  \\
-\midrule
-\textbf{MAPE} & & & & & \\
-Ethereum      & 30.62  & 29.36  & 31.18  & 32.29  & 32.50  \\
-Solana        & 19.82  & 17.78  & 19.07  & 19.64  & 19.47  \\
-\bottomrule
-\end{tabular}
-\end{table}
-From the table it stand out the prediction for Ripple in both the models in which it is represented. the two models are able to predict with an accuracy of less than $10\%$ in almost all cases.
-\end{comment}
 
 \noindent  
-The MAPE is off by more than $19$ and $30$ for the one-day-ahead predictions respectively. Furthermore the prediction accuracy does not seem to deteriorate significantly over five days and an interesting observation is that all three mean errors for SOL are smaller for five-day-ahead compared to the one-day-ahead prediction. The relatively low MAPE for Solana indicates it is somewhat descend, and therefore could be used for decision making. The ETH model is more unreliable when predicting than when predicting for SOL.
+The MAPE is off by more than $19\%$ and $30\%$ for the one-day-ahead predictions respectively. Furthermore, the prediction accuracy does not seem to deteriorate significantly over five days, and an interesting observation is that all three accuracy measures for SOL are smaller for five-day-ahead compared to the one-day-ahead prediction. The MAPE for SOL indicate that it is somewhat decent, and therefore could be used for decision making. The ETH model is more unreliable when predicting than when predicting for SOL.
 \pause
 
 \subsection{Johansen}

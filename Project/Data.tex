@@ -3,7 +3,7 @@ This project will examine whether there exists a cointegration relation between 
 
 \section{Data Introduction}
 The data, that has been used, can be found at Yahoo Finance \cite{Yahoo_Finance}. The data for this project consists of opening prices, the daily lowest prices, the daily highest price, and the closing prices all in USD. The chosen period is from 10th of December 2020 to 10th October 2024. These cryptocurrencies have been chosen on the basis, that they are the largest coins measured on market capitalization, and the fact that none of them are so called stable coins, which is a coin pegged to a FIAT currency. The data for these cryptocurrencies have adjusted such that only the closing prices are included. It has then been checked for NA values, of which there are none. The data is then split into two parts: a training set, which consists of the first $90\%$ of the data, and a validation set, which consists of the last $10\%$. The training set is used to train and fit various models. Furthermore, model validation will be performed upon this data set. The validation set has been used to examine the forecasting ability and accuracy of the models.\\
-\section{Leveled graph}
+\section{Leveled Graph}
 The four cryptocurrencies' closing prices in USD are plotted below over the time period of the training data.
  \begin{figure}[H]
    \centering
@@ -40,7 +40,6 @@ Where $k$ is the number of parameters and $L$ is the likelihood function. The ma
     \centering
     \includegraphics[width=0.5\linewidth]{1.Projekt_kode/Billeder/Crypto_lags.pdf}
     \caption{AIC values lag one through ten}
-    \label{fig:enter-label}
 \end{figure}
 \noindent The R function \textit{VAR} is used, with the lag order specified to five, thus a \textit{VAR}$(5)$ model is produced, the coefficients can be found in Appendix \ref{app:Var_estimations}. Next the R function \textit{checkresiduals} is applied to the residuals of each currency. It produces both the plots in Figure \ref{fig:plot_over_residuals} and the Ljung-Box test. The Ljung-Box test is a statistical tool used, to analyze if the errors exhibit an uncorrelated pattern. It has the test statistic 
 \begin{align*}
