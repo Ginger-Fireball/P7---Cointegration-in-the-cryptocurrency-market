@@ -101,7 +101,7 @@ for (i in 1:4){
 
 
 # Print the updated data frame
-print(crypto_pairs)
+#print(crypto_pairs)
 
 rm(crypto_pairs)
 #rm(lag_selection)

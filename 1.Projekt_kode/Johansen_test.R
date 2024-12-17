@@ -5,7 +5,7 @@
 
 Johansen_lag_select <- VARselect(ts_Training_all, lag.max = 10, type = "none")
 Johansen_lag_select
-plot(Johansen_lag_select$criteria[1,])
+#plot(Johansen_lag_select$criteria[1,])
 
 # Lag order should be one less than var lag order aka: varlag -1, the function does take
 # it into acount
@@ -71,17 +71,17 @@ for (i in 1:4){
   pdf(paste0("Billeder/20_day_ahead_",as.character(crypto_now[i]),"_from_johanson.pdf"))
   
   p <- ggplot() +
-    geom_line(data = historical_data, aes(x = Time, y = actual_data, color = "past")) +
-    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Price, color = "predi")) +
-    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Actual_prices, color = "actu")) +
+    geom_line(data = historical_data, aes(x = Time, y = actual_data, color = "Past Values")) +
+    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Price, color = "Predicted Values")) +
+    geom_line(data = Johan_forecasts_df, aes(x = Time, y = Actual_prices, color = "Actual Values")) +
     geom_ribbon(data = Johan_forecasts_df, aes(x = Time, ymin = Pricein_Lower, ymax = Pricein_Upper), fill = "blue", alpha = 0.2) +
     labs(title = paste("20-Day", as.character(NameCryptos[i]), "Forecast"), x = "Days Ahead", y = "Value") +
     theme_minimal()+
   
   
   scale_color_manual(
-    values = c("past" = "black","predi"="blue","actu"="red" ),
-    labels = as.character(c("Past Values","Predicted Values","Actual Values")),
+    values = c("Past Values" = "black","Predicted Values"="blue","Actual Values"="red" ),
+    breaks = c("Past Values","Predicted Values","Actual Values"),
     name = NULL
   ) +
     theme( 
