@@ -1,7 +1,7 @@
-\chapter{Cointegration tests}\label{chap:coint tests}
+\chapter{Cointegration Tests}\label{chap:coint tests}
 This section is based on \cite{Analysis_of_integrated_and_cointegrated_time_series_with_R} and \cite{Engle_grang_test}.\\
 \noindent As explained in Chapter \ref{chap:Coint} when a linear combination of two non-stationary variables has a stationary long-run equilibrium there exists a cointegration vector $\b{\beta}$. During this section different ways of estimating the cointegration vector, $\b{\beta}$, will be introduced. One of these was introduced by Engle and Granger in 1987 \cite{co-Integration_and_error_correction}.
-\section{Engle and Granger test}
+\section{Engle and Granger Test}
 Engle and Granger formulated a two-step estimation technique, and in this project, the variables of interest are $I(1)$ and therefore this is only considered, even though sufficient theory of the general issue regarding $I(d)$ time series does exist. \\\\ 
 First, each time series is examined to make sure that they are $I(1)$. Next, we use the $I(1)$ variables, e.g., $x_{1,t},x_{2,t},\ldots,x_{k,t}$, which construct the vector $\b{x}_t$ with $k$ entries. Each time series is then estimated in a regression where the other time series are regressors, as shown for $x_{1,t}$:
 \begin{align*}
@@ -33,7 +33,7 @@ In the second step, we restrict the problem to a bivariate case. Considering the
 In the above, $\hat{z}$ is the error obtained from the regression in \eqref{eq:z hat_t} and $\b{\varepsilon}$ is the white noise process. In \eqref{eq:ECM_eng_gra.a}, it is seen how changes in $x_{1,t}$ are explained by its own lagged values in combination with lagged values of $x_{2,t}$ and the error from the long-run equilibrium $\hat{z}_t$. $\gamma$ is the coefficient which describes the speed of adjustment and should always be negative; otherwise, there would be no long-run equilibrium, but instead, the system would diverge.\\\\
 Looking at the equations in \eqref{eq:ECM_eng_gra}, then there must be at least one direction which is Granger causal which in short means that at least one of the variables can be used when forecasting the other.
 
-\section{Johansen test}\label{sect:johansen test}
+\section{Johansen Test}\label{sect:johansen test}
 This section is based on \cite{Johansen_test}.\\
 Similar to the section above, where we introduced the procedure of the Engle Granger test and how to use it in cointegration testing, this section also covers a cointegration test. The Johansen test differs from the Engle Granger test in the sense that it is able to estimate multiple cointegration relations and is therefore not restricted to only pairwise cointegration relations. The Johansen test is based on a VAR model of order $p$, VAR($p$), in a $k$-dimensional space where the error terms $\b{\varepsilon}_t$ are i.i.d normally distributed hence $\b{\varepsilon}\sim N_k(\b{0},\Sigma)$. The VAR($p$) is thereby given as
 \begin{align}\label{eq:var_p_johansen}
